@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    body {
+        background-color: #171717;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 2em;
+    }
+    
+    h2 {
+        color: whitesmoke;
+    }
+    
+    p {
+        color: whitesmoke;
+    }
+    
+    input {
+        border-color: white;
+        border-width: 0.2em
+    }
+    
+    table {
+        background-color: white;
+        color: black;
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 750px;
+    }
+    
+    tr,
+    td,
+    th {
+        border-style: solid;
+        border-width: 0.1em;
+        text-align: center;
+    }
+    
+    th {
+        text-align: center;
+        background-color: lightgrey;
+    }
+</style>
+
+<body onload="myFunction()">
+    <img src="anficon.png" height="100">
+    <h2>Azure NetApp Files Performance Calculator</h2>
+    <p>
+        Volume Capacity: <input onClick="backtoblack()" placeholder="100" value="100" id="capinput">
+        <input type="radio" id="GiB" name="capunit" value="1024" checked>
+        <label for="GiB">GiB</label>
+        <input type="radio" id="TiB" name="capunit" value="1">
+        <label for="TiB">TiB</label>
+        <button type="button" onclick="myFunction()">Submit</button>
+    </p>
+
+    <p id="output"></p>
+
+    <script>
+        function backtoblack() {
+            document.getElementById("capinput").style.borderColor = "black";
+        }
+
+        function myFunction() {
+            var cap, text;
+            // Get the value of the input field with id="capinput"
+            cap = document.getElementById("capinput").value;
+            throughunit = "MiB/s";
+
+            // If x is Not a Number or less than one or greater than 10
+            if (isNaN(cap) || cap < 1) {
+                document.getElementById("capinput").style.borderColor = "red";
+            } else if (document.getElementById('TiB').checked) {
+                capmultiplier = document.getElementById("TiB").value;
+                htmlout = "<table><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr><tr><th>Throughput (MiB/s)</th><td>" + (cap / capmultiplier) * 16 + "</td><td>" + (cap / capmultiplier) * 64 + "</td><td>" + (cap / capmultiplier) * 128 + "</td></tr></table>";
+                document.getElementById("output").innerHTML = htmlout;
+            } else {
+                capmultiplier = document.getElementById("GiB").value;
+                htmlout = "<table><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr><tr><th>Throughput (MiB/s)</th><td>" + (cap / capmultiplier) * 16 + "</td><td>" + (cap / capmultiplier) * 64 + "</td><td>" + (cap / capmultiplier) * 128 + "</td></tr></table>";
+                document.getElementById("output").innerHTML = htmlout;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
