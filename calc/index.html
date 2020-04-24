@@ -24,7 +24,7 @@
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Volume Size</span>
                     </div>
-                    <input onkeydown="myFunction()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput">
+                    <input oninput="myFunction()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput">
                     <select onchange="myFunction()" class="custom-select my-1" id="capunit" aria-label="Example select with button addon">
                     <option id="GiB" value="1024" selected>GiB</option>
                     <option id="TiB" value="1">TiB</option>
@@ -59,13 +59,34 @@
             standard = 0.14746
             premium = 0.29419
             ultra = 0.39274
-
-            // If x is Not a Number or less than one or greater than 1
-            if (isNaN(cap) || cap < 1) {
+            errorout = `<table class='table-bordered table'>
+                                <thead class='thead-light'>
+                                    <tr>
+                                        <th>Service Level</th>
+                                        <th>Standard</th>
+                                        <th>Premium</th>
+                                        <th>Ultra</th>
+                                    </tr></thead>
+                                    <tr>
+                                        <td>Throughput (MiB/s)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monthly Cost (USD)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                            </table>`;
+            // If x is Not a Number
+            if (isNaN(cap)) {
                 document.getElementById("capinput").style.borderColor = "red";
-            } else if (document.getElementById('TiB').selected) {
+                document.getElementById("output").innerHTML = errorout;
+            } else if (document.getElementById('TiB').selected && cap >= 0.0976562 && cap <= 100) {
                 document.getElementById("capinput").style.borderColor = "black";
-                capdenominator = 1
+                capdenominator = 1;
                 htmlout = `<table class='table-bordered table'>
                                 <thead class='thead-light'>
                                     <tr>
@@ -86,9 +107,9 @@
                                         <td>` + ((cap * (1024 / capdenominator)) * premium).toFixed(2) + `</td>
                                         <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2) + `</td>
                                     </tr>
-                            </table>`
+                            </table>`;
                 document.getElementById("output").innerHTML = htmlout;
-            } else {
+            } else if (document.getElementById('GiB').selected && cap >= 100 && cap <= 102400) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
                 htmlout = `<table class='table-bordered table'>
@@ -113,6 +134,9 @@
                                     </tr>
                             </table>`
                 document.getElementById("output").innerHTML = htmlout;
+            } else {
+                document.getElementById("capinput").style.borderColor = "red";
+                document.getElementById("output").innerHTML = errorout;
             }
         }
     </script>
