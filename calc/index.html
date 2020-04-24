@@ -24,14 +24,11 @@
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Volume Size</span>
                     </div>
-                    <input onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput">
+                    <input onkeydown="myFunction()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput">
                     <select onchange="myFunction()" class="custom-select my-1" id="capunit" aria-label="Example select with button addon">
                     <option id="GiB" value="1024" selected>GiB</option>
                     <option id="TiB" value="1">TiB</option>
                     </select>
-                    <div class="input-group-append">
-                        <button type="submit" onclick="myFunction()" class="my-1 btn btn-primary">Go</button>
-                    </div>
                 </div>
                 <div id="output">
                 </div>
@@ -67,6 +64,7 @@
             if (isNaN(cap) || cap < 1) {
                 document.getElementById("capinput").style.borderColor = "red";
             } else if (document.getElementById('TiB').selected) {
+                document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1
                 htmlout = `<table class='table-bordered table'>
                                 <thead class='thead-light'>
@@ -91,6 +89,7 @@
                             </table>`
                 document.getElementById("output").innerHTML = htmlout;
             } else {
+                document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
                 htmlout = `<table class='table-bordered table'>
                                 <thead class='thead-light'>
