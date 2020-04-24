@@ -1,101 +1,122 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
-<style>
-    body {
-        background-color: #171717;
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 2em;
-    }
-    
-    h2 {
-        color: #e3e3e3;
-    }
-    
-    p {
-        color: #e3e3e3;
-        font-weight: 400;
-    }
-    
-    input {
-        border-color: white;
-        border-width: 0.2em
-    }
-    
-    table {
-        background-color: white;
-        color: black;
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 750px;
-    }
-    
-    tr,
-    td,
-    th {
-        border-style: solid;
-        border-width: 0.1em;
-        text-align: center;
-    }
-    
-    th {
-        text-align: center;
-        background-color: lightgrey;
-    }
-    
-    a {
-        color: #4db2ff;
-    }
-    
-    a:visited {
-        color: #8278de;
-    }
-</style>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>ANF Calc</title>
+</head>
 
 <body onload="myFunction()">
-    <img src="anficon.png" height="100">
-    <h2>Azure NetApp Files Performance Calculator</h2>
-    <p>
-        Volume Capacity: <input onClick="backtoblack()" placeholder="100" value="100" id="capinput">
-        <input type="radio" id="GiB" name="capunit" value="1024" checked>
-        <label for="GiB">GiB</label>
-        <input type="radio" id="TiB" name="capunit" value="1">
-        <label for="TiB">TiB</label>
-        <button type="button" onclick="myFunction()">Submit</button>
-    </p>
+    <div class="container-sm">
+        <img src="anficon.png" height="100">
+        <div class="card">
+            <div class="card-header">
+                <span class="h5">Azure NetApp Files Performance Calculator</span>
+            </div>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="my-1 input-group-text">Volume Size</span>
+                    </div>
+                    <input onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput">
+                    <select onchange="myFunction()" class="custom-select my-1" id="capunit" aria-label="Example select with button addon">
+                    <option id="GiB" value="1024" selected>GiB</option>
+                    <option id="TiB" value="1">TiB</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" onclick="myFunction()" class="my-1 btn btn-primary">Go</button>
+                    </div>
+                </div>
+                <div id="output">
+                </div>
+                <small>Numbers above should be used only as an estimate.</small>
+            </div>
+            <div class="card-footer">
+                <span class="font-weight-light">Source: <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, </span>
+                <span class="font-weight-light"><a href="https://azure.microsoft.com/en-us/pricing/details/netapp/">Pricing</a></span>
+            </div>
+        </div>
 
-    <p id="output"></p>
 
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script>
         function backtoblack() {
             document.getElementById("capinput").style.borderColor = "black";
         }
 
         function myFunction() {
-            var cap, text;
+            var cap, htmlout;
             // Get the value of the input field with id="capinput"
             cap = document.getElementById("capinput").value;
-            throughunit = "MiB/s";
+            standard = 0.14746
+            premium = 0.29419
+            ultra = 0.39274
 
-            // If x is Not a Number or less than one or greater than 10
+            // If x is Not a Number or less than one or greater than 1
             if (isNaN(cap) || cap < 1) {
                 document.getElementById("capinput").style.borderColor = "red";
-            } else if (document.getElementById('TiB').checked) {
-                capmultiplier = document.getElementById("TiB").value;
-                htmlout = "<table><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr><tr><th>Throughput (MiB/s)</th><td>" + (cap / capmultiplier) * 16 + "</td><td>" + (cap / capmultiplier) * 64 + "</td><td>" + (cap / capmultiplier) * 128 + "</td></tr></table>";
+            } else if (document.getElementById('TiB').selected) {
+                capdenominator = 1
+                htmlout = `<table class='table-bordered table'>
+                                <thead class='thead-light'>
+                                    <tr>
+                                        <th>Service Level</th>
+                                        <th>Standard</th>
+                                        <th>Premium</th>
+                                        <th>Ultra</th>
+                                    </tr></thead>
+                                    <tr>
+                                        <td>Throughput (MiB/s)</td>
+                                        <td>` + ((cap / capdenominator) * 16).toString() + `</td>
+                                        <td>` + ((cap / capdenominator) * 64).toString() + `</td>
+                                        <td>` + ((cap / capdenominator) * 128).toString() + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monthly Cost (USD)</td>
+                                        <td>` + ((cap * (1024 / capdenominator)) * standard).toFixed(2) + `</td>
+                                        <td>` + ((cap * (1024 / capdenominator)) * premium).toFixed(2) + `</td>
+                                        <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2) + `</td>
+                                    </tr>
+                            </table>`
                 document.getElementById("output").innerHTML = htmlout;
             } else {
-                capmultiplier = document.getElementById("GiB").value;
-                htmlout = "<table><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr><tr><th>Throughput (MiB/s)</th><td>" + (cap / capmultiplier) * 16 + "</td><td>" + (cap / capmultiplier) * 64 + "</td><td>" + (cap / capmultiplier) * 128 + "</td></tr></table>";
+                capdenominator = 1024
+                htmlout = `<table class='table-bordered table'>
+                                <thead class='thead-light'>
+                                    <tr>
+                                        <th>Service Level</th>
+                                        <th>Standard</th>
+                                        <th>Premium</th>
+                                        <th>Ultra</th>
+                                    </tr></thead>
+                                    <tr>
+                                        <td>Throughput (MiB/s)</td>
+                                        <td>` + ((cap / capdenominator) * 16).toString() + `</td>
+                                        <td>` + ((cap / capdenominator) * 64).toString() + `</td>
+                                        <td>` + ((cap / capdenominator) * 128).toString() + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monthly Cost (USD)</td>
+                                        <td>` + ((cap * (1024 / capdenominator)) * standard).toFixed(2) + `</td>
+                                        <td>` + ((cap * (1024 / capdenominator)) * premium).toFixed(2) + `</td>
+                                        <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2) + `</td>
+                                    </tr>
+                            </table>`
                 document.getElementById("output").innerHTML = htmlout;
             }
         }
     </script>
-
-    <p>Source:
-        <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels">https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels</a>
-    </p>
-
 </body>
 
 </html>
