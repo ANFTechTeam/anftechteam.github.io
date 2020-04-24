@@ -48,12 +48,18 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script>
+        var newdiv = document.createElement("div");
+        var container = document.getElementById("output");
+
+        container.appendChild(newdiv)
+
         function backtoblack() {
             document.getElementById("capinput").style.borderColor = "black";
         }
 
         function myFunction() {
             var cap, htmlout;
+
             // Get the value of the input field with id="capinput"
             cap = document.getElementById("capinput").value;
             standard = 0.14746
@@ -108,7 +114,8 @@
                                         <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
                                     </tr>
                             </table>`;
-                document.getElementById("output").innerHTML = htmlout;
+                newdiv.innerHTML = htmlout;
+                container.replaceChild(newdiv)
             } else if (document.getElementById('GiB').selected && cap >= 100 && cap <= 102400) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
@@ -133,10 +140,12 @@
                                         <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
                                     </tr>
                             </table>`
-                document.getElementById("output").innerHTML = htmlout;
+                newdiv.innerHTML = htmlout;
+                container.replaceChild(newdiv)
             } else {
                 document.getElementById("capinput").style.borderColor = "red";
-                document.getElementById("output").innerHTML = errorout;
+                newdiv.innerHTML = errorout;
+                container.replaceChild(newdiv)
             }
         }
     </script>
