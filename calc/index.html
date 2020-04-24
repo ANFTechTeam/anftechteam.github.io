@@ -23,27 +23,7 @@
             standard = 0.14746
             premium = 0.29419
             ultra = 0.39274
-            errorout = `<table class='table-bordered table'>
-                                <thead class='thead-light'>
-                                    <tr>
-                                        <th>Service Level</th>
-                                        <th>Standard</th>
-                                        <th>Premium</th>
-                                        <th>Ultra</th>
-                                    </tr></thead>
-                                    <tr>
-                                        <td>Throughput (MiB/s)</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Monthly Cost (USD)</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                            </table>`;
+            errorout = "<table class='table-bordered table'><thead class='thead-light'><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td></td><td></td><td></td></tr><tr><td>Monthly Cost (USD)</td><td></td><td></td><td></td></tr></table>";
             // If x is Not a Number
             if (isNaN(cap)) {
                 document.getElementById("capinput").style.borderColor = "red";
@@ -51,53 +31,13 @@
             } else if (document.getElementById('TiB').selected && cap >= 0.0976562 && cap <= 100) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1;
-                htmlout = `<table class='table-bordered table'>
-                                <thead class='thead-light'>
-                                    <tr>
-                                        <th>Service Level</th>
-                                        <th>Standard</th>
-                                        <th>Premium</th>
-                                        <th>Ultra</th>
-                                    </tr></thead>
-                                    <tr>
-                                        <td>Throughput (MiB/s)</td>
-                                        <td>` + ((cap / capdenominator) * 16).toString() + `</td>
-                                        <td>` + ((cap / capdenominator) * 64).toString() + `</td>
-                                        <td>` + ((cap / capdenominator) * 128).toString() + `</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Monthly Cost (USD)</td>
-                                        <td>` + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
-                                        <td>` + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
-                                        <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
-                                    </tr>
-                            </table>`;
+                htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + ((cap / capdenominator) * 16).toString() + "</td><td>" + ((cap / capdenominator) * 64).toString() + "</td><td>" + ((cap / capdenominator) * 128).toString() + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
                 newdiv.innerHTML = htmlout;
                 container.replaceChild(newdiv, container.childNodes[0]);
             } else if (document.getElementById('GiB').selected && cap >= 100 && cap <= 102400) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
-                htmlout = `<table class='table-bordered table'>
-                                <thead class='thead-light'>
-                                    <tr>
-                                        <th>Service Level</th>
-                                        <th>Standard</th>
-                                        <th>Premium</th>
-                                        <th>Ultra</th>
-                                    </tr></thead>
-                                    <tr>
-                                        <td>Throughput (MiB/s)</td>
-                                        <td>` + ((cap / capdenominator) * 16).toString() + `</td>
-                                        <td>` + ((cap / capdenominator) * 64).toString() + `</td>
-                                        <td>` + ((cap / capdenominator) * 128).toString() + `</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Monthly Cost (USD)</td>
-                                        <td>` + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
-                                        <td>` + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
-                                        <td>` + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + `</td>
-                                    </tr>
-                            </table>`
+                htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + ((cap / capdenominator) * 16).toString() + "</td><td>" + ((cap / capdenominator) * 64).toString() + "</td><td>" + ((cap / capdenominator) * 128).toString() + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
                 newdiv.innerHTML = htmlout;
                 container.replaceChild(newdiv, container.childNodes[0]);
             } else {
