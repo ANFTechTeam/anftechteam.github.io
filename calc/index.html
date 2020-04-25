@@ -12,7 +12,7 @@
     <title>ANF Calc</title>
     <script type="text/javascript">
         function backtoblack() {
-            document.getElementById("capinput").style.borderColor = "black";
+            document.getElementById("capinput").style.borderColor = "grey";
         }
 
         function myFunction() {
@@ -28,7 +28,7 @@
             if (isNaN(cap)) {
                 document.getElementById("capinput").style.borderColor = "red";
                 document.getElementById("output").innerHTML = errorout;
-            } else if (document.getElementById('TiB').selected && cap >= 0.0976562 && cap <= 100) {
+            } else if (document.getElementById('TiB').checked && cap >= 0.0976562 && cap <= 100) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1;
                 standard_throughput = ((cap / capdenominator) * 16).toString();
@@ -46,7 +46,7 @@
                 htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
                 newdiv.innerHTML = htmlout;
                 container.replaceChild(newdiv, container.childNodes[0]);
-            } else if (document.getElementById('GiB').selected && cap >= 100 && cap <= 102400) {
+            } else if (document.getElementById('GiB').checked && cap >= 100 && cap <= 102400) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
                 standard_throughput = ((cap / capdenominator) * 16).toString();
@@ -95,12 +95,28 @@
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Volume Size</span>
                     </div>
-                    <input oninput="myFunction()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput">
-                    <select onchange="myFunction()" class="custom-select my-1" id="capunit" aria-label="Example select with button addon">
+                    <input oninput="myFunction()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput"></input>
+                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary my-1">
+                            <input onclick="myFunction()" name="units" type="radio" value="1024" id="GiB">GiB</input>
+                        </label>
+                        <label class="btn btn-outline-primary my-1">
+                          <input onclick="myFunction()" name="units" type="radio" value="1" id="TiB"checked>TiB</input>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <!-- <select onchange="myFunction()" class="custom-select my-1" id="capunit" aria-label="Example select with button addon">
                     <option id="GiB" value="1024" selected>GiB</option>
                     <option id="TiB" value="1">TiB</option>
-                    </select>
-                </div>
+                    </select> -->
+
+
+
+
+
 
                 <div id="output">
                 </div>
