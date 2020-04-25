@@ -31,13 +31,37 @@
             } else if (document.getElementById('TiB').selected && cap >= 0.0976562 && cap <= 100) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1;
-                htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + ((cap / capdenominator) * 16).toString() + "</td><td>" + ((cap / capdenominator) * 64).toString() + "</td><td>" + ((cap / capdenominator) * 128).toString() + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
+                standard_throughput = ((cap / capdenominator) * 16).toString();
+                if (standard_throughput >= 4500) {
+                    standard_throughput = 4500;
+                }
+                premium_throughput = ((cap / capdenominator) * 64).toString();
+                if (premium_throughput >= 4500) {
+                    premium_throughput = 4500;
+                }
+                ultra_throughput = ((cap / capdenominator) * 128).toString();
+                if (ultra_throughput >= 4500) {
+                    ultra_throughput = 4500;
+                }
+                htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
                 newdiv.innerHTML = htmlout;
                 container.replaceChild(newdiv, container.childNodes[0]);
             } else if (document.getElementById('GiB').selected && cap >= 100 && cap <= 102400) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
-                htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + ((cap / capdenominator) * 16).toString() + "</td><td>" + ((cap / capdenominator) * 64).toString() + "</td><td>" + ((cap / capdenominator) * 128).toString() + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
+                standard_throughput = ((cap / capdenominator) * 16).toString();
+                if (standard_throughput >= 4500) {
+                    standard_throughput = 4500;
+                }
+                premium_throughput = ((cap / capdenominator) * 64).toString();
+                if (premium_throughput >= 4500) {
+                    premium_throughput = 4500;
+                }
+                ultra_throughput = ((cap / capdenominator) * 128).toString();
+                if (ultra_throughput >= 4500) {
+                    ultra_throughput = 4500;
+                }
+                htmlout = "<table class='table-bordered table'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
                 newdiv.innerHTML = htmlout;
                 container.replaceChild(newdiv, container.childNodes[0]);
             } else {
@@ -58,10 +82,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
-
-
-
     <div class="container-sm">
         <img src="anficon.png" height="100">
         <div class="card">
@@ -69,6 +89,8 @@
                 <span class="h5">Azure NetApp Files Performance Calculator</span>
             </div>
             <div class="card-body">
+                <small class="form-text text-muted">Minimum volume size is 100GiB. Maximum volume size is 100TiB.</small>
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Volume Size</span>
@@ -79,6 +101,7 @@
                     <option id="TiB" value="1">TiB</option>
                     </select>
                 </div>
+
                 <div id="output">
                 </div>
                 <small>Numbers above should be used only as an estimate.</small>
