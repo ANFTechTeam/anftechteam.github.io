@@ -31,15 +31,15 @@
             } else if (document.getElementById('TiB').checked && cap >= 0.0976562 && cap <= 100) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1;
-                standard_throughput = ((cap / capdenominator) * 16).toString();
+                standard_throughput = ((cap / capdenominator) * 16).toFixed(2);
                 if (standard_throughput >= 4500) {
                     standard_throughput = 4500;
                 }
-                premium_throughput = ((cap / capdenominator) * 64).toString();
+                premium_throughput = ((cap / capdenominator) * 64).toFixed(2);
                 if (premium_throughput >= 4500) {
                     premium_throughput = 4500;
                 }
-                ultra_throughput = ((cap / capdenominator) * 128).toString();
+                ultra_throughput = ((cap / capdenominator) * 128).toFixed(2);
                 if (ultra_throughput >= 4500) {
                     ultra_throughput = 4500;
                 }
@@ -48,15 +48,15 @@
             } else if (document.getElementById('GiB').checked && cap >= 100 && cap <= 102400) {
                 document.getElementById("capinput").style.borderColor = "black";
                 capdenominator = 1024
-                standard_throughput = ((cap / capdenominator) * 16).toString();
+                standard_throughput = ((cap / capdenominator) * 16).toFixed(2);
                 if (standard_throughput >= 4500) {
                     standard_throughput = 4500;
                 }
-                premium_throughput = ((cap / capdenominator) * 64).toString();
+                premium_throughput = ((cap / capdenominator) * 64).toFixed(2);
                 if (premium_throughput >= 4500) {
                     premium_throughput = 4500;
                 }
-                ultra_throughput = ((cap / capdenominator) * 128).toString();
+                ultra_throughput = ((cap / capdenominator) * 128).toFixed(2);
                 if (ultra_throughput >= 4500) {
                     ultra_throughput = 4500;
                 }
