@@ -61,7 +61,7 @@
                     ultra_throughput = 4500;
                 }
                 htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
-                document.getElementById("output").innerHTML = errorout;
+                document.getElementById("output").innerHTML = htmlout;
             } else {
                 document.getElementById("capinput").style.borderColor = "red";
                 document.getElementById("output").innerHTML = errorout;
