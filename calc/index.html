@@ -12,7 +12,7 @@
     <title>ANF Calc</title>
     <script type="text/javascript">
         function backtoblack() {
-            document.getElementById("capinput").style.borderColor = "grey";
+            document.getElementById("capinput").style.borderColor = "light-gray";
         }
 
         function myFunction() {
@@ -27,9 +27,9 @@
             // If x is Not a Number
             if (isNaN(cap)) {
                 document.getElementById("capinput").style.borderColor = "red";
-                document.getElementById("output").innerHTML = htmlout;
+                document.getElementById("perfout").innerHTML = errorout;
             } else if (document.getElementById('TiB').checked && cap >= 0.0976562 && cap <= 100) {
-                document.getElementById("capinput").style.borderColor = "black";
+                document.getElementById("capinput").style.borderColor = "lightgray";
                 capdenominator = 1;
                 standard_throughput = ((cap / capdenominator) * 16).toFixed(2);
                 if (standard_throughput >= 4500) {
@@ -44,9 +44,9 @@
                     ultra_throughput = 4500;
                 }
                 htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
-                document.getElementById("output").innerHTML = htmlout;
+                document.getElementById("perfout").innerHTML = htmlout;
             } else if (document.getElementById('GiB').checked && cap >= 100 && cap <= 102400) {
-                document.getElementById("capinput").style.borderColor = "black";
+                document.getElementById("capinput").style.borderColor = "lightgray";
                 capdenominator = 1024
                 standard_throughput = ((cap / capdenominator) * 16).toFixed(2);
                 if (standard_throughput >= 4500) {
@@ -61,18 +61,60 @@
                     ultra_throughput = 4500;
                 }
                 htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
-                document.getElementById("output").innerHTML = htmlout;
+                document.getElementById("perfout").innerHTML = htmlout;
             } else {
                 document.getElementById("capinput").style.borderColor = "red";
-                document.getElementById("output").innerHTML = errorout;
+                document.getElementById("perfout").innerHTML = errorout;
+            }
+        }
+
+        function GetCapacity() {
+            tputin = document.getElementById("tputinput").value;
+            standard = 0.14746;
+            premium = 0.29419;
+            ultra = 0.39274;
+            errorout = "<table class='table-bordered table table-sm'><thead class='thead-light'><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Capacity (GiB)</td><td></td><td></td><td></td></tr><tr><td>Monthly Cost (USD)</td><td></td><td></td><td></td></tr></table>";
+            // If x is Not a Number
+            if (isNaN(tputin)) {
+                document.getElementById("tputinput").style.borderColor = "red";
+                document.getElementById("capout").innerHTML = errorout;
+            } else if (tputin >= 1.56 && tputin <= 4500) {
+                document.getElementById("tputinput").style.borderColor = "lightgray";
+                standard = 0.14746
+                premium = 0.29419
+                ultra = 0.39274
+
+                standardcap = ((tputin / 16) * 1024).toFixed(2);
+                if (standardcap < 100) {
+                    standardcap = 100;
+                }
+                premiumcap = ((tputin / 64) * 1024).toFixed(2);
+                if (premiumcap < 100) {
+                    premiumcap = 100;
+                }
+                ultracap = ((tputin / 128) * 1024).toFixed(2);
+                if (ultracap < 100) {
+                    ultracap = 100;
+                }
+
+                standardcost = (standardcap * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                premiumcost = (premiumcap * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                ultracost = (ultracap * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+
+
+
+
+                htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Capacity (GiB)</td><td>" + standardcap + "</td><td>" + premiumcap + "</td><td>" + ultracap + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + standardcost + "</td><td>" + premiumcost + "</td><td>" + ultracost + "</td></tr></table>";
+                document.getElementById("capout").innerHTML = htmlout;
+            } else {
+                document.getElementById("tputinput").style.borderColor = "red";
+                document.getElementById("capout").innerHTML = errorout;
             }
         }
     </script>
-
-
 </head>
 
-<body onload="myFunction()">
+<body onload="myFunction(),GetCapacity()">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -102,23 +144,37 @@
                         </label>
                     </div>
                 </div>
-                <div id="output">
+                <div id="perfout">
                 </div>
-                <small>Numbers above should be used only as an estimate.</small>
+                <small class="form-text text-muted">Minimum throughput is 1.56 MiB/s. Maximum throughput is 4,500 MiB/s.</small>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="my-1 input-group-text">Throughput</span>
+                    </div>
+                    <input oninput="GetCapacity()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="64" value="64" aria-label="Throughput" aria-describedby="Throughput" id="tputinput"></input>
+                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary my-1">
+                            <input onclick="GetCapacity()" name="tputunits" type="radio" value="MiB/s" id="sean" checked>MiB/s</input>
+                        </label>
+                        <!--<label class="btn btn-outline-primary my-1">
+                          <input onclick="GetCapacity()" name="tputunits" type="radio" value="MiB/s" id="luce">MiB/s</input>
+                        </label>-->
+                    </div>
+                </div>
+                <div id="capout">
+                </div>
             </div>
             <div class="card-footer">
-                <span class="font-weight-light">Source: <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, </span>
-                <span class="font-weight-light"><a href="https://azure.microsoft.com/en-us/pricing/details/netapp/">Pricing</a></span>
+                <small class="text-muted">source: <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>,<a href="https://azure.microsoft.com/en-us/pricing/details/netapp/">Pricing</a>
+                </small><br>
+                <small class="text-muted">note: calculator is for estimation purposes only</small>
             </div>
         </div>
-
-
+        <div class="text-right">
+            <small class="text-muted">&copy;Copyright 2020, <a href="https://github.com/seanluce">@seanluce</a></small>
+        </div>
     </div>
-    <!--<script type="text/javascript">
-        var newdiv = document.createElement("div");
-        var container = document.getElementById("output");
-        container.appendChild(newdiv);
-    </script>-->
+
 </body>
 
 </html>
