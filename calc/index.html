@@ -11,110 +11,180 @@
 
     <title>ANF Calc</title>
     <script type="text/javascript">
-        function backtoblack() {
-            document.getElementById("capinput").style.borderColor = "light-gray";
-        }
+        function getResults() {
+            standard_rate = 0.14746;
+            premium_rate = 0.29419;
+            ultra_rate = 0.39274;
+            standard_tputpertib = 16;
+            premium_tputpertib = 64;
+            ultra_tputpertib = 128;
+            min_vol_capacity = 100;
+            max_vol_capacity = 102400;
+            min_tput = 1.56;
+            max_tput = 4500.00 * 1;
 
-        function myFunction() {
-            var cap, htmlout;
-
-            // Get the value of the input field with id="capinput"
-            cap = document.getElementById("capinput").value;
-            standard = 0.14746
-            premium = 0.29419
-            ultra = 0.39274
             errorout = "<table class='table-bordered table table-sm'><thead class='thead-light'><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td></td><td></td><td></td></tr><tr><td>Monthly Cost (USD)</td><td></td><td></td><td></td></tr></table>";
-            // If x is Not a Number
-            if (isNaN(cap)) {
-                document.getElementById("capinput").style.borderColor = "red";
-                document.getElementById("perfout").innerHTML = errorout;
-            } else if (document.getElementById('TiB').checked && cap >= 0.0976562 && cap <= 100) {
-                document.getElementById("capinput").style.borderColor = "lightgray";
-                capdenominator = 1;
-                standard_throughput = ((cap / capdenominator) * 16).toFixed(2);
-                if (standard_throughput >= 4500) {
-                    standard_throughput = 4500;
-                }
-                premium_throughput = ((cap / capdenominator) * 64).toFixed(2);
-                if (premium_throughput >= 4500) {
-                    premium_throughput = 4500;
-                }
-                ultra_throughput = ((cap / capdenominator) * 128).toFixed(2);
-                if (ultra_throughput >= 4500) {
-                    ultra_throughput = 4500;
-                }
-                htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
-                document.getElementById("perfout").innerHTML = htmlout;
-            } else if (document.getElementById('GiB').checked && cap >= 100 && cap <= 102400) {
-                document.getElementById("capinput").style.borderColor = "lightgray";
-                capdenominator = 1024
-                standard_throughput = ((cap / capdenominator) * 16).toFixed(2);
-                if (standard_throughput >= 4500) {
-                    standard_throughput = 4500;
-                }
-                premium_throughput = ((cap / capdenominator) * 64).toFixed(2);
-                if (premium_throughput >= 4500) {
-                    premium_throughput = 4500;
-                }
-                ultra_throughput = ((cap / capdenominator) * 128).toFixed(2);
-                if (ultra_throughput >= 4500) {
-                    ultra_throughput = 4500;
-                }
-                htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td>" + standard_throughput + "</td><td>" + premium_throughput + "</td><td>" + ultra_throughput + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + ((cap * (1024 / capdenominator)) * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td><td>" + ((cap * (1024 / capdenominator)) * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + "</td></tr></table>";
-                document.getElementById("perfout").innerHTML = htmlout;
-            } else {
-                document.getElementById("capinput").style.borderColor = "red";
-                document.getElementById("perfout").innerHTML = errorout;
+
+            cap_target = document.getElementById("capinput").value;
+            tput_target = document.getElementById("tputinput").value;
+
+            if (document.getElementById('TiB').checked) {
+                volume_in_gb = cap_target * 1024;
             }
-        }
 
-        function GetCapacity() {
-            tputin = document.getElementById("tputinput").value;
-            standard = 0.14746;
-            premium = 0.29419;
-            ultra = 0.39274;
-            errorout = "<table class='table-bordered table table-sm'><thead class='thead-light'><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Capacity (GiB)</td><td></td><td></td><td></td></tr><tr><td>Monthly Cost (USD)</td><td></td><td></td><td></td></tr></table>";
-            // If x is Not a Number
-            if (isNaN(tputin)) {
-                document.getElementById("tputinput").style.borderColor = "red";
-                document.getElementById("capout").innerHTML = errorout;
-            } else if (tputin >= 1.56 && tputin <= 4500) {
-                document.getElementById("tputinput").style.borderColor = "lightgray";
-                standard = 0.14746
-                premium = 0.29419
-                ultra = 0.39274
+            if (document.getElementById('GiB').checked) {
+                volume_in_gb = cap_target * 1;
+            }
 
-                standardcap = ((tputin / 16) * 1024).toFixed(2);
-                if (standardcap < 100) {
-                    standardcap = 100;
-                }
-                premiumcap = ((tputin / 64) * 1024).toFixed(2);
-                if (premiumcap < 100) {
-                    premiumcap = 100;
-                }
-                ultracap = ((tputin / 128) * 1024).toFixed(2);
-                if (ultracap < 100) {
-                    ultracap = 100;
-                }
+            if (isNaN(cap_target) || volume_in_gb < min_vol_capacity || volume_in_gb > max_vol_capacity) {
+                document.getElementById("capinput").style.borderColor = "red";
+                document.getElementById("size_standard_cell").innerText = "";
+                document.getElementById("size_premium_cell").innerText = "";
+                document.getElementById("size_ultra_cell").innerText = "";
 
-                standardcost = (standardcap * standard).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                premiumcost = (premiumcap * premium).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                ultracost = (ultracap * ultra).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("tput_standard_cell").innerText = "";
+                document.getElementById("tput_premium_cell").innerText = "";
+                document.getElementById("tput_ultra_cell").innerText = "";
 
-
-
-
-                htmlout = "<table class='table-bordered table table-sm'><thead class='thead-light'> <tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Capacity (GiB)</td><td>" + standardcap + "</td><td>" + premiumcap + "</td><td>" + ultracap + "</td></tr><tr><td>Monthly Cost (USD)</td><td>" + standardcost + "</td><td>" + premiumcost + "</td><td>" + ultracost + "</td></tr></table>";
-                document.getElementById("capout").innerHTML = htmlout;
+                document.getElementById("cost_standard_cell").innerText = "";
+                document.getElementById("cost_premium_cell").innerText = "";
+                document.getElementById("cost_ultra_cell").innerText = "";
             } else {
-                document.getElementById("tputinput").style.borderColor = "red";
-                document.getElementById("capout").innerHTML = errorout;
+                document.getElementById("capinput").style.borderColor = "lightgray";
+                if (isNaN(tput_target) || tput_target < 0 || tput_target > max_tput) {
+                    document.getElementById("tputinput").style.borderColor = "red";
+                    document.getElementById("size_standard_cell").innerText = "";
+                    document.getElementById("size_premium_cell").innerText = "";
+                    document.getElementById("size_ultra_cell").innerText = "";
+
+                    document.getElementById("tput_standard_cell").innerText = "";
+                    document.getElementById("tput_premium_cell").innerText = "";
+                    document.getElementById("tput_ultra_cell").innerText = "";
+
+                    document.getElementById("cost_standard_cell").innerText = "";
+                    document.getElementById("cost_premium_cell").innerText = "";
+                    document.getElementById("cost_ultra_cell").innerText = "";
+                } else {
+                    document.getElementById("tputinput").style.borderColor = "lightgray";
+                    if (tput_target <= min_tput) {
+                        standard_tput = (volume_in_gb / 1024) * 16;
+                        if (standard_tput > max_tput) {
+                            standard_tput = max_tput;
+                        }
+                        premium_tput = (volume_in_gb / 1024) * 64;
+                        if (premium_tput > max_tput) {
+                            premium_tput = max_tput;
+                        }
+                        ultra_tput = (volume_in_gb / 1024) * 128;
+                        if (ultra_tput > max_tput) {
+                            ultra_tput = max_tput;
+                        }
+                        standard_cost = (volume_in_gb * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        premium_cost = (volume_in_gb * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        ultra_cost = (volume_in_gb * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        if (document.getElementById('GiB').checked) {
+                            document.getElementById("table_unit").innerText = "Volume Size (GiB)";
+                            document.getElementById("size_standard_cell").innerText = volume_in_gb.toFixed(2);
+                            document.getElementById("size_premium_cell").innerText = volume_in_gb.toFixed(2);
+                            document.getElementById("size_ultra_cell").innerText = volume_in_gb.toFixed(2);
+                        } else {
+                            document.getElementById("table_unit").innerText = "Volume Size (TiB)";
+                            document.getElementById("size_standard_cell").innerText = (volume_in_gb / 1024).toFixed(2);
+                            document.getElementById("size_premium_cell").innerText = (volume_in_gb / 1024).toFixed(2);
+                            document.getElementById("size_ultra_cell").innerText = (volume_in_gb / 1024).toFixed(2);
+                        }
+
+                        document.getElementById("tput_standard_cell").innerText = standard_tput.toFixed(2);
+                        document.getElementById("tput_premium_cell").innerText = premium_tput.toFixed(2);
+                        document.getElementById("tput_ultra_cell").innerText = ultra_tput.toFixed(2);
+
+                        document.getElementById("cost_standard_cell").innerText = standard_cost;
+                        document.getElementById("cost_premium_cell").innerText = premium_cost;
+                        document.getElementById("cost_ultra_cell").innerText = ultra_cost;
+                    } else {
+                        standard_size_needed = (tput_target / standard_tputpertib) * 1024;
+                        premium_size_needed = (tput_target / premium_tputpertib) * 1024;
+                        ultra_size_needed = (tput_target / ultra_tputpertib) * 1024;
+                        if (standard_size_needed < volume_in_gb) {
+                            standard_size_needed = volume_in_gb
+                        }
+                        if (premium_size_needed < volume_in_gb) {
+                            premium_size_needed = volume_in_gb
+                        }
+                        if (ultra_size_needed < volume_in_gb) {
+                            ultra_size_needed = volume_in_gb
+                        }
+                        if (document.getElementById('GiB').checked) {
+                            standard_as_displayed = standard_size_needed;
+                            premium_as_displayed = premium_size_needed;
+                            ultra_as_displayed = ultra_size_needed;
+                            mincap_as_displayed = min_vol_capacity;
+                        } else {
+                            standard_as_displayed = standard_size_needed / 1024;
+                            premium_as_displayed = premium_size_needed / 1024;
+                            ultra_as_displayed = ultra_size_needed / 1024;
+                            mincap_as_displayed = min_vol_capacity / 1024;
+                        }
+                        if (standard_size_needed > max_vol_capacity) {
+                            document.getElementById("size_standard_cell").innerText = "n/a";
+                            document.getElementById("tput_standard_cell").innerText = "n/a";
+                            document.getElementById("cost_standard_cell").innerText = "n/a";
+                        } else if (standard_size_needed < min_vol_capacity) {
+                            document.getElementById("size_standard_cell").innerText = mincap_as_displayed;
+                            document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2);
+                            document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        } else {
+                            document.getElementById("size_standard_cell").innerText = standard_as_displayed;
+                            if ((standard_size_needed / 1024) * standard_tputpertib < max_tput) {
+                                document.getElementById("tput_standard_cell").innerText = ((standard_size_needed / 1024) * standard_tputpertib).toFixed(2);
+                            } else {
+                                document.getElementById("tput_standard_cell").innerText = max_tput;
+                            }
+                            document.getElementById("cost_standard_cell").innerText = (standard_size_needed * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        }
+                        if (premium_size_needed > max_vol_capacity) {
+                            document.getElementById("size_premium_cell").innerText = "n/a";
+                            document.getElementById("tput_premium_cell").innerText = "n/a";
+                            document.getElementById("cost_premium_cell").innerText = "n/a";
+                        } else if (premium_size_needed < min_vol_capacity) {
+                            document.getElementById("size_premium_cell").innerText = mincap_as_displayed;
+                            document.getElementById("tput_premium_cell").innerText = ((min_vol_capacity / 1024) * premium_tputpertib).toFixed(2);
+                            document.getElementById("cost_premium_cell").innerText = (min_vol_capacity * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        } else {
+                            document.getElementById("size_premium_cell").innerText = premium_as_displayed;
+                            if ((premium_size_needed / 1024) * premium_tputpertib < max_tput) {
+                                document.getElementById("tput_premium_cell").innerText = ((premium_size_needed / 1024) * premium_tputpertib).toFixed(2);
+                            } else {
+                                document.getElementById("tput_premium_cell").innerText = max_tput;
+                            }
+                            document.getElementById("cost_premium_cell").innerText = (premium_size_needed * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        }
+                        if (ultra_size_needed > max_vol_capacity) {
+                            document.getElementById("size_ultra_cell").innerText = "n/a";
+                            document.getElementById("tput_ultra_cell").innerText = "n/a";
+                            document.getElementById("cost_ultra_cell").innerText = "n/a";
+                        } else if (ultra_size_needed < min_vol_capacity) {
+                            document.getElementById("size_ultra_cell").innerText = mincap_as_displayed;
+                            document.getElementById("tput_ultra_cell").innerText = ((min_vol_capacity / 1024) * ultra_tputpertib).toFixed(2);
+                            document.getElementById("cost_ultra_cell").innerText = (min_vol_capacity * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        } else {
+                            document.getElementById("size_ultra_cell").innerText = ultra_as_displayed;
+                            if ((ultra_size_needed / 1024) * ultra_tputpertib < max_tput) {
+                                document.getElementById("tput_ultra_cell").innerText = ((ultra_size_needed / 1024) * ultra_tputpertib).toFixed(2);
+                            } else {
+                                document.getElementById("tput_ultra_cell").innerText = max_tput;
+                            }
+                            document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        }
+
+                    }
+                }
             }
         }
     </script>
 </head>
 
-<body onload="myFunction(),GetCapacity()">
+<body onload="getResults()">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -134,40 +204,66 @@
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Volume Size</span>
                     </div>
-                    <input oninput="myFunction()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput"></input>
+                    <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput"></input>
                     <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-outline-primary my-1">
-                            <input onclick="myFunction()" name="units" type="radio" value="1024" id="GiB" checked>GiB</input>
+                            <input onclick="getResults()" name="units" type="radio" value="1024" id="GiB" checked>GiB</input>
                         </label>
                         <label class="btn btn-outline-primary my-1">
-                          <input onclick="myFunction()" name="units" type="radio" value="1" id="TiB">TiB</input>
+                          <input onclick="getResults()" name="units" type="radio" value="1" id="TiB">TiB</input>
                         </label>
                     </div>
                 </div>
-                <div id="perfout">
-                </div>
-                <small class="form-text text-muted">Minimum throughput is 1.56 MiB/s. Maximum throughput is 4,500 MiB/s.</small>
+                <small class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is 4,500 MiB/s.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Throughput</span>
                     </div>
-                    <input oninput="GetCapacity()" onclick="backtoblack()" type="text" class="my-1 mr-sm-1 form-control" placeholder="64" value="64" aria-label="Throughput" aria-describedby="Throughput" id="tputinput"></input>
+                    <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="0" value="0" aria-label="Throughput" aria-describedby="Throughput" id="tputinput"></input>
                     <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-outline-primary my-1">
-                            <input onclick="GetCapacity()" name="tputunits" type="radio" value="MiB/s" id="sean" checked>MiB/s</input>
+                            <input onclick="getResults()" name="tputunits" type="radio" value="MiB/s" id="sean" checked>MiB/s</input>
                         </label>
                         <!--<label class="btn btn-outline-primary my-1">
                           <input onclick="GetCapacity()" name="tputunits" type="radio" value="MiB/s" id="luce">MiB/s</input>
                         </label>-->
                     </div>
                 </div>
-                <div id="capout">
+                <div id="tableout">
+                    <table class='table-bordered table table-sm'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th>Service Level</th>
+                                <th>Standard</th>
+                                <th>Premium</th>
+                                <th>Ultra</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td id="table_unit">Volume Size (GIB)</td>
+                            <td id="size_standard_cell"></td>
+                            <td id="size_premium_cell"></td>
+                            <td id="size_ultra_cell"></td>
+                        </tr>
+                        <tr>
+                            <td>Throughput (MiB/s)</td>
+                            <td id="tput_standard_cell"></td>
+                            <td id="tput_premium_cell"></td>
+                            <td id="tput_ultra_cell"></td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Cost (USD)</td>
+                            <td id="cost_standard_cell"></td>
+                            <td id="cost_premium_cell"></td>
+                            <td id="cost_ultra_cell"></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div class="card-footer">
                 <small class="text-muted">source: <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a href="https://azure.microsoft.com/en-us/pricing/details/netapp/">Pricing</a>
                 </small><br>
-                <small class="text-muted">note: calculator is for estimation purposes only</small>
+                <small class="text-muted">notes: calculator is for estimation purposes only</small>
             </div>
         </div>
         <div class="text-right">
