@@ -45,10 +45,6 @@
                 document.getElementById("tput_standard_cell").innerText = "";
                 document.getElementById("tput_premium_cell").innerText = "";
                 document.getElementById("tput_ultra_cell").innerText = "";
-
-                document.getElementById("cost_standard_cell").innerText = "";
-                document.getElementById("cost_premium_cell").innerText = "";
-                document.getElementById("cost_ultra_cell").innerText = "";
             } else {
                 document.getElementById("capinput").style.borderColor = "lightgray";
                 if (isNaN(tput_target) || tput_target < 0 || tput_target > max_tput) {
@@ -60,10 +56,6 @@
                     document.getElementById("tput_standard_cell").innerText = "";
                     document.getElementById("tput_premium_cell").innerText = "";
                     document.getElementById("tput_ultra_cell").innerText = "";
-
-                    document.getElementById("cost_standard_cell").innerText = "";
-                    document.getElementById("cost_premium_cell").innerText = "";
-                    document.getElementById("cost_ultra_cell").innerText = "";
                 } else {
                     document.getElementById("tputinput").style.borderColor = "lightgray";
                     if (tput_target <= min_tput) {
@@ -79,9 +71,6 @@
                         if (ultra_tput > max_tput) {
                             ultra_tput = max_tput;
                         }
-                        standard_cost = (volume_in_gb * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        premium_cost = (volume_in_gb * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        ultra_cost = (volume_in_gb * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         if (document.getElementById('GiB').checked) {
                             document.getElementById("table_unit").innerText = "Volume Size (GiB)";
                             document.getElementById("size_standard_cell").innerText = volume_in_gb.toFixed(2);
@@ -97,10 +86,6 @@
                         document.getElementById("tput_standard_cell").innerText = standard_tput.toFixed(2);
                         document.getElementById("tput_premium_cell").innerText = premium_tput.toFixed(2);
                         document.getElementById("tput_ultra_cell").innerText = ultra_tput.toFixed(2);
-
-                        document.getElementById("cost_standard_cell").innerText = standard_cost;
-                        document.getElementById("cost_premium_cell").innerText = premium_cost;
-                        document.getElementById("cost_ultra_cell").innerText = ultra_cost;
                     } else {
                         standard_size_needed = (tput_target / standard_tputpertib) * 1024;
                         premium_size_needed = (tput_target / premium_tputpertib) * 1024;
@@ -130,11 +115,9 @@
                         if (standard_size_needed > max_vol_capacity) {
                             document.getElementById("size_standard_cell").innerText = "n/a";
                             document.getElementById("tput_standard_cell").innerText = "n/a";
-                            document.getElementById("cost_standard_cell").innerText = "n/a";
                         } else if (standard_size_needed < min_vol_capacity) {
                             document.getElementById("size_standard_cell").innerText = mincap_as_displayed;
                             document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2);
-                            document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_standard_cell").innerText = standard_as_displayed;
                             if ((standard_size_needed / 1024) * standard_tputpertib < max_tput) {
@@ -142,16 +125,13 @@
                             } else {
                                 document.getElementById("tput_standard_cell").innerText = max_tput;
                             }
-                            document.getElementById("cost_standard_cell").innerText = (standard_size_needed * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
                         if (premium_size_needed > max_vol_capacity) {
                             document.getElementById("size_premium_cell").innerText = "n/a";
                             document.getElementById("tput_premium_cell").innerText = "n/a";
-                            document.getElementById("cost_premium_cell").innerText = "n/a";
                         } else if (premium_size_needed < min_vol_capacity) {
                             document.getElementById("size_premium_cell").innerText = mincap_as_displayed;
                             document.getElementById("tput_premium_cell").innerText = ((min_vol_capacity / 1024) * premium_tputpertib).toFixed(2);
-                            document.getElementById("cost_premium_cell").innerText = (min_vol_capacity * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_premium_cell").innerText = premium_as_displayed;
                             if ((premium_size_needed / 1024) * premium_tputpertib < max_tput) {
@@ -159,16 +139,13 @@
                             } else {
                                 document.getElementById("tput_premium_cell").innerText = max_tput;
                             }
-                            document.getElementById("cost_premium_cell").innerText = (premium_size_needed * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
                         if (ultra_size_needed > max_vol_capacity) {
                             document.getElementById("size_ultra_cell").innerText = "n/a";
                             document.getElementById("tput_ultra_cell").innerText = "n/a";
-                            document.getElementById("cost_ultra_cell").innerText = "n/a";
                         } else if (ultra_size_needed < min_vol_capacity) {
                             document.getElementById("size_ultra_cell").innerText = mincap_as_displayed;
                             document.getElementById("tput_ultra_cell").innerText = ((min_vol_capacity / 1024) * ultra_tputpertib).toFixed(2);
-                            document.getElementById("cost_ultra_cell").innerText = (min_vol_capacity * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_ultra_cell").innerText = ultra_as_displayed;
                             if ((ultra_size_needed / 1024) * ultra_tputpertib < max_tput) {
@@ -176,7 +153,6 @@
                             } else {
                                 document.getElementById("tput_ultra_cell").innerText = max_tput;
                             }
-                            document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
 
                     }
