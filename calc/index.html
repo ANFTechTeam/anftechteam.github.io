@@ -224,7 +224,7 @@
                             document.getElementById("size_standard_cell").innerText = mincap_as_displayed.toFixed(2);
                             document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2);
                             document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("poolcost_standard_cell").innerText = ((min_pool_capacity * 1024) * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_standard_cell").innerText = standard_as_displayed.toFixed(2);
                             document.getElementById("size_standard_cell").classList.add('text-danger');
@@ -234,7 +234,7 @@
                                 document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
                             document.getElementById("poolsize_standard_cell").innerText = Math.ceil(standard_as_displayed / 1024);
-                            document.getElementById("poolcost_standard_cell").innerText = (standard_as_displayed * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolcost_standard_cell").innerText = (Math.ceil(standard_as_displayed / 1024) * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             if ((standard_size_needed / 1024) * standard_tputpertib < max_tput) {
                                 document.getElementById("tput_standard_cell").innerText = ((standard_size_needed / 1024) * standard_tputpertib).toFixed(2);
@@ -264,7 +264,7 @@
                                 document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
                             document.getElementById("poolsize_premium_cell").innerText = Math.ceil(premium_as_displayed / 1024);
-                            document.getElementById("poolcost_premium_cell").innerText = (premium_as_displayed * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolcost_premium_cell").innerText = (Math.ceil(premium_as_displayed / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             if ((premium_size_needed / 1024) * premium_tputpertib < max_tput) {
                                 document.getElementById("tput_premium_cell").innerText = ((premium_size_needed / 1024) * premium_tputpertib).toFixed(2);
@@ -295,7 +295,7 @@
                                 document.getElementById("poolcost_ultra_cell").innerText = (min_pool_capacity * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
                             document.getElementById("poolsize_ultra_cell").innerText = Math.ceil(ultra_as_displayed / 1024);
-                            document.getElementById("poolcost_ultra_cell").innerText = (ultra_as_displayed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolcost_ultra_cell").innerText = (Math.ceil(ultra_as_displayed / 1024) * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             if ((ultra_size_needed / 1024) * ultra_tputpertib < max_tput) {
                                 document.getElementById("tput_ultra_cell").innerText = ((ultra_size_needed / 1024) * ultra_tputpertib).toFixed(2);
