@@ -23,14 +23,10 @@
             min_pool_capacity = 4;
             max_pool_capacity = 500;
             min_tput = 1.56;
-            max_tput = 4500.00 * 1;
-
-            errorout = "<table class='table-bordered table table-sm'><thead class='thead-light'><tr><th>Service Level</th><th>Standard</th><th>Premium</th><th>Ultra</th></tr></thead><tr><td>Throughput (MiB/s)</td><td></td><td></td><td></td></tr><tr><td>Capacity Pool Cost (USD/month)</td><td></td><td></td><td></td></tr></table>";
+            max_tput = 4379.00 * 1;
 
             cap_target = document.getElementById("capinput").value;
             tput_target = document.getElementById("tputinput").value;
-            pool_target = document.getElementById("poolinput").value;
-            pool_in_gb = pool_target * 1024;
 
             if (document.getElementById('TiB').checked) {
                 volume_in_gb = cap_target * 1024; 
@@ -40,40 +36,27 @@
                 volume_in_gb = cap_target * 1;
             }
 
-            if (volume_in_gb > pool_in_gb && volume_in_gb <= 102400) {
-                    if (pool_target < 4) {
-                       
-                    } else {
-                    document.getElementById("poolinput").value = Math.ceil(volume_in_gb / 1024);
-                    pool_target = Math.ceil(volume_in_gb / 1024);
-                    }
-                }
-
-            if (Number.isInteger(Number(pool_target))) {
-                pool_integer = "true";
-            } else {
-                pool_integer = "false";
-            }
             document.getElementById("size_standard_cell").classList.remove('text-danger');
             document.getElementById("size_premium_cell").classList.remove('text-danger');
             document.getElementById("size_ultra_cell").classList.remove('text-danger');
             document.getElementById("capinput").classList.remove('text-danger');
 
-            if (isNaN(pool_target) || pool_target < min_pool_capacity || pool_target > max_pool_capacity || pool_integer == "false") {
-                document.getElementById("poolinput").style.borderColor = "red";
-                document.getElementById("poolwarning").classList.remove('text-muted');
-                document.getElementById("poolwarning").classList.add('text-danger');
+            if (isNaN(cap_target) || volume_in_gb < min_vol_capacity || volume_in_gb > max_vol_capacity) {
+                document.getElementById("capinput").style.borderColor = "red";
+                document.getElementById("volumewarning").classList.remove('text-muted');
+                document.getElementById("volumewarning").classList.add('text-danger');
+
                 document.getElementById("size_standard_cell").innerText = "";
                 document.getElementById("size_premium_cell").innerText = "";
                 document.getElementById("size_ultra_cell").innerText = "";
 
+                document.getElementById("poolsize_standard_cell").innerText = "";
+                document.getElementById("poolsize_premium_cell").innerText = "";
+                document.getElementById("poolsize_ultra_cell").innerText = "";
+
                 document.getElementById("tput_standard_cell").innerText = "";
                 document.getElementById("tput_premium_cell").innerText = "";
                 document.getElementById("tput_ultra_cell").innerText = "";
-
-                document.getElementById("poolsize_standard_cell").innerText = "";
-                        document.getElementById("poolsize_premium_cell").innerText = "";
-                        document.getElementById("poolsize_ultra_cell").innerText = "";
 
                 document.getElementById("poolcost_standard_cell").innerText = "";
                 document.getElementById("poolcost_premium_cell").innerText = "";
@@ -82,42 +65,15 @@
                 document.getElementById("cost_standard_cell").innerText = "";
                 document.getElementById("cost_premium_cell").innerText = "";
                 document.getElementById("cost_ultra_cell").innerText = "";
-            } else {
-                document.getElementById("poolwarning").classList.add('text-muted');
-                document.getElementById("poolwarning").classList.remove('text-danger');
-                document.getElementById("poolinput").style.borderColor = "lightgray";
-                if (isNaN(cap_target) || volume_in_gb < min_vol_capacity || volume_in_gb > max_vol_capacity) {
-                    document.getElementById("capinput").style.borderColor = "red";
-                    document.getElementById("volumewarning").classList.remove('text-muted');
-                document.getElementById("volumewarning").classList.add('text-danger');
-                    document.getElementById("size_standard_cell").innerText = "";
-                    document.getElementById("size_premium_cell").innerText = "";
-                    document.getElementById("size_ultra_cell").innerText = "";
-
-                    document.getElementById("poolsize_standard_cell").innerText = "";
-                        document.getElementById("poolsize_premium_cell").innerText = "";
-                        document.getElementById("poolsize_ultra_cell").innerText = "";
-
-                    document.getElementById("tput_standard_cell").innerText = "";
-                    document.getElementById("tput_premium_cell").innerText = "";
-                    document.getElementById("tput_ultra_cell").innerText = "";
-
-                    document.getElementById("poolcost_standard_cell").innerText = "";
-                    document.getElementById("poolcost_premium_cell").innerText = "";
-                    document.getElementById("poolcost_ultra_cell").innerText = "";
-
-                    document.getElementById("cost_standard_cell").innerText = "";
-                    document.getElementById("cost_premium_cell").innerText = "";
-                    document.getElementById("cost_ultra_cell").innerText = "";
                 } else {
                     document.getElementById("capinput").style.borderColor = "lightgray";
                     document.getElementById("volumewarning").classList.add('text-muted');
-                document.getElementById("volumewarning").classList.remove('text-danger');
-                    
+                    document.getElementById("volumewarning").classList.remove('text-danger');
                     if (isNaN(tput_target) || tput_target < 0 || tput_target > max_tput) {
                         document.getElementById("tputinput").style.borderColor = "red";
                         document.getElementById("tputwarning").classList.add('text-danger');
                         document.getElementById("tputwarning").classList.remove('text-muted');
+
                         document.getElementById("size_standard_cell").innerText = "";
                         document.getElementById("size_premium_cell").innerText = "";
                         document.getElementById("size_ultra_cell").innerText = "";
@@ -138,57 +94,63 @@
                         document.getElementById("cost_standard_cell").innerText = "";
                         document.getElementById("cost_premium_cell").innerText = "";
                         document.getElementById("cost_ultra_cell").innerText = "";
-                } else {
-                    document.getElementById("tputinput").style.borderColor = "lightgray";
-                    document.getElementById("tputwarning").classList.remove('text-danger');
+                    } else {
+                        document.getElementById("tputinput").style.borderColor = "lightgray";
+                        document.getElementById("tputwarning").classList.remove('text-danger');
                         document.getElementById("tputwarning").classList.add('text-muted');
-                    if (tput_target <= min_tput) {
-                        standard_tput = (volume_in_gb / 1024) * 16;
-                        if (standard_tput > max_tput) {
-                            standard_tput = max_tput;
+                        if (tput_target <= min_tput) {
+                            standard_tput = (volume_in_gb / 1024) * 16;
+                            if (standard_tput > max_tput) {
+                                standard_tput = max_tput;
+                            }
+                            premium_tput = (volume_in_gb / 1024) * 64;
+                            if (premium_tput > max_tput) {
+                                premium_tput = max_tput;
+                            }
+                            ultra_tput = (volume_in_gb / 1024) * 128;
+                            if (ultra_tput > max_tput) {
+                              ultra_tput = max_tput;
+                            }
+                            standard_cost = (volume_in_gb * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            premium_cost = (volume_in_gb * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            ultra_cost = (volume_in_gb * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
-                        premium_tput = (volume_in_gb / 1024) * 64;
-                        if (premium_tput > max_tput) {
-                            premium_tput = max_tput;
-                        }
-                        ultra_tput = (volume_in_gb / 1024) * 128;
-                        if (ultra_tput > max_tput) {
-                            ultra_tput = max_tput;
-                        }
-                        standard_cost = (volume_in_gb * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        premium_cost = (volume_in_gb * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        ultra_cost = (volume_in_gb * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        poolstandard_cost = (pool_target * standard_rate * 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        poolpremium_cost = (pool_target * premium_rate * 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                        poolultra_cost = (pool_target * ultra_rate * 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         if (document.getElementById('GiB').checked) {
                             document.getElementById("table_unit").innerHTML = "Volume Size <small>(GiB)</small>";
-                            document.getElementById("size_standard_cell").innerText = volume_in_gb.toFixed(2);
-                            document.getElementById("size_premium_cell").innerText = volume_in_gb.toFixed(2);
-                            document.getElementById("size_ultra_cell").innerText = volume_in_gb.toFixed(2);
+                            document.getElementById("size_standard_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("size_premium_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("size_ultra_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("table_unit").innerHTML = "Volume Size <small>(TiB)</small>";
-                            document.getElementById("size_standard_cell").innerText = (volume_in_gb / 1024).toFixed(2);
-                            document.getElementById("size_premium_cell").innerText = (volume_in_gb / 1024).toFixed(2);
-                            document.getElementById("size_ultra_cell").innerText = (volume_in_gb / 1024).toFixed(2);
+                            document.getElementById("size_standard_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("size_premium_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("size_ultra_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
+                        if (Math.ceil(volume_in_gb / 1024) < min_pool_capacity) {
+                            document.getElementById("poolsize_standard_cell").innerText = min_pool_capacity;
+                            document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolsize_premium_cell").innerText = min_pool_capacity;
+                            document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolsize_ultra_cell").innerText = min_pool_capacity;
+                            document.getElementById("poolcost_ultra_cell").innerText = (min_pool_capacity * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        } else {
+                            document.getElementById("poolsize_standard_cell").innerText = Math.ceil(volume_in_gb / 1024);
+                            document.getElementById("poolcost_standard_cell").innerText = (Math.ceil(volume_in_gb / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            
+                            document.getElementById("poolsize_premium_cell").innerText = Math.ceil(volume_in_gb / 1024);
+                            document.getElementById("poolcost_premium_cell").innerText = (Math.ceil(volume_in_gb / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            
+                            document.getElementById("poolsize_ultra_cell").innerText = Math.ceil(volume_in_gb / 1024);
+                            document.getElementById("poolcost_ultra_cell").innerText = (Math.ceil(volume_in_gb / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            
+                            document.getElementById("tput_standard_cell").innerText = standard_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("tput_premium_cell").innerText = premium_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("tput_ultra_cell").innerText = ultra_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
-                        document.getElementById("poolsize_standard_cell").innerText = pool_target;
-                        document.getElementById("poolsize_premium_cell").innerText = pool_target;
-                        document.getElementById("poolsize_ultra_cell").innerText = pool_target;
-
-                        document.getElementById("tput_standard_cell").innerText = standard_tput.toFixed(2);
-                        document.getElementById("tput_premium_cell").innerText = premium_tput.toFixed(2);
-                        document.getElementById("tput_ultra_cell").innerText = ultra_tput.toFixed(2);
-                        
-                        document.getElementById("poolcost_standard_cell").innerText = poolstandard_cost;
-                        document.getElementById("poolcost_premium_cell").innerText = poolpremium_cost;
-                        document.getElementById("poolcost_ultra_cell").innerText = poolultra_cost;
-
-                        document.getElementById("cost_standard_cell").innerText = standard_cost;
-                        document.getElementById("cost_premium_cell").innerText = premium_cost;
-                        document.getElementById("cost_ultra_cell").innerText = ultra_cost;
-                    } else {
+                            document.getElementById("cost_standard_cell").innerText = standard_cost;
+                            document.getElementById("cost_premium_cell").innerText = premium_cost;
+                            document.getElementById("cost_ultra_cell").innerText = ultra_cost;
+                        } 
                         standard_size_needed = (tput_target / standard_tputpertib) * 1024;
                         premium_size_needed = (tput_target / premium_tputpertib) * 1024;
                         ultra_size_needed = (tput_target / ultra_tputpertib) * 1024;
@@ -221,25 +183,27 @@
                             document.getElementById("poolcost_standard_cell").innerText = "n/a";
                             document.getElementById("poolsize_standard_cell").innerText = "n/a";
                         } else if (standard_size_needed <= min_vol_capacity) {
-                            document.getElementById("size_standard_cell").innerText = mincap_as_displayed.toFixed(2);
-                            document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2);
+                            document.getElementById("size_standard_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
-                            document.getElementById("size_standard_cell").innerText = standard_as_displayed.toFixed(2);
+                            document.getElementById("size_standard_cell").innerText = standard_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            if (standard_size_needed > volume_in_gb) {
                             document.getElementById("size_standard_cell").classList.add('text-danger');
                             document.getElementById("capinput").classList.add('text-danger');
-                            if (Math.ceil(standard_as_displayed / 1024) < min_pool_capacity) {
+                            }
+                            if (Math.ceil(standard_size_needed / 1024) <= min_pool_capacity) {
                                 document.getElementById("poolsize_standard_cell").innerText = min_pool_capacity;
                                 document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
-                            document.getElementById("poolsize_standard_cell").innerText = Math.ceil(standard_as_displayed / 1024);
-                            document.getElementById("poolcost_standard_cell").innerText = (Math.ceil(standard_as_displayed / 1024) * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolsize_standard_cell").innerText = Math.ceil(standard_size_needed / 1024);
+                            document.getElementById("poolcost_standard_cell").innerText = (Math.ceil(standard_size_needed / 1024) * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             if ((standard_size_needed / 1024) * standard_tputpertib < max_tput) {
-                                document.getElementById("tput_standard_cell").innerText = ((standard_size_needed / 1024) * standard_tputpertib).toFixed(2);
+                                document.getElementById("tput_standard_cell").innerText = ((standard_size_needed / 1024) * standard_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
-                                document.getElementById("tput_standard_cell").innerText = max_tput;
+                                document.getElementById("tput_standard_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_standard_cell").innerText = (standard_size_needed * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             
@@ -251,28 +215,29 @@
                             document.getElementById("poolcost_premium_cell").innerText = "n/a";
                             document.getElementById("poolsize_premium_cell").innerText = "n/a";
                         } else if (premium_size_needed <= min_vol_capacity) {
-                            document.getElementById("size_premium_cell").innerText = mincap_as_displayed.toFixed(2);
-                            document.getElementById("tput_premium_cell").innerText = ((min_vol_capacity / 1024) * premium_tputpertib).toFixed(2);
+                            document.getElementById("size_premium_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("tput_premium_cell").innerText = ((min_vol_capacity / 1024) * premium_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("cost_premium_cell").innerText = (min_vol_capacity * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
-                            document.getElementById("size_premium_cell").innerText = premium_as_displayed.toFixed(2);
+                            document.getElementById("size_premium_cell").innerText = premium_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            if (premium_size_needed > volume_in_gb) {
                             document.getElementById("size_premium_cell").classList.add('text-danger');
                             document.getElementById("capinput").classList.add('text-danger');
-                            if (Math.ceil(premium_as_displayed / 1024) < min_pool_capacity) {
+                            }
+                            if (Math.ceil(premium_size_needed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_premium_cell").innerText = min_pool_capacity;
                                 document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
-                            document.getElementById("poolsize_premium_cell").innerText = Math.ceil(premium_as_displayed / 1024);
-                            document.getElementById("poolcost_premium_cell").innerText = (Math.ceil(premium_as_displayed / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolsize_premium_cell").innerText = Math.ceil(premium_size_needed / 1024);
+                            document.getElementById("poolcost_premium_cell").innerText = (Math.ceil(premium_size_needed / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             if ((premium_size_needed / 1024) * premium_tputpertib < max_tput) {
-                                document.getElementById("tput_premium_cell").innerText = ((premium_size_needed / 1024) * premium_tputpertib).toFixed(2);
+                                document.getElementById("tput_premium_cell").innerText = ((premium_size_needed / 1024) * premium_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
-                                document.getElementById("tput_premium_cell").innerText = max_tput;
+                                document.getElementById("tput_premium_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_premium_cell").innerText = (premium_size_needed * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            
                         }
                         if (ultra_size_needed > max_vol_capacity) {
                             document.getElementById("size_ultra_cell").innerText = "n/a";
@@ -281,37 +246,34 @@
                             document.getElementById("poolcost_ultra_cell").innerText = "n/a";
                             document.getElementById("poolsize_ultra_cell").innerText = "n/a";
                         } else if (ultra_size_needed <= min_vol_capacity) {
-                            document.getElementById("size_ultra_cell").innerText = mincap_as_displayed.toFixed(2);
-                            document.getElementById("tput_ultra_cell").innerText = ((min_vol_capacity / 1024) * ultra_tputpertib).toFixed(2);
+                            document.getElementById("size_ultra_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("tput_ultra_cell").innerText = ((min_vol_capacity / 1024) * ultra_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("cost_ultra_cell").innerText = (min_vol_capacity * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_ultra_cell").innerText = ((min_pool_capacity * 1024) * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
-                            document.getElementById("size_ultra_cell").innerText = ultra_as_displayed.toFixed(2);
+                            document.getElementById("size_ultra_cell").innerText = ultra_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            if (ultra_size_needed > volume_in_gb) {
                             document.getElementById("size_ultra_cell").classList.add('text-danger');
                             document.getElementById("capinput").classList.add('text-danger');
-
-                            if (Math.ceil(ultra_as_displayed / 1024) < min_pool_capacity) {
+                            }
+                            if (Math.ceil(ultra_size_needed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_ultra_cell").innerText = min_pool_capacity;
                                 document.getElementById("poolcost_ultra_cell").innerText = (min_pool_capacity * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
-                            document.getElementById("poolsize_ultra_cell").innerText = Math.ceil(ultra_as_displayed / 1024);
-                            document.getElementById("poolcost_ultra_cell").innerText = (Math.ceil(ultra_as_displayed / 1024) * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("poolsize_ultra_cell").innerText = Math.ceil(ultra_size_needed / 1024);
+                            document.getElementById("poolcost_ultra_cell").innerText = (Math.ceil(ultra_size_needed / 1024) * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             if ((ultra_size_needed / 1024) * ultra_tputpertib < max_tput) {
-                                document.getElementById("tput_ultra_cell").innerText = ((ultra_size_needed / 1024) * ultra_tputpertib).toFixed(2);
+                                document.getElementById("tput_ultra_cell").innerText = ((ultra_size_needed / 1024) * ultra_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
-                                document.getElementById("tput_ultra_cell").innerText = max_tput;
+                                document.getElementById("tput_ultra_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                          
                         }
-
                     }
                 }
-                    }     
-            
             }
-        }
     </script>
 </head>
 
@@ -331,18 +293,7 @@
                 
             </div>
             <div class="card-body">
-                <small id="poolwarning" class="form-text text-muted">Minimum capacity pool size is 4TiB. Maximum capacity pool size is 500TiB.</small>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="my-1 input-group-text">Capacity Pool Size</span>
-                    </div>
-                    <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="4" aria-label="Capacity Pool Size" aria-describedby="Capacity Pool Size" id="poolinput"></input>
-                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="poolsize" type="radio" value="TiB" id="pool" checked>TiB</input>
-                        </label>
-                    </div>
-                </div>
+                
                 <small id="volumewarning" class="form-text text-muted">Minimum volume size is 100GiB. Maximum volume size is 100TiB.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -370,6 +321,34 @@
                         </label>
                     </div>
                 </div>
+                <!-- <small id="poolwarning" class="form-text text-muted"></small>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="my-1 input-group-text">Read Percentage</span>
+                    </div>
+                    <input oninput="getResults()" type="number" step="10" max="100" min="0" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Capacity Pool Size" aria-describedby="Capacity Pool Size" id="readpercent"></input>
+                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary my-1">
+                            <input onclick="getResults()" name="poolsize" type="radio" value="TiB" id="pool" checked>%</input>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="my-1 input-group-text">I/O Size</span>
+                    </div>
+                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary my-1">
+                            <input onclick="getResults()" name="iosize" type="radio" value="1" id="GiB" checked>64k Sequential</input>
+                        </label>
+                        <label class="btn btn-outline-primary my-1">
+                          <input onclick="getResults()" name="iosize" type="radio" value="2" id="TiB">4k Random</input>
+                        </label>
+                        <label class="btn btn-outline-primary my-1">
+                            <input onclick="getResults()" name="iosize" type="radio" value="3" id="TiB">8k Random</input>
+                          </label>
+                    </div>
+                </div> -->
                 <div id="tableout">
                     <table class='table-bordered table table-sm table-hover'>
                         <thead class='thead-light'>
