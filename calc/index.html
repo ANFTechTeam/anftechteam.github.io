@@ -116,6 +116,8 @@
                     
                     if (isNaN(tput_target) || tput_target < 0 || tput_target > max_tput) {
                         document.getElementById("tputinput").style.borderColor = "red";
+                        document.getElementById("tputwarning").classList.add('text-danger');
+                        document.getElementById("tputwarning").classList.remove('text-muted');
                         document.getElementById("size_standard_cell").innerText = "";
                         document.getElementById("size_premium_cell").innerText = "";
                         document.getElementById("size_ultra_cell").innerText = "";
@@ -138,6 +140,8 @@
                         document.getElementById("cost_ultra_cell").innerText = "";
                 } else {
                     document.getElementById("tputinput").style.borderColor = "lightgray";
+                    document.getElementById("tputwarning").classList.remove('text-danger');
+                        document.getElementById("tputwarning").classList.add('text-muted');
                     if (tput_target <= min_tput) {
                         standard_tput = (volume_in_gb / 1024) * 16;
                         if (standard_tput > max_tput) {
@@ -351,7 +355,7 @@
                         </label>
                     </div>
                 </div>
-                <small class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is 4,500 MiB/s.</small>
+                <small id="tputwarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is 4,500 MiB/s.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Throughput</span>
