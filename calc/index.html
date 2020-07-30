@@ -57,6 +57,7 @@
             document.getElementById("size_standard_cell").classList.remove('text-danger');
             document.getElementById("size_premium_cell").classList.remove('text-danger');
             document.getElementById("size_ultra_cell").classList.remove('text-danger');
+            document.getElementById("capinput").classList.remove('text-danger');
 
             if (isNaN(pool_target) || pool_target < min_pool_capacity || pool_target > max_pool_capacity || pool_integer == "false") {
                 document.getElementById("poolinput").style.borderColor = "red";
@@ -222,6 +223,7 @@
                         } else {
                             document.getElementById("size_standard_cell").innerText = standard_as_displayed;
                             document.getElementById("size_standard_cell").classList.add('text-danger');
+                            document.getElementById("capinput").classList.add('text-danger');
                             if (Math.ceil(standard_as_displayed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_standard_cell").innerText = min_pool_capacity;
                                 document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -250,6 +252,7 @@
                         } else {
                             document.getElementById("size_premium_cell").innerText = premium_as_displayed;
                             document.getElementById("size_premium_cell").classList.add('text-danger');
+                            document.getElementById("capinput").classList.add('text-danger');
                             if (Math.ceil(premium_as_displayed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_premium_cell").innerText = min_pool_capacity;
                                 document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -278,6 +281,7 @@
                         } else {
                             document.getElementById("size_ultra_cell").innerText = ultra_as_displayed;
                             document.getElementById("size_ultra_cell").classList.add('text-danger');
+                            document.getElementById("capinput").classList.add('text-danger');
 
                             if (Math.ceil(ultra_as_displayed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_ultra_cell").innerText = min_pool_capacity;
