@@ -23,7 +23,7 @@
             min_pool_capacity = 4;
             max_pool_capacity = 500;
             min_tput = 1.56;
-            max_tput = 4212.00 * 1;
+            
 
             var max_tput64kseq = {
                 0: 1733,
@@ -69,6 +69,7 @@
 
             cap_target = document.getElementById("capinput").value;
             tput_target = document.getElementById("tputinput").value;
+            iops_target = document.getElementById("iopsinput").value;
 
             if (document.getElementById('TiB').checked) {
                 volume_in_gb = cap_target * 1024; 
@@ -76,6 +77,56 @@
 
             if (document.getElementById('GiB').checked) {
                 volume_in_gb = cap_target * 1;
+            }
+
+            if (document.getElementById("64k_seq").checked) {
+                document.getElementById("iosizecell").innerHTML = "IOPS <small>(64KiB Sequential)</small>"
+                iosize = 64;
+                max_tput = max_tput64kseq[document.getElementById("readpercent").value];
+                max_iops = (max_tput * 1024) / iosize;
+                document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("iopslabel").innerText = "x 64KiB"
+                if (tput_target > 0 && tput_target > max_tput) {
+                    document.getElementById("tputinput").value = max_tput;
+                    tput_target = max_tput;
+                }
+                if (iops_target > 0 && iops_target > max_iops) {
+                    document.getElementById("iopsinput").value = max_iops;
+                    iops_target = max_iops;
+                }
+            } else if (document.getElementById("8k_ran").checked) {
+                document.getElementById("iosizecell").innerHTML = "IOPS <small>(8KiB Random)</small>"
+                iosize = 8;
+                max_tput = max_tput8kran[document.getElementById("readpercent").value];
+                max_iops = (max_tput * 1024) / iosize;
+                document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("iopslabel").innerText = "x 8KiB"
+                if (tput_target > 0 && tput_target > max_tput) {
+                    document.getElementById("tputinput").value = max_tput;
+                    tput_target = max_tput;
+                }
+                if (iops_target > 0 && iops_target > max_iops) {
+                    document.getElementById("iopsinput").value = max_iops;
+                    iops_target = max_iops;
+                }
+            } else {
+                document.getElementById("iosizecell").innerHTML = "IOPS <small>(4KiB Random)</small>"
+                iosize = 4;
+                max_tput = max_tput4kran[document.getElementById("readpercent").value];
+                max_iops = (max_tput * 1024) / iosize;
+                document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("iopslabel").innerText = "x 4KiB"
+                if (tput_target > 0 && tput_target > max_tput) {
+                    document.getElementById("tputinput").value = max_tput;
+                    tput_target = max_tput;
+                }
+                if (iops_target > 0 && iops_target > max_iops) {
+                    document.getElementById("iopsinput").value = max_iops;
+                    iops_target = max_iops;
+                }
             }
 
             document.getElementById("size_standard_cell").classList.remove('text-danger');
@@ -140,6 +191,40 @@
                         document.getElementById("tputinput").style.borderColor = "lightgray";
                         document.getElementById("tputwarning").classList.remove('text-danger');
                         document.getElementById("tputwarning").classList.add('text-muted');
+                        if (isNaN(iops_target) || iops_target < 0 || iops_target > max_iops) {
+                            document.getElementById("iopsinput").style.borderColor = "red";
+                            document.getElementById("iopswarning").classList.add('text-danger');
+                            document.getElementById("iopswarning").classList.remove('text-muted');
+
+                            document.getElementById("size_standard_cell").innerText = "";
+                            document.getElementById("size_premium_cell").innerText = "";
+                            document.getElementById("size_ultra_cell").innerText = "";
+
+                            document.getElementById("poolsize_standard_cell").innerText = "";
+                            document.getElementById("poolsize_premium_cell").innerText = "";
+                            document.getElementById("poolsize_ultra_cell").innerText = "";
+
+
+                            document.getElementById("tput_standard_cell").innerText = "";
+                            document.getElementById("tput_premium_cell").innerText = "";
+                            document.getElementById("tput_ultra_cell").innerText = "";
+
+                            document.getElementById("poolcost_standard_cell").innerText = "";
+                            document.getElementById("poolcost_premium_cell").innerText = "";
+                            document.getElementById("poolcost_ultra_cell").innerText = "";
+
+                            document.getElementById("cost_standard_cell").innerText = "";
+                            document.getElementById("cost_premium_cell").innerText = "";
+                            document.getElementById("cost_ultra_cell").innerText = "";
+                    } else {
+                        document.getElementById("iopsinput").style.borderColor = "lightgray";
+                        document.getElementById("iopswarning").classList.remove('text-danger');
+                        document.getElementById("iopswarning").classList.add('text-muted');  
+                  
+                        if (tput_target == 0 && iops_target > 0) {
+                            tput_target = (iops_target * iosize) / 1024;
+                        }
+
                         if (tput_target <= min_tput) {
                             standard_tput = (volume_in_gb / 1024) * 16;
                             if (standard_tput > max_tput) {
@@ -168,31 +253,7 @@
                             document.getElementById("size_premium_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("size_ultra_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
-                        if (document.getElementById("64k_seq").checked) {
-                            document.getElementById("iosizecell").innerHTML = "IOPS <small>(64k Sequential)</small>"
-                            iosize = 64;
-                            max_tput = max_tput64kseq[document.getElementById("readpercent").value];
-                            document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            if (tput_target > max_tput) {
-                                document.getElementById("tputinput").value = max_tput;
-                            }
-                        } else if (document.getElementById("8k_ran").checked) {
-                            document.getElementById("iosizecell").innerHTML = "IOPS <small>(8k Random)</small>"
-                            iosize = 8;
-                            max_tput = max_tput8kran[document.getElementById("readpercent").value];
-                            document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            if (tput_target > max_tput) {
-                                document.getElementById("tputinput").value = max_tput;
-                            }
-                        } else {
-                            document.getElementById("iosizecell").innerHTML = "IOPS <small>(4k Random)</small>"
-                            iosize = 4;
-                            max_tput = max_tput4kran[document.getElementById("readpercent").value];
-                            document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            if (tput_target > max_tput) {
-                                document.getElementById("tputinput").value = max_tput;
-                            }
-                        }
+                        
                         if (Math.ceil(volume_in_gb / 1024) < min_pool_capacity) {
                             document.getElementById("poolsize_standard_cell").innerText = min_pool_capacity;
                             document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -211,11 +272,11 @@
                             document.getElementById("poolcost_ultra_cell").innerText = (Math.ceil(volume_in_gb / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             
                             document.getElementById("tput_standard_cell").innerText = standard_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("iops_standard_cell").innerText = ((standard_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("iops_standard_cell").innerText = ((standard_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_premium_cell").innerText = premium_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("iops_premium_cell").innerText = ((premium_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("iops_premium_cell").innerText = ((premium_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_ultra_cell").innerText = ultra_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("iops_ultra_cell").innerText = ((ultra_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("iops_ultra_cell").innerText = ((ultra_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
                             document.getElementById("cost_standard_cell").innerText = standard_cost;
                             document.getElementById("cost_premium_cell").innerText = premium_cost;
@@ -256,7 +317,7 @@
                         } else if (standard_size_needed <= min_vol_capacity) {
                             document.getElementById("size_standard_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("iops_standard_cell").innerText = ((standard_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("iops_standard_cell").innerText = ((min_vol_capacity * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
@@ -272,12 +333,12 @@
                             document.getElementById("poolsize_standard_cell").innerText = Math.ceil(standard_size_needed / 1024);
                             document.getElementById("poolcost_standard_cell").innerText = (Math.ceil(standard_size_needed / 1024) * 1024 * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
-                            if ((standard_size_needed / 1024) * standard_tputpertib < max_tput) {
+                            if ((standard_size_needed / 1024) * standard_tputpertib <= max_tput) {
                                 document.getElementById("tput_standard_cell").innerText = ((standard_size_needed / 1024) * standard_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                                document.getElementById("iops_standard_cell").innerText = ((standard_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                document.getElementById("iops_standard_cell").innerText = (((standard_size_needed / 1024) * standard_tputpertib) * 1024 / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
                                 document.getElementById("tput_standard_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                                document.getElementById("iops_standard_cell").innerText = ((standard_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                document.getElementById("iops_standard_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_standard_cell").innerText = (standard_size_needed * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             
@@ -292,7 +353,7 @@
                         } else if (premium_size_needed <= min_vol_capacity) {
                             document.getElementById("size_premium_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_premium_cell").innerText = ((min_vol_capacity / 1024) * premium_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("iops_premium_cell").innerText = ((premium_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("iops_premium_cell").innerText = ((min_vol_capacity * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("cost_premium_cell").innerText = (min_vol_capacity * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
@@ -308,12 +369,12 @@
                             document.getElementById("poolsize_premium_cell").innerText = Math.ceil(premium_size_needed / 1024);
                             document.getElementById("poolcost_premium_cell").innerText = (Math.ceil(premium_size_needed / 1024) * 1024 * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
-                            if ((premium_size_needed / 1024) * premium_tputpertib < max_tput) {
+                            if ((premium_size_needed / 1024) * premium_tputpertib <= max_tput) {
                                 document.getElementById("tput_premium_cell").innerText = ((premium_size_needed / 1024) * premium_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                                document.getElementById("iops_premium_cell").innerText = ((premium_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                document.getElementById("iops_premium_cell").innerText = (((premium_size_needed / 1024) * premium_tputpertib) * 1024 / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
                                 document.getElementById("tput_premium_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                                document.getElementById("iops_premium_cell").innerText = ((premium_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                document.getElementById("iops_premium_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_premium_cell").innerText = (premium_size_needed * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
@@ -327,7 +388,7 @@
                         } else if (ultra_size_needed <= min_vol_capacity) {
                             document.getElementById("size_ultra_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_ultra_cell").innerText = ((min_vol_capacity / 1024) * ultra_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("iops_ultra_cell").innerText = ((ultra_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("iops_ultra_cell").innerText = ((min_vol_capacity * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("cost_ultra_cell").innerText = (min_vol_capacity * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_ultra_cell").innerText = ((min_pool_capacity * 1024) * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
@@ -343,16 +404,17 @@
                             document.getElementById("poolsize_ultra_cell").innerText = Math.ceil(ultra_size_needed / 1024);
                             document.getElementById("poolcost_ultra_cell").innerText = (Math.ceil(ultra_size_needed / 1024) * 1024 * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
-                            if ((ultra_size_needed / 1024) * ultra_tputpertib < max_tput) {
+                            if ((ultra_size_needed / 1024) * ultra_tputpertib <= max_tput) {
                                 document.getElementById("tput_ultra_cell").innerText = ((ultra_size_needed / 1024) * ultra_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                                document.getElementById("iops_ultra_cell").innerText = ((ultra_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                document.getElementById("iops_ultra_cell").innerText = (((ultra_size_needed / 1024) * ultra_tputpertib) * 1024 / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             } else {
                                 document.getElementById("tput_ultra_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                                document.getElementById("iops_ultra_cell").innerText = ((ultra_tput * 1024) / iosize).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                                document.getElementById("iops_ultra_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                          
                         }
+                    }
                     }
                 }
             }
@@ -418,27 +480,27 @@
                         </label>
                     </div>
                 </div>
-                <small id="tputwarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is <span id="maxtputnote">4,212</span> MiB/s.</small>
+                <small id="tputwarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is <span id="maxtputnote"></span> MiB/s.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Throughput</span>
                     </div>
-                    <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="0" aria-label="Throughput" aria-describedby="Throughput" id="tputinput"></input>
+                    <input oninput="document.getElementById('iopsinput').value='0'; getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="0" aria-label="Throughput" aria-describedby="Throughput" id="tputinput"></input>
                     <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="tputunits" type="radio" value="MiB/s" id="sean" checked>MiB/s</input>
+                            <input onclick="getResults()" name="" type="radio" value="MiB/s" id="" checked>MiB/s</input>
                         </label>
                     </div>
                 </div>
-                <small id="tputwarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is <span id="maxtputnote">4,212</span> IOPS.</small>
+                <small id="iopswarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is <span id="maxiopsnote"></span> IOPS.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">IOPS</span>
                     </div>
-                    <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="0" aria-label="Throughput" aria-describedby="Throughput" id="tputinput"></input>
+                    <input oninput="document.getElementById('tputinput').value='0'; getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="0" aria-label="iopsinput" aria-describedby="iopsinput" id="iopsinput"></input>
                     <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="tputunits" type="radio" value="MiB/s" id="sean" checked>MiB/s</input>
+                            <input onclick="getResults()" name="" type="radio" value="" id="" checked><span id="iopslabel">x64k</span></input>
                         </label>
                     </div>
                 </div>
@@ -465,23 +527,23 @@
                             <td id="iops_premium_cell"></td>
                             <td id="iops_ultra_cell"></td>
                         </tr>
-                        <tr">
-                            <td>Capacity Pool Size <small>(TiB)</small></td>
-                            <td id="poolsize_standard_cell"></td>
-                            <td id="poolsize_premium_cell"></td>
-                            <td id="poolsize_ultra_cell"></td>
-                        </tr>
-                        <tr style="background-color: #e9ecef;">
-                            <td>Capacity Pool Cost <small>(USD/month)</small></td>
-                            <td id="poolcost_standard_cell"></td>
-                            <td id="poolcost_premium_cell"></td>
-                            <td id="poolcost_ultra_cell"></td>
-                        </tr>
                         <tr>
                             <td id="table_unit">Volume Size <small>(GiB)</small></td>
                             <td id="size_standard_cell"></td>
                             <td id="size_premium_cell"></td>
                             <td id="size_ultra_cell"></td>
+                        </tr>
+                        <tr style="background-color: #e9ecef;">
+                            <td>Capacity Pool Size <small>(TiB)</small></td>
+                            <td id="poolsize_standard_cell"></td>
+                            <td id="poolsize_premium_cell"></td>
+                            <td id="poolsize_ultra_cell"></td>
+                        </tr>
+                        <tr>
+                            <td>Capacity Pool Cost <small>(USD/month)</small></td>
+                            <td id="poolcost_standard_cell"></td>
+                            <td id="poolcost_premium_cell"></td>
+                            <td id="poolcost_ultra_cell"></td>
                         </tr>
                         <tr style="background-color: #e9ecef;">
                             <td>Volume Show Back <small>(USD/month)</small></td>
