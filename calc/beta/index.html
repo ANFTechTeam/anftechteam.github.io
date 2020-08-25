@@ -57,9 +57,9 @@
                 document.getElementById("init_10min_cell").innerText = (volume_in_gb * tenmin_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("init_hourly_cell").innerText = (volume_in_gb * hourly_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("init_daily_cell").innerText = (volume_in_gb * dailyplus_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("inc_10min_cell").innerText = ((((volume_in_gb * (change_rate/100)) * tenmin_rate * .65))*30).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("inc_hourly_cell").innerText = ((((volume_in_gb * (change_rate/100)) * hourly_rate * .65))*30).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("inc_daily_cell").innerText = ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*30).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("inc_10min_cell").innerText = ((((volume_in_gb * (change_rate/100)) * tenmin_rate * .65))*31).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("inc_hourly_cell").innerText = ((((volume_in_gb * (change_rate/100)) * hourly_rate * .65))*31).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("inc_daily_cell").innerText = ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*31).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("month1_10min_cell").innerText = ((volume_in_gb * tenmin_rate * .65) + ((((volume_in_gb * (change_rate/100)) * tenmin_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("month1_hourly_cell").innerText = ((volume_in_gb * hourly_rate * .65) + ((((volume_in_gb * (change_rate/100)) * hourly_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("month1_daily_cell").innerText = ((volume_in_gb * dailyplus_rate * .65) +  ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
