@@ -146,10 +146,11 @@
                 }
             }
 
-            document.getElementById("size_standard_cell").classList.remove('text-danger');
-            document.getElementById("size_premium_cell").classList.remove('text-danger');
-            document.getElementById("size_ultra_cell").classList.remove('text-danger');
+            document.getElementById("size_standard_cell").classList.remove('text-primary');
+            document.getElementById("size_premium_cell").classList.remove('text-primary');
+            document.getElementById("size_ultra_cell").classList.remove('text-primary');
             document.getElementById("capinput").classList.remove('text-danger');
+            document.getElementById("capinput").classList.remove('text-primary');
 
             if (isNaN(cap_target) || volume_in_gb < min_vol_capacity || volume_in_gb > max_vol_capacity) {
                 document.getElementById("capinput").style.borderColor = "red";
@@ -340,8 +341,8 @@
                         } else {
                             document.getElementById("size_standard_cell").innerText = standard_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             if (standard_size_needed > volume_in_gb) {
-                            document.getElementById("size_standard_cell").classList.add('text-danger');
-                            document.getElementById("capinput").classList.add('text-danger');
+                            document.getElementById("size_standard_cell").classList.add('text-primary');
+                            document.getElementById("capinput").classList.add('text-primary');
                             }
                             if (Math.ceil(standard_size_needed / 1024) <= min_pool_capacity) {
                                 document.getElementById("poolsize_standard_cell").innerText = min_pool_capacity;
@@ -376,8 +377,8 @@
                         } else {
                             document.getElementById("size_premium_cell").innerText = premium_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             if (premium_size_needed > volume_in_gb) {
-                            document.getElementById("size_premium_cell").classList.add('text-danger');
-                            document.getElementById("capinput").classList.add('text-danger');
+                            document.getElementById("size_premium_cell").classList.add('text-primary');
+                            document.getElementById("capinput").classList.add('text-primary');
                             }
                             if (Math.ceil(premium_size_needed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_premium_cell").innerText = min_pool_capacity;
@@ -411,8 +412,8 @@
                         } else {
                             document.getElementById("size_ultra_cell").innerText = ultra_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             if (ultra_size_needed > volume_in_gb) {
-                            document.getElementById("size_ultra_cell").classList.add('text-danger');
-                            document.getElementById("capinput").classList.add('text-danger');
+                            document.getElementById("size_ultra_cell").classList.add('text-primary');
+                            document.getElementById("capinput").classList.add('text-primary');
                             }
                             if (Math.ceil(ultra_size_needed / 1024) < min_pool_capacity) {
                                 document.getElementById("poolsize_ultra_cell").innerText = min_pool_capacity;

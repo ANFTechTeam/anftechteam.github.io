@@ -76,10 +76,11 @@
                 document.getElementById("month1_daily_cell").innerText = ((volume_in_gb * dailyplus_rate * .65) +  ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
             }
 
-            document.getElementById("size_standard_cell").classList.remove('text-danger');
-            document.getElementById("size_premium_cell").classList.remove('text-danger');
-            document.getElementById("size_ultra_cell").classList.remove('text-danger');
+            document.getElementById("size_standard_cell").classList.remove('text-primary');
+            document.getElementById("size_premium_cell").classList.remove('text-primary');
+            document.getElementById("size_ultra_cell").classList.remove('text-primary');
             document.getElementById("capinput").classList.remove('text-danger');
+            document.getElementById("capinput").classList.remove('text-primary');
 
             if (isNaN(cap_target) || volume_in_gb < min_vol_capacity || volume_in_gb > max_vol_capacity) {
                 document.getElementById("capinput").style.borderColor = "red";
