@@ -195,9 +195,9 @@ function GetMap(){
             position: location,
             htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/calc/anficon.png'></div>",
             popup: new atlas.Popup({
-                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + longname + '</strong> (' + regionlist[index].shortname + ')<br>CRR Targets: ' + targetregions + '<br>Coordinates: ' + location + '</div>',
+                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + longname + '</strong> (' + regionlist[index].shortname + ')<br>CRR Targets: ' + targetregions + '<br>Coordinates: ' + location + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all">Microsoft</a></div>',
                 pixelOffset: [0, -50],
-                fillColor: 'rgba(0,0,0,0.8)'
+                fillColor: 'rgba(0,0,0,0.6)'
             })
         });
         map.markers.add(window[regionlist[index].shortname]);
