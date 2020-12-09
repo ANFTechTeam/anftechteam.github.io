@@ -298,9 +298,9 @@
                             document.getElementById("tput_ultra_cell").innerText = ultra_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("iops_ultra_cell").innerText = ((ultra_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
-                            document.getElementById("cost_standard_cell").innerText = standard_cost;
-                            document.getElementById("cost_premium_cell").innerText = premium_cost;
-                            document.getElementById("cost_ultra_cell").innerText = ultra_cost;
+                            document.getElementById("cost_standard_cell").innerText = standard_cost*discount_percent;
+                            document.getElementById("cost_premium_cell").innerText = premium_cost*discount_percent;
+                            document.getElementById("cost_ultra_cell").innerText = ultra_cost*discount_percent;
                         } 
                         standard_size_needed = (tput_target / standard_tputpertib) * 1024;
                         premium_size_needed = (tput_target / premium_tputpertib) * 1024;
@@ -338,7 +338,7 @@
                             document.getElementById("size_standard_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_standard_cell").innerText = ((min_vol_capacity / 1024) * standard_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("iops_standard_cell").innerText = ((((min_vol_capacity / 1024) * standard_tputpertib) * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("cost_standard_cell").innerText = (min_vol_capacity * (standard_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_standard_cell").innerText = (min_pool_capacity * 1024 * (standard_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_standard_cell").innerText = standard_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -360,7 +360,7 @@
                                 document.getElementById("tput_standard_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                                 document.getElementById("iops_standard_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
-                            document.getElementById("cost_standard_cell").innerText = (standard_size_needed * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("cost_standard_cell").innerText = (standard_size_needed * (standard_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             
                         }
                         if (premium_size_needed > max_vol_capacity) {
@@ -374,7 +374,7 @@
                             document.getElementById("size_premium_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_premium_cell").innerText = ((min_vol_capacity / 1024) * premium_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("iops_premium_cell").innerText = ((((min_vol_capacity / 1024) * premium_tputpertib) * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("cost_premium_cell").innerText = (min_vol_capacity * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("cost_premium_cell").innerText = (min_vol_capacity * (premium_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_premium_cell").innerText = (min_pool_capacity * 1024 * (premium_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_premium_cell").innerText = premium_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -396,7 +396,7 @@
                                 document.getElementById("tput_premium_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                                 document.getElementById("iops_premium_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
-                            document.getElementById("cost_premium_cell").innerText = (premium_size_needed * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("cost_premium_cell").innerText = (premium_size_needed * (premium_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         }
                         if (ultra_size_needed > max_vol_capacity) {
                             document.getElementById("size_ultra_cell").innerText = "n/a";
@@ -409,7 +409,7 @@
                             document.getElementById("size_ultra_cell").innerText = mincap_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("tput_ultra_cell").innerText = ((min_vol_capacity / 1024) * ultra_tputpertib).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("iops_ultra_cell").innerText = ((((min_vol_capacity / 1024) * ultra_tputpertib) * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                            document.getElementById("cost_ultra_cell").innerText = (min_vol_capacity * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("cost_ultra_cell").innerText = (min_vol_capacity * (ultra_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             document.getElementById("poolcost_ultra_cell").innerText = ((min_pool_capacity * 1024) * (ultra_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                         } else {
                             document.getElementById("size_ultra_cell").innerText = ultra_as_displayed.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -431,7 +431,7 @@
                                 document.getElementById("tput_ultra_cell").innerText = max_tput.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                                 document.getElementById("iops_ultra_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
-                            document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                            document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * (ultra_rate*discount_percent)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                          
                         }
                     }
