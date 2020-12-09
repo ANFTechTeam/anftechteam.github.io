@@ -103,7 +103,7 @@
                 max_iops = (max_tput * 1024) / iosize;
                 document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("iopslabel").innerText = "x 64KiB"
+                document.getElementById("iopslabel").innerText = "x64KiB"
                 if (tput_target > 0 && tput_target > max_tput) {
                     document.getElementById("tputinput").value = max_tput;
                     tput_target = max_tput;
