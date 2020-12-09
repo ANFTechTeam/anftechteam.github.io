@@ -50,6 +50,8 @@ function GetMap(){
         uaecentral: [54.366669, 24.466667],
         uksouth: [-0.799, 50.941],
         ukwest: [-3.084, 53.427],
+        usgovvirginia: [-78.39411, 37.623159],
+        usgovtexas: [-99.208076, 31.56443],
         westeurope: [4.9, 52.3667],
         westus: [-122.417, 37.783],
         westus2: [-119.852, 47.233]
@@ -162,6 +164,16 @@ function GetMap(){
             "longname": "UK West",
             "location": regionlocation.ukwest,
             "crrregions": ["uksouth"]
+        },
+        {
+            "shortname": "usgovvirginia",
+            "longname": "US Gov Virginia",
+            "location": regionlocation.usgovvirginia
+        },
+        {
+            "shortname": "usgovtexas",
+            "longname": "US Gov Texas",
+            "location": regionlocation.usgovtexas
         },
         {
             "shortname": "westeurope",
