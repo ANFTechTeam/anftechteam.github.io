@@ -41,6 +41,7 @@ function GetMap(){
         eastus: [-79.8164, 37.3719],
         eastus2: [-78.3889, 36.6681],
         germanywestcentral: [8.682127, 50.110924],
+        germanynorth: [8.806422, 53.073635],
         japaneast: [139.77, 35.68],
         japanwest: [135.5022, 34.6939],
         northeurope: [-6.2597, 53.3478],
@@ -111,6 +112,12 @@ function GetMap(){
             "longname": "Germany West Central",
             "location": regionlocation.germanywestcentral,
             "crrregions": ["uksouth"]
+        },
+        {
+            "shortname": "germanynorth",
+            "longname": "Germany North",
+            "location": regionlocation.germanynorth,
+            "crrregions": ["germanywestcentral"]
         },
         {
             "shortname": "japaneast",
