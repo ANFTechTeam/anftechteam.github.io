@@ -526,15 +526,31 @@
                                 document.getElementById("iops_ultra_cell").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                             }
                             document.getElementById("cost_ultra_cell").innerText = (ultra_size_needed * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                         
                         }
-                    }
                     }
                 }
             }
-    
+            if (parseFloat(document.getElementById("poolcost_standard_cell").innerText.replace(",", "")) < parseFloat(document.getElementById("poolcost_premium_cell").innerText.replace(",", "")) && parseFloat(document.getElementById("poolcost_standard_cell").innerText.replace(",", "")) < parseFloat(document.getElementById("poolcost_ultra_cell").innerText.replace(",", ""))) {
+                document.getElementById("poolcost_standard_cell").classList.add('table-success');
+                document.getElementById("poolcost_premium_cell").classList.remove('table-success');
+                document.getElementById("poolcost_ultra_cell").classList.remove('table-success');
+            }
+            if (parseFloat(document.getElementById("poolcost_premium_cell").innerText.replace(",", "")) < parseFloat(document.getElementById("poolcost_standard_cell").innerText.replace(",", "")) && parseFloat(document.getElementById("poolcost_premium_cell").innerText.replace(",", "")) < parseFloat(document.getElementById("poolcost_ultra_cell").innerText.replace(",", ""))) {
+                document.getElementById("poolcost_standard_cell").classList.remove('table-success');
+                document.getElementById("poolcost_premium_cell").classList.add('table-success');
+                document.getElementById("poolcost_ultra_cell").classList.remove('table-success');
+            }
+            if (parseFloat(document.getElementById("poolcost_ultra_cell").innerText.replace(",", "")) < parseFloat(document.getElementById("poolcost_standard_cell").innerText.replace(",", "")) && parseFloat(document.getElementById("poolcost_ultra_cell").innerText.replace(",", "")) < parseFloat(document.getElementById("poolcost_premium_cell").innerText.replace(",", ""))) {
+                document.getElementById("poolcost_standard_cell").classList.remove('table-success');
+                document.getElementById("poolcost_premium_cell").classList.remove('table-success');
+                document.getElementById("poolcost_ultra_cell").classList.add('table-success');
+            }
+        }
     </script>
 </head>
+
+
+<!-- class="table-success" -->
 
 <body onload="getResults()">
     <!-- Optional JavaScript -->
@@ -766,10 +782,10 @@
                     
                     </div>
                   
-
-
-
-                    <small>The 'Capacity Pool Cost' is the amount you will be charged. The 'Volume Show Back' amount is for show back purposes only.</small>
+                    <small class="text-primary">Blue text indicates volume is sized for throughput.</small></br>
+                    <small class="text-success">Green cell indicates least expensive tier for the specified requirements.</small></br>
+                    <small>The 'Capacity Pool Cost' is the amount you will be charged. The 'Volume Show Back' amount is for show back purposes only.</small></br>
+                    <small>Monthly costs are based on a 744 hour billing month.</small></br>
                 </div>
             </div>
             <div class="card-footer">
@@ -784,12 +800,6 @@
         </div>
     </div>
   
-
-
-    
-    
-
-
 
 </body>
 <script>
