@@ -111,7 +111,7 @@ function GetMap(){
             "shortname": "germanywestcentral",
             "longname": "Germany West Central",
             "location": regionlocation.germanywestcentral,
-            "crrregions": ["uksouth"]
+            "crrregions": ["uksouth","germanynorth"]
         },
         {
             "shortname": "germanynorth",
