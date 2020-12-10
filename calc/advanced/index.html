@@ -169,10 +169,6 @@
             discount_percent = (100 - document.getElementById("discountinput").value) / 100;
             active_region = document.getElementById("regionselector").value
 
-            standard_rate = 0.14746 * discount_percent;
-            premium_rate = 0.29419 * discount_percent;
-            ultra_rate = 0.39274 * discount_percent;
-
             standard_rate = standard_region_rates[active_region] * discount_percent;
             premium_rate = premium_region_rates[active_region] * discount_percent;
             ultra_rate = ultra_region_rates[active_region] * discount_percent;
@@ -193,7 +189,7 @@
                 max_iops = (max_tput * 1024) / iosize;
                 document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("iopslabel").innerText = "x64KiB"
+                //document.getElementById("iopslabel").innerText = "x64KiB"
                 if (tput_target > 0 && tput_target > max_tput) {
                     document.getElementById("tputinput").value = max_tput;
                     tput_target = max_tput;
@@ -209,7 +205,7 @@
                 max_iops = (max_tput * 1024) / iosize;
                 document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("iopslabel").innerText = "x8KiB"
+                //document.getElementById("iopslabel").innerText = "x8KiB"
                 if (tput_target > 0 && tput_target > max_tput) {
                     document.getElementById("tputinput").value = max_tput;
                     tput_target = max_tput;
@@ -225,7 +221,7 @@
                 max_iops = (max_tput * 1024) / iosize;
                 document.getElementById("maxtputnote").innerText = max_tput.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("maxiopsnote").innerText = ((max_tput * 1024) / iosize).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("iopslabel").innerText = "x4KiB"
+                //document.getElementById("iopslabel").innerText = "x4KiB"
                 if (tput_target > 0 && tput_target > max_tput) {
                     document.getElementById("tputinput").value = max_tput;
                     tput_target = max_tput;
@@ -259,6 +255,10 @@
                 document.getElementById("tput_premium_cell").innerText = "";
                 document.getElementById("tput_ultra_cell").innerText = "";
 
+                document.getElementById("iops_standard_cell").innerText = "";
+                document.getElementById("iops_premium_cell").innerText = "";
+                document.getElementById("iops_ultra_cell").innerText = "";
+
                 document.getElementById("poolcost_standard_cell").innerText = "";
                 document.getElementById("poolcost_premium_cell").innerText = "";
                 document.getElementById("poolcost_ultra_cell").innerText = "";
@@ -283,10 +283,13 @@
                         document.getElementById("poolsize_premium_cell").innerText = "";
                         document.getElementById("poolsize_ultra_cell").innerText = "";
 
-
                         document.getElementById("tput_standard_cell").innerText = "";
                         document.getElementById("tput_premium_cell").innerText = "";
                         document.getElementById("tput_ultra_cell").innerText = "";
+
+                        document.getElementById("iops_standard_cell").innerText = "";
+                        document.getElementById("iops_premium_cell").innerText = "";
+                        document.getElementById("iops_ultra_cell").innerText = "";
 
                         document.getElementById("poolcost_standard_cell").innerText = "";
                         document.getElementById("poolcost_premium_cell").innerText = "";
@@ -312,10 +315,13 @@
                             document.getElementById("poolsize_premium_cell").innerText = "";
                             document.getElementById("poolsize_ultra_cell").innerText = "";
 
-
                             document.getElementById("tput_standard_cell").innerText = "";
                             document.getElementById("tput_premium_cell").innerText = "";
                             document.getElementById("tput_ultra_cell").innerText = "";
+
+                            document.getElementById("iops_standard_cell").innerText = "";
+                            document.getElementById("iops_premium_cell").innerText = "";
+                            document.getElementById("iops_ultra_cell").innerText = "";
 
                             document.getElementById("poolcost_standard_cell").innerText = "";
                             document.getElementById("poolcost_premium_cell").innerText = "";
@@ -545,7 +551,7 @@
                 <div class="h5"><img src="anficon.png" class="float-left" height="40"></div>
                     <div class="float-left"><span class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/">basic</a>)</small></span></div>
                     
-                    <div class="float-right" class="input-group mb-3 btn">
+                    <div class="float-right" class="input-group mb-3">
                         <!--
                         <div class="float-left" class="input-group-prepend">
                           <label class="input-group-text" for="regionselector">Region</label>
@@ -576,50 +582,7 @@
                             <option value="Japan East">Japan East</option>
                             <option value="Japan West">Japan West</option>
                         </select>
-                      </div>
-                    
-
-
-                    
-                    <!--
-                    <div class="float-right" class="dropdown" class="align-top">
-                        <button oninput="getResults()" class="btn btn-primary dropdown-toggle" type="button" id="regionselector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          East US
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                          <button class="dropdown-item" type="button">Central US</button>
-                          <button class="dropdown-item" type="button">East US</button>
-                          <button class="dropdown-item" type="button">East US 2</button>
-                          <button class="dropdown-item" type="button">South Central US</button>
-                          <button class="dropdown-item" type="button">West US</button>
-                          <button class="dropdown-item" type="button">West US 2</button>
-                          <button class="dropdown-item" type="button">US Gov Virginia</button>
-                          <button class="dropdown-item" type="button">US Gov Texas</button>
-                          <button class="dropdown-item" type="button">Australia East</button>
-                          <button class="dropdown-item" type="button">Australia Southeast</button>
-                          <button class="dropdown-item" type="button">Canada Central</button>
-                          <button class="dropdown-item" type="button">Canada East</button>
-                          <button class="dropdown-item" type="button">North Europe</button>
-                          <button class="dropdown-item" type="button">West Europe</button>
-                          <button class="dropdown-item" type="button">Germany West Central</button>
-                          <button class="dropdown-item" type="button">UK South</button>
-                          <button class="dropdown-item" type="button">UK West</button>
-                          <button class="dropdown-item" type="button">UAE Central</button>
-                          <button class="dropdown-item" type="button">Central India</button>
-                          <button class="dropdown-item" type="button">South India</button>
-                          <button class="dropdown-item" type="button">Southeast Asia</button>
-                          <button class="dropdown-item" type="button">Japan East</button>
-                          <button class="dropdown-item" type="button">Japan West</button>
-
-                        </div>
-                      </div>
-                      -->
-
-
-
-
-
-                
+                    </div>          
             </div>
 
             
@@ -646,6 +609,7 @@
                     </div>
                 </div>
                 
+                <!--
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">I/O Size</span>
@@ -662,15 +626,10 @@
                           </label>
                     </div>
                 </div>
+                -->
 
 
-                <div class="clearfix no-gutter">
-                    <div style="padding: 0;" id="readtext" class="float-left no-gutter"></div>
-                    <div style="padding: 0;" id="writetext" class="float-right no-gutter"></div>
-                    <div style="padding: 5px 10px 10px 10px; border: 1px; border-color: black">    
-                        <input style="width: 100%; padding: 20px;" data-slider-id="myslider" id="ms" type="text" data-slider-ticks="[0,10,20,30,40,50,60,70,80,90,100]" data-slider-reversed="true" data-slider-min="0" data-slider-max="100" data-slider-step="10" data-slider-value="100"/>
-                    </div> 
-                </div>
+                
   
                                             
                       
@@ -686,19 +645,58 @@
                         </label>
                     </div>
                 </div>
+
+                <div class="clearfix no-gutter">
+                    <div style="padding: 0;" id="readtext" class="float-left no-gutter"></div>
+                    <div style="padding: 0;" id="writetext" class="float-right no-gutter"></div>
+                    <div style="padding: 5px 10px 10px 10px; border: 1px; border-color: black">    
+                        <input style="width: 100%; padding: 20px;" data-slider-id="myslider" id="ms" type="text" data-slider-ticks="[0,10,20,30,40,50,60,70,80,90,100]" data-slider-reversed="true" data-slider-min="0" data-slider-max="100" data-slider-step="10" data-slider-value="100"/>
+                    </div> 
+                </div>
+
+
+
                 <small id="iopswarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is <span id="maxiopsnote"></span> IOPS.</small>
+                
+                
+
+
+                
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">IOPS</span>
                     </div>
                     <input oninput="document.getElementById('tputinput').value='0'; getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="0" aria-label="iopsinput" aria-describedby="iopsinput" id="iopsinput"></input>
                     <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                        <!--
                         <label class="btn btn-outline-primary my-1">
                             <input onclick="getResults()" name="" type="radio" value="" id="" checked><span id="iopslabel">x64k</span></input>
+
                         </label>
+                        -->
+                        <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary my-1">
+                                <input onclick="getResults()" name="iosizeradio" type="radio" value="1" id="64k_seq" checked>64KiB Sequential</input>
+                            </label>
+                            <label class="btn btn-outline-primary my-1">
+                              <input onclick="getResults()" name="iosizeradio" type="radio" value="2" id="8k_ran">8KiB Random</input>
+                            </label>
+                            <label class="btn btn-outline-primary my-1">
+                                <input onclick="getResults()" name="iosizeradio" type="radio" value="3" id="4k_ran">4KiB Random</input>
+                              </label>
+                        </div>
+
+
+
                     </div>
                 </div>
                 
+               
+
+
+
+
+
                 <div id="tableout">
                     <table class='table-bordered table table-sm table-hover'>
                         <thead class='thead-light'>
