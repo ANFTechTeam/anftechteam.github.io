@@ -51,6 +51,7 @@ function GetMap(){
         uaecentral: [54.366669, 24.466667],
         uksouth: [-0.799, 50.941],
         ukwest: [-3.084, 53.427],
+        usgovarizona: [-111.7046, 34.42527],
         usgovvirginia: [-78.39411, 37.623159],
         usgovtexas: [-99.208076, 31.56443],
         westeurope: [4.9, 52.3667],
@@ -99,13 +100,13 @@ function GetMap(){
             "shortname": "eastus",
             "longname": "East US",
             "location": regionlocation.eastus,
-            "crrregions": ["westus","westus2","southcentralus"]
+            "crrregions": ["westus","westus2","southcentralus","eastus2"]
         },
         {
             "shortname": "eastus2",
             "longname": "East US 2",
             "location": regionlocation.eastus2,
-            "crrregions": ["southcentralus","centralus"]
+            "crrregions": ["southcentralus","centralus","eastus"]
         },
         {
             "shortname": "germanywestcentral",
