@@ -174,6 +174,11 @@ function GetMap(){
             "crrregions": ["uksouth"]
         },
         {
+            "shortname": "usgovarizona",
+            "longname": "US Gov Arizona",
+            "location": regionlocation.usgovarizona
+        },
+        {
             "shortname": "usgovvirginia",
             "longname": "US Gov Virginia",
             "location": regionlocation.usgovvirginia
