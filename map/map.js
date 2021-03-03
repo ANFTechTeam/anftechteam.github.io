@@ -106,7 +106,7 @@ function GetMap(){
             "shortname": "eastus2",
             "longname": "East US 2",
             "location": regionlocation.eastus2,
-            "crrregions": ["southcentralus","centralus","eastus"]
+            "crrregions": ["southcentralus","centralus","eastus","westus2"]
         },
         {
             "shortname": "germanywestcentral",
@@ -204,7 +204,7 @@ function GetMap(){
             "shortname": "westus2",
             "longname": "West US 2",
             "location": regionlocation.westus2,
-            "crrregions": ["eastus"]
+            "crrregions": ["eastus","eastus2"]
         }
     ];
 
