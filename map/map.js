@@ -34,6 +34,7 @@ function GetMap(){
     var regionlocation = {
         australiaeast: [151.2094, -33.86],
         australiasoutheast: [144.9631, -37.8136],
+        brazilsouth: [-46.633, -23.55],
         canadacentral: [-79.383, 43.653],
         canadaeast: [-71.217, 46.817],
         centralindia: [73.9197, 18.5822],
@@ -44,7 +45,10 @@ function GetMap(){
         germanynorth: [8.806422, 53.073635],
         japaneast: [139.77, 35.68],
         japanwest: [135.5022, 34.6939],
+        koreacentral: [126.9780, 37.5665],
         northeurope: [-6.2597, 53.3478],
+        norwayeast: [10.752245, 59.913868],
+        norwaywest: [ 5.733107, 58.969975],
         southcentralus: [-98.5, 29.4167],
         southindia: [80.1636, 12.9822],
         southeastasia: [103.833, 1.283],
@@ -71,6 +75,11 @@ function GetMap(){
             "longname": "Australia Southeast",
             "location": regionlocation.australiasoutheast,
             "crrregions": ["australiaeast"]
+        },
+        {
+            "shortname": "brazilsouth",
+            "longname": "Brazil South",
+            "location": regionlocation.brazilsouth
         },
         {
             "shortname": "canadacentral",
@@ -133,10 +142,25 @@ function GetMap(){
             "crrregions": ["japaneast"]
         },
         {
+            "shortname": "koreacentral",
+            "longname": "Korea Central",
+            "location": regionlocation.koreacentral
+        },
+        {
             "shortname": "northeurope",
             "longname": "North Europe",
             "location": regionlocation.northeurope,
             "crrregions": ["westeurope"]
+        },
+        {
+            "shortname": "norwayeast",
+            "longname": "Norway East",
+            "location": regionlocation.norwayeast
+        },
+        {
+            "shortname": "norwaywest",
+            "longname": "Norway West",
+            "location": regionlocation.norwaywest
         },
         {
             "shortname": "southcentralus",
