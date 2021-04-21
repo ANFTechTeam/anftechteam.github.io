@@ -119,7 +119,7 @@ function GetMap(){
             "crrregions": ["southcentralus","centralus","eastus","westus2"]
         },
         {
-            "shortname": "francecentral2",
+            "shortname": "francecentral",
             "longname": "France Central",
             "location": regionlocation.francecentral,
             "crrregions": []
