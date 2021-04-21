@@ -41,6 +41,7 @@ function GetMap(){
         centralus: [-93.6208, 41.5908],
         eastus: [-79.8164, 37.3719],
         eastus2: [-78.3889, 36.6681],
+        francecentral: [2.3730, 46.3772],
         germanywestcentral: [8.682127, 50.110924],
         germanynorth: [8.806422, 53.073635],
         japaneast: [139.77, 35.68],
@@ -116,6 +117,12 @@ function GetMap(){
             "longname": "East US 2",
             "location": regionlocation.eastus2,
             "crrregions": ["southcentralus","centralus","eastus","westus2"]
+        },
+        {
+            "shortname": "francecentral2",
+            "longname": "France Central",
+            "location": regionlocation.francecentral,
+            "crrregions": []
         },
         {
             "shortname": "germanywestcentral",
