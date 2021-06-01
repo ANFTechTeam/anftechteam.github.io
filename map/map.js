@@ -54,6 +54,7 @@ function GetMap(){
         southindia: [80.1636, 12.9822],
         southeastasia: [103.833, 1.283],
         uaecentral: [54.366669, 24.466667],
+        uaenorth: [55.316666, 25.266666],
         uksouth: [-0.799, 50.941],
         ukwest: [-3.084, 53.427],
         usgovarizona: [-111.7046, 34.42527],
@@ -191,6 +192,11 @@ function GetMap(){
             "shortname": "uaecentral",
             "longname": "UAE Central",
             "location": regionlocation.uaecentral
+        },
+        {
+            "shortname": "uaenorth",
+            "longname": "UAE North",
+            "location": regionlocation.uaenorth
         },
         {
             "shortname": "uksouth",
