@@ -4,7 +4,7 @@ function GetMap(){
 
     //Initialize a map instance.
     var map = new atlas.Map('map', {
-        center: [-90, 40],
+        center: [0, 0],
         zoom: 0,
         renderWorldCopies: true, 
         view: "Auto",
