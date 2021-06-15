@@ -33,6 +33,7 @@ function GetMap(){
 
     var regionlocation = {
         australiaeast: [151.2094, -33.86],
+        australiacentral: [149.1244, -35.3075],
         australiasoutheast: [144.9631, -37.8136],
         brazilsouth: [-46.633, -23.55],
         canadacentral: [-79.383, 43.653],
@@ -71,6 +72,12 @@ function GetMap(){
             "longname": "Australia East",
             "location": regionlocation.australiaeast,
             "crrregions": ["australiasoutheast","southeastasia"]
+        },
+        {
+            "shortname": "australiacentral",
+            "longname": "Australia Central",
+            "location": regionlocation.australiacentral,
+            "crrregions": []
         },
         {
             "shortname": "australiasoutheast",
