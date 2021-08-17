@@ -204,12 +204,14 @@ function GetMap(){
         {
             "shortname": "uaecentral",
             "longname": "UAE Central",
-            "location": regionlocation.uaecentral
+            "location": regionlocation.uaecentral,
+            "crrregions": ["uaenorth"]
         },
         {
             "shortname": "uaenorth",
             "longname": "UAE North",
-            "location": regionlocation.uaenorth
+            "location": regionlocation.uaenorth,
+            "crrregions": ["uaecentral"]
         },
         {
             "shortname": "uksouth",
