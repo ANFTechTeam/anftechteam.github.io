@@ -48,6 +48,7 @@ function GetMap(){
         japaneast: [139.77, 35.68],
         japanwest: [135.5022, 34.6939],
         koreacentral: [126.9780, 37.5665],
+        northcentralus: [-87.6278, 41.8819],
         northeurope: [-6.2597, 53.3478],
         norwayeast: [10.752245, 59.913868],
         norwaywest: [ 5.733107, 58.969975],
@@ -160,6 +161,11 @@ function GetMap(){
             "shortname": "koreacentral",
             "longname": "Korea Central",
             "location": regionlocation.koreacentral
+        },
+        {
+            "shortname": "northcentralus",
+            "longname": "North Central US",
+            "location": regionlocation.northcentralus,
         },
         {
             "shortname": "northeurope",
