@@ -131,13 +131,13 @@ function GetMap(){
             "shortname": "francecentral",
             "longname": "France Central",
             "location": regionlocation.francecentral,
-            "crrregions": []
+            "crrregions": ["germanywestcentral"]
         },
         {
             "shortname": "germanywestcentral",
             "longname": "Germany West Central",
             "location": regionlocation.germanywestcentral,
-            "crrregions": ["uksouth","germanynorth","westeurope"]
+            "crrregions": ["uksouth","germanynorth","westeurope","francecentral"]
         },
         {
             "shortname": "germanynorth",
@@ -176,12 +176,14 @@ function GetMap(){
         {
             "shortname": "norwayeast",
             "longname": "Norway East",
-            "location": regionlocation.norwayeast
+            "location": regionlocation.norwayeast,
+            "crrregions": ["norwaywest"]
         },
         {
             "shortname": "norwaywest",
             "longname": "Norway West",
-            "location": regionlocation.norwaywest
+            "location": regionlocation.norwaywest,
+            "crrregions": ["norwayeast"]
         },
         {
             "shortname": "southcentralus",
