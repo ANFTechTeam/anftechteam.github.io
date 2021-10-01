@@ -55,6 +55,8 @@ function GetMap(){
         southcentralus: [-98.5, 29.4167],
         southindia: [80.1636, 12.9822],
         southeastasia: [103.833, 1.283],
+        switzerlandnorth: [8.564572,47.451542],
+        switzerlandwest: [6.143158,46.204391],
         uaecentral: [54.366669, 24.466667],
         uaenorth: [55.316666, 25.266666],
         uksouth: [-0.799, 50.941],
@@ -204,6 +206,18 @@ function GetMap(){
             "crrregions": ["australiaeast"]
         },
         {
+            "shortname": "switzerlandnorth",
+            "longname": "Switzerland North",
+            "location": regionlocation.switzerlandnorth,
+            "crrregions": []
+        },
+        {
+            "shortname": "switzerlandwest",
+            "longname": "Switzerland West",
+            "location": regionlocation.switzerlandwest,
+            "crrregions": []
+        },
+        {
             "shortname": "uaecentral",
             "longname": "UAE Central",
             "location": regionlocation.uaecentral,
@@ -235,12 +249,14 @@ function GetMap(){
         {
             "shortname": "usgovvirginia",
             "longname": "US Gov Virginia",
-            "location": regionlocation.usgovvirginia
+            "location": regionlocation.usgovvirginia,
+            "crrregions": ["usgovtexas"]
         },
         {
             "shortname": "usgovtexas",
             "longname": "US Gov Texas",
-            "location": regionlocation.usgovtexas
+            "location": regionlocation.usgovtexas,
+            "crrregions": ["usgovvirginia"]
         },
         {
             "shortname": "westeurope",
