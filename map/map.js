@@ -40,6 +40,7 @@ function GetMap(){
         canadaeast: [-71.217, 46.817],
         centralindia: [73.9197, 18.5822],
         centralus: [-93.6208, 41.5908],
+        eastasia: [114.188, 22.267],
         eastus: [-79.8164, 37.3719],
         eastus2: [-78.3889, 36.6681],
         francecentral: [2.3730, 46.3772],
@@ -118,6 +119,12 @@ function GetMap(){
             "crrregions": ["southcentralus","eastus2"]
         },
         {
+            "shortname": "eastasia",
+            "longname": "East Asia",
+            "location": regionlocation.eastasia,
+            "crrregions": []
+        },
+        {
             "shortname": "eastus",
             "longname": "East US",
             "location": regionlocation.eastus,
@@ -168,6 +175,7 @@ function GetMap(){
             "shortname": "northcentralus",
             "longname": "North Central US",
             "location": regionlocation.northcentralus,
+            "crrregions": ["southcentralus"]
         },
         {
             "shortname": "northeurope",
@@ -191,7 +199,7 @@ function GetMap(){
             "shortname": "southcentralus",
             "longname": "South Central US",
             "location": regionlocation.southcentralus,
-            "crrregions": ["centralus","eastus","eastus2"]
+            "crrregions": ["centralus","eastus","eastus2","northcentralus"]
         },
         {
             "shortname": "southindia",
