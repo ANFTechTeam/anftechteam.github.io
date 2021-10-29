@@ -122,7 +122,7 @@ function GetMap(){
             "shortname": "eastasia",
             "longname": "East Asia",
             "location": regionlocation.eastasia,
-            "crrregions": []
+            "crrregions": ["southeastasia"]
         },
         {
             "shortname": "eastus",
@@ -211,19 +211,19 @@ function GetMap(){
             "shortname": "southeastasia",
             "longname": "Southeast Asia",
             "location": regionlocation.southeastasia,
-            "crrregions": ["australiaeast"]
+            "crrregions": ["australiaeast","eastasia"]
         },
         {
             "shortname": "switzerlandnorth",
             "longname": "Switzerland North",
             "location": regionlocation.switzerlandnorth,
-            "crrregions": []
+            "crrregions": ["switzerlandwest"]
         },
         {
             "shortname": "switzerlandwest",
             "longname": "Switzerland West",
             "location": regionlocation.switzerlandwest,
-            "crrregions": []
+            "crrregions": ["switzerlandnorth"]
         },
         {
             "shortname": "uaecentral",
@@ -252,19 +252,20 @@ function GetMap(){
         {
             "shortname": "usgovarizona",
             "longname": "US Gov Arizona",
-            "location": regionlocation.usgovarizona
+            "location": regionlocation.usgovarizona,
+            "crrregions": ["usgovtexas","usgovvirginia"]
         },
         {
             "shortname": "usgovvirginia",
             "longname": "US Gov Virginia",
             "location": regionlocation.usgovvirginia,
-            "crrregions": ["usgovtexas"]
+            "crrregions": ["usgovtexas","usgovarizona"]
         },
         {
             "shortname": "usgovtexas",
             "longname": "US Gov Texas",
             "location": regionlocation.usgovtexas,
-            "crrregions": ["usgovvirginia"]
+            "crrregions": ["usgovvirginia","usgovarizona"]
         },
         {
             "shortname": "westeurope",
