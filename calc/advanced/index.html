@@ -27,9 +27,10 @@
 
         function getResults() {
 
-            standard_rate = 0.14746;
-            premium_rate = 0.29419;
-            ultra_rate = 0.39274;
+            month_hours = 730;
+            standard_rate = 0.000202 * month_hours;
+            premium_rate = 0.000403 * month_hours;
+            ultra_rate = 0.000538 * month_hours;
             standard_tputpertib = 16;
             premium_tputpertib = 64;
             ultra_tputpertib = 128;
@@ -41,81 +42,177 @@
             discount_percent = 0;
             
             var standard_region_rates = {
-                "Central US": 0.14746,
-                "East US": 0.14746,
-                "East US 2": 0.14746,
-                "South Central US": 0.14746,
-                "West US": 0.14746,
-                "West US 2": 0.14746,
-                "US Gov Virginia": 0.18396,
-                "US Gov Texas": 0.18396,
-                "Canada Central": 0.16279,
-                "Canada East": 0.17739,
-                "North Europe": 0.14746,
-                "West Europe": 0.14746,
-                "Germany West Central": 0.17739,
-                "UK South": 0.16206,
-                "UK West": 0.16206,
-                "UAE Central": 0.23068,
-                "Central India": 0.16279,
-                "South India": 0.20805,
-                "Southeast Asia": 0.14746,
-                "Australia East": 0.16279,
-                "Australia Southeast": 0.19199,
-                "Japan East": 0.17666,
-                "Japan West": 0.22922
+                "Central US": 0.000202 * month_hours,
+                "East US": 0.000202 * month_hours,
+                "East US 2": 0.000202 * month_hours,
+                "North Central US": 0.000242 * month_hours,
+                "South Central US": 0.000202 * month_hours,
+                "West US": 0.000202 * month_hours,
+                "West US 2": 0.000202 * month_hours,
+                "West US 3": 0.000202 * month_hours,
+
+                "US Gov Arizona": 0.000243 * month_hours,
+                "US Gov Virginia": 0.000252 * month_hours,
+                "US Gov Texas": 0.000252 * month_hours,
+            
+                "UK South": 0.000222 * month_hours,
+                "UK West": 0.000222 * month_hours,
+
+                "UAE Central": 0.000316 * month_hours,
+                "UAE North": 0.000288 * month_hours,
+
+                "Switzerland North": 0.000222 * month_hours,
+                "Switzerland West": 0.000289 * month_hours,
+
+                "Sweden Central": 0.000202 * month_hours,
+                "Sweden South": 0.000263 * month_hours,
+
+                "Norway East": 0.000315 * month_hours,
+                "Norway West": 0.000315 * month_hours,
+
+                "Korea Central": 0.000272 * month_hours,
+
+                "Japan East": 0.000242 * month_hours,
+                "Japan West": 0.000314 * month_hours,
+
+                "Central India": 0.000223 * month_hours,
+                "South India": 0.000285 * month_hours,
+
+                "Germany North": 0.000324 * month_hours,
+                "Germany West Central": 0.000243 * month_hours,
+
+                "France Central": 0.000252 * month_hours,
+
+                "North Europe": 0.000202 * month_hours,
+                "West Europe": 0.000202 * month_hours,
+
+                "Canada Central": 0.000223 * month_hours,
+                "Canada East": 0.000243 * month_hours,
+              
+                "Brazil South": 0.000403 * month_hours,
+                
+                "Australia Central": 0.000292 * month_hours,
+                "Australia East": 0.000223 * month_hours,
+                "Australia Southeast": 0.000263 * month_hours,
+
+                "East Asia": 0.000312 * month_hours,
+                "Southeast Asia": 0.000202 * month_hours
             };
 
             var premium_region_rates = {
-                "Central US": 0.29419,
-                "East US": 0.29419,
-                "East US 2": 0.29419,
-                "South Central US": 0.29419,
-                "West US": 0.29419,
-                "West US 2": 0.29419,
-                "US Gov Virginia": 0.36792,
-                "US Gov Texas": 0.36792,
-                "Canada Central": 0.32412,
-                "Canada East": 0.35332,
-                "North Europe": 0.29419,
-                "West Europe": 0.29419,
-                "Germany West Central": 0.35332,
-                "UK South": 0.32339,
-                "UK West": 0.32339,
-                "UAE Central": 0.45917,
-                "Central India": 0.32412,
-                "South India": 0.41537,
-                "Southeast Asia": 0.29419,
-                "Australia East": 0.32412,
-                "Australia Southeast": 0.38252,
-                "Japan East": 0.35259,
-                "Japan West": 0.45625
+                "Central US": 0.000403 * month_hours,
+                "East US": 0.000403 * month_hours,
+                "East US 2": 0.000403 * month_hours,
+                "North Central US": 0.000484 * month_hours,
+                "South Central US": 0.000403 * month_hours,
+                "West US": 0.000403 * month_hours,
+                "West US 2": 0.000403 * month_hours,
+                "West US 3": 0.000403 * month_hours,
+
+                "US Gov Arizona": 0.000484 * month_hours,
+                "US Gov Virginia": 0.000504 * month_hours,
+                "US Gov Texas": 0.000504 * month_hours,
+            
+                "UK South": 0.000443 * month_hours,
+                "UK West": 0.000443 * month_hours,
+
+                "UAE Central": 0.000629 * month_hours,
+                "UAE North": 0.000577 * month_hours,
+
+                "Switzerland North": 0.000443 * month_hours,
+                "Switzerland West": 0.000576 * month_hours,
+
+                "Sweden Central": 0.000403 * month_hours,
+                "Sweden South": 0.000524 * month_hours,
+
+                "Norway East": 0.000629 * month_hours,
+                "Norway West": 0.000629 * month_hours,
+
+                "Korea Central": 0.000544 * month_hours,
+
+                "Japan East": 0.000483 * month_hours,
+                "Japan West": 0.000625 * month_hours,
+
+                "Central India": 0.000444 * month_hours,
+                "South India": 0.000569 * month_hours,
+
+                "Germany North": 0.000645 * month_hours,
+                "Germany West Central": 0.000484 * month_hours,
+
+                "France Central": 0.000504 * month_hours,
+
+                "North Europe": 0.000403 * month_hours,
+                "West Europe": 0.000403 * month_hours,
+
+                "Canada Central": 0.000444 * month_hours,
+                "Canada East": 0.000484 * month_hours,
+              
+                "Brazil South": 0.000806 * month_hours,
+                
+                "Australia Central": 0.000585 * month_hours,
+                "Australia East": 0.000444 * month_hours,
+                "Australia Southeast": 0.000524 * month_hours,
+
+                "East Asia": 0.000625 * month_hours,
+                "Southeast Asia": 0.000403 * month_hours
             };
 
             var ultra_region_rates = {
-                "Central US": 0.36792,
-                "East US": 0.36792,
-                "East US 2": 0.36792,
-                "South Central US": 0.36792,
-                "West US": 0.36792,
-                "West US 2": 0.36792,
-                "US Gov Virginia": 0.49056,
-                "US Gov Texas": 0.49129,
-                "Canada Central": 0.43216,
-                "Canada East": 0.47158,
-                "North Europe": 0.39274,
-                "West Europe": 0.39274,
-                "Germany West Central": 0.47158,
-                "UK South": 0.43143,
-                "UK West": 0.43143,
-                "UAE Central": 0.6132,
-                "Central India": 0.43216,
-                "South India": 0.55407,
-                "Southeast Asia": 0.39274,
-                "Australia East": 0.43143,
-                "Australia Southeast": 0.511,
-                "Japan East": 0.47085,
-                "Japan West": 0.60882
+                "Central US": 0.000538 * month_hours,
+                "East US": 0.000538 * month_hours,
+                "East US 2": 0.000538 * month_hours,
+                "North Central US": 0.000646 * month_hours,
+                "South Central US": 0.000538 * month_hours,
+                "West US": 0.000538 * month_hours,
+                "West US 2": 0.000538 * month_hours,
+                "West US 3": 0.000538 * month_hours,
+
+                "US Gov Arizona": 0.000646 * month_hours,
+                "US Gov Virginia": 0.000672 * month_hours,
+                "US Gov Texas": 0.000673 * month_hours,
+            
+                "UK South": 0.000591 * month_hours,
+                "UK West": 0.000591 * month_hours,
+
+                "UAE Central": 0.000840 * month_hours,
+                "UAE North": 0.000769 * month_hours,
+
+                "Switzerland North": 0.000592 * month_hours,
+                "Switzerland West": 0.000770 * month_hours,
+
+                "Sweden Central": 0.000538 * month_hours,
+                "Sweden South": 0.000699 * month_hours,
+
+                "Norway East": 0.000839 * month_hours,
+                "Norway West": 0.000839 * month_hours,
+
+                "Korea Central": 0.000726 * month_hours,
+
+                "Japan East": 0.000645 * month_hours,
+                "Japan West": 0.000834 * month_hours,
+
+                "Central India": 0.000592 * month_hours,
+                "South India": 0.000759 * month_hours,
+
+                "Germany North": 0.000861 * month_hours,
+                "Germany West Central": 0.000646 * month_hours,
+
+                "France Central": 0.000673 * month_hours,
+
+                "North Europe": 0.000538 * month_hours,
+                "West Europe": 0.000538 * month_hours,
+
+                "Canada Central": 0.000592 * month_hours,
+                "Canada East": 0.000646 * month_hours,
+              
+                "Brazil South": 0.001080 * month_hours,
+                
+                "Australia Central": 0.000780 * month_hours,
+                "Australia East": 0.000591 * month_hours,
+                "Australia Southeast": 0.000700 * month_hours,
+
+                "East Asia": 0.000834 * month_hours,
+                "Southeast Asia": 0.000538 * month_hours
             };
 
             var max_tput64kseq = {
@@ -568,35 +665,61 @@
                     <div class="float-left"><span class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/">basic</a>)</small></span></div>
                     
                     <div class="float-right" class="input-group mb-3">
-                        <!--
-                        <div class="float-left" class="input-group-prepend">
-                          <label class="input-group-text" for="regionselector">Region</label>
-                        </div>
-                        -->
+                      
                         <select input oninput="getResults()" class="custom-select float-right" id="regionselector">
                             <option value="Central US">Central US</option>
                             <option value="East US" selected>East US</option>
                             <option value="East US 2">East US 2</option>
+                            <option value="North Central US">North Central US</option>
                             <option value="South Central US">South Central US</option>
                             <option value="West US">West US</option>
                             <option value="West US 2">West US 2</option>
+                            <option value="West US 3">West US 3</option>
+                            <option value="US Gov Arizona">US Gov Arizona</option>
                             <option value="US Gov Virginia">US Gov Virginia</option>
                             <option value="US Gov Texas">US Gov Texas</option>
-                            <option value="Australia East">Australia East</option>
-                            <option value="Australia Southeast">Australia Southeast</option>
-                            <option value="Canada Central">Canada Central</option>
-                            <option value="Canada East">Canada East</option>
-                            <option value="North Europe">North Europe</option>
-                            <option value="West Europe">West Europe</option>
-                            <option value="Germany West Central">Germany West Central</option>
                             <option value="UK South">UK South</option>
                             <option value="UK West">UK West</option>
+
                             <option value="UAE Central">UAE Central</option>
-                            <option value="Central India">Central India</option>
-                            <option value="South India">South India</option>
-                            <option value="Southeast Asia">Southeast Asia</option>
+                            <option value="UAE North">UAE North</option>
+
+                            <option value="Switzerland North">Switzerland North</option>
+                            <option value="Switzerland West">Switzerland West</option>
+
+                            <option value="Sweden Central">Sweden Central</option>
+                            <option value="Sweden South">Sweden South</option>
+
+                            <option value="Norway East">Norway East</option>
+                            <option value="Norway West">Norway West</option>
+
+                            <option value="Korea Central">Korea Central</option>
+
                             <option value="Japan East">Japan East</option>
                             <option value="Japan West">Japan West</option>
+
+                            <option value="Central India">Central India</option>
+                            <option value="South India">South India</option>
+
+                            <option value="Germany North">Germany North</option>
+                            <option value="Germany West Central">Germany West Central</option>
+
+                            <option value="France Central">France Central</option>
+
+                            <option value="North Europe">North Europe</option>
+                            <option value="West Europe">West Europe</option>
+
+                            <option value="Canada Central">Canada Central</option>
+                            <option value="Canada East">Canada East</option>
+
+                            <option value="Brazil South">Brazil South</option>
+
+                            <option value="Australia Central">Australia Central</option>
+                            <option value="Australia East">Australia East</option>
+                            <option value="Australia Southeast">Australia Southeast</option>
+                            
+                            <option value="East Asia">East Asia</option>
+                            <option value="Southeast Asia">Southeast Asia</option>
                         </select>
                     </div>          
             </div>
@@ -606,9 +729,6 @@
 
             <div class="card-body">
                 
-                
-
-
                 <small id="volumewarning" class="form-text text-muted">Minimum volume size is 100GiB. Maximum volume size is 100TiB.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -624,31 +744,7 @@
                         </label>
                     </div>
                 </div>
-                
-                <!--
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="my-1 input-group-text">I/O Size</span>
-                    </div>
-                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="iosizeradio" type="radio" value="1" id="64k_seq" checked>64KiB Sequential</input>
-                        </label>
-                        <label class="btn btn-outline-primary my-1">
-                          <input onclick="getResults()" name="iosizeradio" type="radio" value="2" id="8k_ran">8KiB Random</input>
-                        </label>
-                        <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="iosizeradio" type="radio" value="3" id="4k_ran">4KiB Random</input>
-                          </label>
-                    </div>
-                </div>
-                -->
-
-
-                
-  
-                                            
-                      
+               
                 <small id="tputwarning" class="form-text text-muted">Enter 0 to size for capacity only. Maximum throughput is <span id="maxtputnote"></span> MiB/s.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -785,7 +881,7 @@
                     <small class="text-primary">Blue text indicates volume is sized for throughput.</small></br>
                     <small class="text-success">Green cell indicates least expensive tier for the specified requirements.</small></br>
                     <small>The 'Capacity Pool Cost' is the amount you will be charged. The 'Volume Show Back' amount is for show back purposes only.</small></br>
-                    <small>Monthly costs are based on a 744 hour billing month.</small></br>
+                    <small>Monthly costs are based on a 730 hour billing month.</small></br>
                 </div>
             </div>
             <div class="card-footer">
@@ -796,7 +892,7 @@
         </div>
         
         <div class="text-right">
-            <small class="text-muted">&copy;Copyright 2020, <a href="https://github.com/seanluce">@seanluce :D</a></small>
+            <small class="text-muted">&copy;Copyright 2022, <a href="https://github.com/seanluce">@seanluce :D</a></small>
         </div>
     </div>
   
