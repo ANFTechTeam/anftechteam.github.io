@@ -67,7 +67,8 @@ function GetMap(){
         usgovtexas: [-99.208076, 31.56443],
         westeurope: [4.9, 52.3667],
         westus: [-122.417, 37.783],
-        westus2: [-119.852, 47.233]
+        westus2: [-119.852, 47.233],
+        westus3: [-112.074036, 33.448376]
     };
 
     var regionlist = [
@@ -92,7 +93,8 @@ function GetMap(){
         {
             "shortname": "brazilsouth",
             "longname": "Brazil South",
-            "location": regionlocation.brazilsouth
+            "location": regionlocation.brazilsouth,
+            "crrregions": ["southcentralus"]
         },
         {
             "shortname": "canadacentral",
@@ -284,6 +286,12 @@ function GetMap(){
             "longname": "West US 2",
             "location": regionlocation.westus2,
             "crrregions": ["eastus","eastus2"]
+        },
+        {
+            "shortname": "westus3",
+            "longname": "West US 3",
+            "location": regionlocation.westus3,
+            "crrregions": ["eastus"]
         }
     ];
 
