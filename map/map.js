@@ -34,6 +34,7 @@ function GetMap(){
     var regionlocation = {
         australiaeast: [151.2094, -33.86],
         australiacentral: [149.1244, -35.3075],
+        australiacentral2: [149.1244, -35.3075],
         australiasoutheast: [144.9631, -37.8136],
         brazilsouth: [-46.633, -23.55],
         canadacentral: [-79.383, 43.653],
@@ -82,6 +83,12 @@ function GetMap(){
             "shortname": "australiacentral",
             "longname": "Australia Central",
             "location": regionlocation.australiacentral,
+            "crrregions": []
+        },
+        {
+            "shortname": "australiacentral2",
+            "longname": "Australia Central",
+            "location": regionlocation.australiacentral2,
             "crrregions": []
         },
         {
@@ -307,7 +314,7 @@ function GetMap(){
             position: location,
             htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/calc/anficon.png'></div>",
             popup: new atlas.Popup({
-                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + longname + '</strong> (' + regionlist[index].shortname + ')<br>CRR Targets: ' + targetregions + '<br>Coordinates: ' + location + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all">Microsoft</a></div>',
+                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + longname + '</strong> (' + regionlist[index].shortname + ')<br>CRR Targets: ' + targetregions + '<br>Coordinates: ' + location + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
                 pixelOffset: [0, -50],
                 fillColor: 'rgba(0,0,0,0.6)'
             })
