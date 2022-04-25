@@ -23,6 +23,7 @@
     <title>Azure NetApp Files Performance Calculator</title>
     <script type="text/javascript">
         function getResults() {
+            month_hours = 730;
             standard_rate = 0.14746;
             premium_rate = 0.29419;
             ultra_rate = 0.39274;
@@ -35,13 +36,391 @@
             max_pool_capacity = 500;
             min_tput = 1.56;
             max_tput = 4500.00 * 1;
-            tenmin_rate = 0.175;
-            hourly_rate = 0.15;
-            dailyplus_rate = 0.138;
+            
+            var standard_region_rates = {
+                "Central US": 0.000202 * month_hours,
+                "East US": 0.000202 * month_hours,
+                "East US 2": 0.000202 * month_hours,
+                "North Central US": 0.000242 * month_hours,
+                "South Central US": 0.000202 * month_hours,
+                "West US": 0.000202 * month_hours,
+                "West US 2": 0.000202 * month_hours,
+                "West US 3": 0.000202 * month_hours,
+
+                "US Gov Arizona": 0.000243 * month_hours,
+                "US Gov Virginia": 0.000252 * month_hours,
+                "US Gov Texas": 0.000252 * month_hours,
+            
+                "UK South": 0.000222 * month_hours,
+                "UK West": 0.000222 * month_hours,
+
+                "UAE Central": 0.000316 * month_hours,
+                "UAE North": 0.000288 * month_hours,
+
+                "Switzerland North": 0.000222 * month_hours,
+                "Switzerland West": 0.000289 * month_hours,
+
+                "Sweden Central": 0.000202 * month_hours,
+                "Sweden South": 0.000263 * month_hours,
+
+                "Norway East": 0.000315 * month_hours,
+                "Norway West": 0.000315 * month_hours,
+
+                "Korea Central": 0.000272 * month_hours,
+
+                "Japan East": 0.000242 * month_hours,
+                "Japan West": 0.000314 * month_hours,
+
+                "Central India": 0.000223 * month_hours,
+                "South India": 0.000285 * month_hours,
+
+                "Germany North": 0.000324 * month_hours,
+                "Germany West Central": 0.000243 * month_hours,
+
+                "France Central": 0.000252 * month_hours,
+
+                "North Europe": 0.000202 * month_hours,
+                "West Europe": 0.000202 * month_hours,
+
+                "Canada Central": 0.000223 * month_hours,
+                "Canada East": 0.000243 * month_hours,
+              
+                "Brazil South": 0.000403 * month_hours,
+                
+                "Australia Central": 0.000292 * month_hours,
+                "Australia East": 0.000223 * month_hours,
+                "Australia Southeast": 0.000263 * month_hours,
+
+                "East Asia": 0.000312 * month_hours,
+                "Southeast Asia": 0.000202 * month_hours
+            };
+            var premium_region_rates = {
+                "Central US": 0.000403 * month_hours,
+                "East US": 0.000403 * month_hours,
+                "East US 2": 0.000403 * month_hours,
+                "North Central US": 0.000484 * month_hours,
+                "South Central US": 0.000403 * month_hours,
+                "West US": 0.000403 * month_hours,
+                "West US 2": 0.000403 * month_hours,
+                "West US 3": 0.000403 * month_hours,
+
+                "US Gov Arizona": 0.000484 * month_hours,
+                "US Gov Virginia": 0.000504 * month_hours,
+                "US Gov Texas": 0.000504 * month_hours,
+            
+                "UK South": 0.000443 * month_hours,
+                "UK West": 0.000443 * month_hours,
+
+                "UAE Central": 0.000629 * month_hours,
+                "UAE North": 0.000577 * month_hours,
+
+                "Switzerland North": 0.000443 * month_hours,
+                "Switzerland West": 0.000576 * month_hours,
+
+                "Sweden Central": 0.000403 * month_hours,
+                "Sweden South": 0.000524 * month_hours,
+
+                "Norway East": 0.000629 * month_hours,
+                "Norway West": 0.000629 * month_hours,
+
+                "Korea Central": 0.000544 * month_hours,
+
+                "Japan East": 0.000483 * month_hours,
+                "Japan West": 0.000625 * month_hours,
+
+                "Central India": 0.000444 * month_hours,
+                "South India": 0.000569 * month_hours,
+
+                "Germany North": 0.000645 * month_hours,
+                "Germany West Central": 0.000484 * month_hours,
+
+                "France Central": 0.000504 * month_hours,
+
+                "North Europe": 0.000403 * month_hours,
+                "West Europe": 0.000403 * month_hours,
+
+                "Canada Central": 0.000444 * month_hours,
+                "Canada East": 0.000484 * month_hours,
+              
+                "Brazil South": 0.000806 * month_hours,
+                
+                "Australia Central": 0.000585 * month_hours,
+                "Australia East": 0.000444 * month_hours,
+                "Australia Southeast": 0.000524 * month_hours,
+
+                "East Asia": 0.000625 * month_hours,
+                "Southeast Asia": 0.000403 * month_hours
+            };
+            var ultra_region_rates = {
+                "Central US": 0.000538 * month_hours,
+                "East US": 0.000538 * month_hours,
+                "East US 2": 0.000538 * month_hours,
+                "North Central US": 0.000646 * month_hours,
+                "South Central US": 0.000538 * month_hours,
+                "West US": 0.000538 * month_hours,
+                "West US 2": 0.000538 * month_hours,
+                "West US 3": 0.000538 * month_hours,
+
+                "US Gov Arizona": 0.000646 * month_hours,
+                "US Gov Virginia": 0.000672 * month_hours,
+                "US Gov Texas": 0.000673 * month_hours,
+            
+                "UK South": 0.000591 * month_hours,
+                "UK West": 0.000591 * month_hours,
+
+                "UAE Central": 0.000840 * month_hours,
+                "UAE North": 0.000769 * month_hours,
+
+                "Switzerland North": 0.000592 * month_hours,
+                "Switzerland West": 0.000770 * month_hours,
+
+                "Sweden Central": 0.000538 * month_hours,
+                "Sweden South": 0.000699 * month_hours,
+
+                "Norway East": 0.000839 * month_hours,
+                "Norway West": 0.000839 * month_hours,
+
+                "Korea Central": 0.000726 * month_hours,
+
+                "Japan East": 0.000645 * month_hours,
+                "Japan West": 0.000834 * month_hours,
+
+                "Central India": 0.000592 * month_hours,
+                "South India": 0.000759 * month_hours,
+
+                "Germany North": 0.000861 * month_hours,
+                "Germany West Central": 0.000646 * month_hours,
+
+                "France Central": 0.000673 * month_hours,
+
+                "North Europe": 0.000538 * month_hours,
+                "West Europe": 0.000538 * month_hours,
+
+                "Canada Central": 0.000592 * month_hours,
+                "Canada East": 0.000646 * month_hours,
+              
+                "Brazil South": 0.001080 * month_hours,
+                
+                "Australia Central": 0.000780 * month_hours,
+                "Australia East": 0.000591 * month_hours,
+                "Australia Southeast": 0.000700 * month_hours,
+
+                "East Asia": 0.000834 * month_hours,
+                "Southeast Asia": 0.000538 * month_hours
+            };
+
+            var tenmin_region_rates = {
+                "Central US": 0.172,
+                "East US": 0.14,
+                "East US 2": 0.14,
+                "North Central US": 0.168,
+                "South Central US": 0.168,
+                "West US": 0.182,
+                "West US 2": 0.14,
+                "West US 3": 0.14,
+                "UK South": 0.175,
+                "UK West": 0.183,
+                "UAE Central": 0.182,
+                "UAE North": 0.14,
+                "Switzerland West": 0.28392,
+                "Sweden Central": 0.14,
+                "Sweden South": 0.14,
+                "Norway East": 0.2,
+                "Norway West": 0.26,
+                "Korea South": 0.175,
+                "Japan East": 0.203,
+                "Japan West": 0.217,
+                "Central India": 0.196,
+                "Germany North": 0.195,
+                "Germany West Central": 0.182,
+                "France Central": 0.14,
+                "North Europe": 0.168,
+                "West Europe:": 0.182,
+                "Canada Central": 0.168,
+                "Canada East": 0.168,
+                "Brazil South": 0.28,
+                "US Gov Arizona": 0.14,
+                "US Gov Texas": 0.175,
+                "US Gov Virginia": 0.14,
+                "Australia Central": 0.203,
+                "Australia Central 2": 0.168,
+                "Australia East": 0.203,
+                "Australia Southeast": 0.196,
+                "East Asia": 0.217,
+            }
+
+            var hourly_region_rates = {
+                "Central US": 0.148,
+                "East US": 0.12,
+                "East US 2": 0.12,
+                "North Central US": 0.144,
+                "South Central US": 0.168,
+                "West US": 0.156,
+                "West US 2": 0.12,
+                "West US 3": 0.12,
+                "UK South": 0.15,
+                "UK West": 0.157,
+                "UAE Central": 0.156,
+                "UAE North": 0.12,
+                "Switzerland West": 0.24336,
+                "Sweden Central": 0.12,
+                "Sweden South": 0.12,
+                "Norway East": 0.172,
+                "Norway West": 0.223,
+                "Korea South": 0.15,
+                "Japan East": 0.174,
+                "Japan West": 0.186,
+                "Central India": 0.168,
+                "Germany North": 0.167,
+                "Germany West Central": 0.156,
+                "France Central": 0.12,
+                "North Europe": 0.144,
+                "West Europe:": 0.156,
+                "Canada Central": 0.144,
+                "Canada East": 0.144,
+                "Brazil South": 0.24,
+                "US Gov Arizona": 0.12,
+                "US Gov Texas": 0.15,
+                "US Gov Virginia": 0.12,
+                "Australia Central": 0.174,
+                "Australia Central 2": 0.144,
+                "Australia East": 0.174,
+                "Australia Southeast": 0.168,
+                "East Asia": 0.186,
+            }
+
+            var daily_region_rates = {
+                "Central US": 0.135,
+                "East US": 0.11,
+                "East US 2": 0.11,
+                "North Central US": 0.132,
+                "South Central US": 0.168,
+                "West US": 0.143,
+                "West US 2": 0.11,
+                "West US 3": 0.11,
+                "UK South": 0.138,
+                "UK West": 0.144,
+                "UAE Central": 0.143,
+                "UAE North": 0.11,
+                "Switzerland West": 0.22308,
+                "Sweden Central": 0.11,
+                "Sweden South": 0.11,
+                "Norway East": 0.157,
+                "Norway West": 0.205,
+                "Korea South": 0.138,
+                "Japan East": 0.16,
+                "Japan West": 0.171,
+                "Central India": 0.154,
+                "Germany North": 0.153,
+                "Germany West Central": 0.143,
+                "France Central": 0.11,
+                "North Europe": 0.132,
+                "West Europe:": 0.143,
+                "Canada Central": 0.132,
+                "Canada East": 0.132,
+                "Brazil South": 0.22,
+                "US Gov Arizona": 0.11,
+                "US Gov Texas": 0.138,
+                "US Gov Virginia": 0.11,
+                "Australia Central": 0.16,
+                "Australia Central 2": 0.132,
+                "Australia East": 0.16,
+                "Australia Southeast": 0.154,
+                "East Asia": 0.171,
+            }
+
+            var backup_region_backup = {
+                "Central US": 0.062,
+                "East US": 0.05,
+                "East US 2": 0.05,
+                "North Central US": 0.06,
+                "South Central US": 0.06,
+                "West Central US": 0.06,
+                "West US": 0.065,
+                "West US 2": 0.05,
+                "West US 3": 0.05,
+                "UK South": 0.063,
+                "UK West": 0.066,
+                "UAE North": 0.066,
+                "Switzerland North": 0.075,
+                "Switzerland West": 0.083,
+                "Norway East": 0.072,
+                "Norway West": 0.078,
+                "Korea Central": 0.068,
+                "Korea South": 0.063,
+                "Japan East": 0.073,
+                "Japan West": 0.078,
+                "South India": 0.076,
+                "Germany North": 0.070,
+                "Germany West Central": 0.065,
+                "France Central": 0.063,
+                "North Europe": 0.06,
+                "West Europe:": 0.065,
+                "Canada Central": 0.06,
+                "Canada East": 0.06,
+                "Brazil South": 0.10,
+                "Brazil Southeast": 0.115,
+                "US Gov Arizona": 0.063,
+                "US Gov Texas": 0.063,
+                "US Gov Virginia": 0.063,
+                "Australia Central": 0.073,
+                "Australia Central 2": 0.06,
+                "Australia East": 0.073,
+                "Australia Southeast": 0.07,
+                "Southeast Asia": 0.065,
+            }
+
+            var backup_region_restore = {
+                "Central US": 0.025,
+                "East US": 0.02,
+                "East US 2": 0.02,
+                "North Central US": 0.024,
+                "South Central US": 0.024,
+                "West Central US": 0.024,
+                "West US": 0.026,
+                "West US 2": 0.02,
+                "West US 3": 0.02,
+                "UK South": 0.025,
+                "UK West": 0.027,
+                "UAE North": 0.027,
+                "Switzerland North": 0.03,
+                "Switzerland West": 0.033,
+                "Norway East": 0.029,
+                "Norway West": 0.032,
+                "Korea Central": 0.027,
+                "Korea South": 0.025,
+                "Japan East": 0.029,
+                "Japan West": 0.031,
+                "South India": 0.031,
+                "Germany North": 0.028,
+                "Germany West Central": 0.026,
+                "France Central": 0.025,
+                "North Europe": 0.024,
+                "West Europe:": 0.026,
+                "Canada Central": 0.024,
+                "Canada East": 0.024,
+                "Brazil South": 0.04,
+                "Brazil Southeast": 0.046,
+                "US Gov Arizona": 0.025,
+                "US Gov Texas": 0.025,
+                "US Gov Virginia": 0.025,
+                "Australia Central": 0.029,
+                "Australia Central 2": 0.024,
+                "Australia East": 0.029,
+                "Australia Southeast": 0.028,
+                "Southeast Asia": 0.026,
+            }
 
             cap_target = document.getElementById("capinput").value;
             tput_target = document.getElementById("tputinput").value;
             change_rate = document.getElementById("changerate").value;
+            active_region = document.getElementById("regionselector").value
+
+            discount_percent = (100 - document.getElementById("discountinput").value) / 100;
+            
+            standard_rate = standard_region_rates[active_region] * discount_percent;
+            premium_rate = premium_region_rates[active_region] * discount_percent;
+            ultra_rate = ultra_region_rates[active_region] * discount_percent;
 
             if (document.getElementById('TiB').checked) {
                 volume_in_gb = cap_target * 1024; 
@@ -51,9 +430,21 @@
                 volume_in_gb = cap_target * 1;
             }
 
+            //CRR calculations
+            tenmin_rate = tenmin_region_rates[active_region] * discount_percent;
+            hourly_rate = hourly_region_rates[active_region] * discount_percent;
+            dailyplus_rate = daily_region_rates[active_region] * discount_percent;
+
+
+            //backup calculations
+            backup_rate = backup_region_backup[active_region] * discount_percent;
+            restore_rate = backup_region_restore[active_region] * discount_percent;
+            monthly_delta = (volume_in_gb * (change_rate / 100)) * 30
+
             if (isNaN(change_rate) || change_rate <= 0 || change_rate > 100) {
                 document.getElementById("destinationvolume").classList.add("d-none");
                 document.getElementById("replicationcost").classList.add("d-none");
+                document.getElementById("backupcost").classList.add("d-none");
                 document.getElementById("crrwarning").classList.remove('text-muted');
                 document.getElementById("crrwarning").classList.add('text-danger');
                 if (change_rate == 0) {
@@ -63,6 +454,7 @@
             } else {
                 document.getElementById("destinationvolume").classList.remove("d-none");
                 document.getElementById("replicationcost").classList.remove("d-none");
+                document.getElementById("backupcost").classList.remove("d-none");
                 document.getElementById("crrwarning").classList.remove('text-danger');
                 document.getElementById("crrwarning").classList.add('text-muted');
                 document.getElementById("init_10min_cell").innerText = (volume_in_gb * tenmin_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -74,6 +466,13 @@
                 document.getElementById("month1_10min_cell").innerText = ((volume_in_gb * tenmin_rate * .65) + ((((volume_in_gb * (change_rate/100)) * tenmin_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("month1_hourly_cell").innerText = ((volume_in_gb * hourly_rate * .65) + ((((volume_in_gb * (change_rate/100)) * hourly_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 document.getElementById("month1_daily_cell").innerText = ((volume_in_gb * dailyplus_rate * .65) +  ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                document.getElementById("init_bkup_daily_cell").innerText = (volume_in_gb * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
+                document.getElementById("init_bkup_weekly_cell").innerText = (volume_in_gb * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
+                document.getElementById("inc_bkup_daily_cell").innerText = (((monthly_delta / 30) * 30) * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
+                document.getElementById("inc_bkup_weekly_cell").innerText = (((monthly_delta / 30) * 4) * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
+                document.getElementById("month1_bkup_daily_cell").innerText = ((((monthly_delta / 30) * 30) * backup_rate) + (volume_in_gb * backup_rate)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
+                document.getElementById("month1_bkup_weekly_cell").innerText = ((((monthly_delta / 30) * 4) * backup_rate) + (volume_in_gb * backup_rate)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
+            
             }
 
             document.getElementById("size_standard_cell").classList.remove('text-primary');
@@ -458,9 +857,65 @@
         <div class="card">
             <div class="card-header">
                 <div class="h5"><img src="anficon.png" class="float-left" height="40"></div>
-                    <div class="align-center"><span class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span></div>
-                   
-                
+                    <div class="float-left"><span class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span></div>
+                    <div class="float-right" class="input-group mb-3">
+                      
+                        <select input oninput="getResults()" class="custom-select float-right" id="regionselector">
+                            <option value="Central US">Central US</option>
+                            <option value="East US" selected>East US</option>
+                            <option value="East US 2">East US 2</option>
+                            <option value="North Central US">North Central US</option>
+                            <option value="South Central US">South Central US</option>
+                            <option value="West US">West US</option>
+                            <option value="West US 2">West US 2</option>
+                            <option value="West US 3">West US 3</option>
+                            <option value="US Gov Arizona">US Gov Arizona</option>
+                            <option value="US Gov Virginia">US Gov Virginia</option>
+                            <option value="US Gov Texas">US Gov Texas</option>
+                            <option value="UK South">UK South</option>
+                            <option value="UK West">UK West</option>
+
+                            <option value="UAE Central">UAE Central</option>
+                            <option value="UAE North">UAE North</option>
+
+                            <option value="Switzerland North">Switzerland North</option>
+                            <option value="Switzerland West">Switzerland West</option>
+
+                            <option value="Sweden Central">Sweden Central</option>
+                            <option value="Sweden South">Sweden South</option>
+
+                            <option value="Norway East">Norway East</option>
+                            <option value="Norway West">Norway West</option>
+
+                            <option value="Korea Central">Korea Central</option>
+
+                            <option value="Japan East">Japan East</option>
+                            <option value="Japan West">Japan West</option>
+
+                            <option value="Central India">Central India</option>
+                            <option value="South India">South India</option>
+
+                            <option value="Germany North">Germany North</option>
+                            <option value="Germany West Central">Germany West Central</option>
+
+                            <option value="France Central">France Central</option>
+
+                            <option value="North Europe">North Europe</option>
+                            <option value="West Europe">West Europe</option>
+
+                            <option value="Canada Central">Canada Central</option>
+                            <option value="Canada East">Canada East</option>
+
+                            <option value="Brazil South">Brazil South</option>
+
+                            <option value="Australia Central">Australia Central</option>
+                            <option value="Australia East">Australia East</option>
+                            <option value="Australia Southeast">Australia Southeast</option>
+                            
+                            <option value="East Asia">East Asia</option>
+                            <option value="Southeast Asia">Southeast Asia</option>
+                        </select>
+                    </div>                 
             </div>
             <div class="card-body">
                 
@@ -491,7 +946,7 @@
                         </label>
                     </div>
                 </div>
-                <small id="crrwarning" class="form-text text-muted">Specify percent daily change rate (1 - 100) to calculate replication costs.</small>
+                <small id="crrwarning" class="form-text text-muted">Specify percent daily change rate (.1 - 100) to calculate replication and/or backup costs.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="my-1 input-group-text">Change Rate</span>
@@ -504,34 +959,7 @@
                     
                     </div>
                 </div>
-                <!-- <small id="poolwarning" class="form-text text-muted"></small>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="my-1 input-group-text">Read Percentage</span>
-                    </div>
-                    <input oninput="getResults()" type="number" step="10" max="100" min="0" class="my-1 mr-sm-1 form-control" placeholder="100" value="100" aria-label="Capacity Pool Size" aria-describedby="Capacity Pool Size" id="readpercent"></input>
-                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="poolsize" type="radio" value="TiB" id="pool" checked>%</input>
-                        </label>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="my-1 input-group-text">I/O Size</span>
-                    </div>
-                    <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="iosize" type="radio" value="1" id="GiB" checked>64k Sequential</input>
-                        </label>
-                        <label class="btn btn-outline-primary my-1">
-                          <input onclick="getResults()" name="iosize" type="radio" value="2" id="TiB">4k Random</input>
-                        </label>
-                        <label class="btn btn-outline-primary my-1">
-                            <input onclick="getResults()" name="iosize" type="radio" value="3" id="TiB">8k Random</input>
-                          </label>
-                    </div>
-                </div> -->
+                
                 <div id="tableout">
                     <table class='table-bordered table table-sm table-hover'>
                         <thead class='thead-light'>
@@ -616,10 +1044,10 @@
                     <table class='table-bordered table table-sm table-hover' id='replicationcost'>
                         <thead class='thead-light'>
                             <tr>
-                                <th class="align-top">Replication Frequency</th>
-                                <th>10 minutes<br><small class="text-muted">(0.14USD/GiB per month)</small></th>
-                                <th>hourly<br><small class="text-muted">(0.12USD/GiB per month)</small></th>
-                                <th>daily+<br><small class="text-muted">(0.11USD/GiB per month)</small></th>
+                                <th class="align-top">Replication Cost</th>
+                                <th>10 minutes<br><small class="text-muted"></small></th>
+                                <th>hourly<br><small class="text-muted"></small></th>
+                                <th>daily+<br><small class="text-muted"></small></th>
                             </tr>
                         </thead>
                             <tr>
@@ -643,11 +1071,58 @@
                       
                         
                     </table>
+
+                    <table class='table-bordered table table-sm table-hover' id='backupcost'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th class="align-top">Backup Cost</th>
+                                <th>daily (30x)<br><small class="text-muted"></small></th>
+                                <th>weekly (4x)<br><small class="text-muted"></small></th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td>Initial Backup Cost <small>(USD)</small></td>
+                                <td id="init_bkup_daily_cell"></td>
+                                <td id="init_bkup_weekly_cell"></td>
+                            </tr>
+                            <tr style="background-color: #e9ecef;">
+                                <td>Incremental Cost <small>(USD/month)</small></td>
+                                <td id="inc_bkup_daily_cell"></td>
+                                <td id="inc_bkup_weekly_cell"></td>
+                            </tr>
+                            <tr style="border-style: solid; border-color: #007bff;">
+                                <td>Backup Cost First Month <small>(USD/month)</small></td>
+                                <td id="month1_bkup_daily_cell"></td>
+                                <td id="month1_bkup_weekly_cell"></td>
+                            </tr>
+                      
+                        
+                    </table>
+
+
+
+                    <div class="input-group mb-3">
+
+     
+                        <div class="input-group-prepend">
+                            <span style="background-color: #ffa99f;" class="my-1 input-group-text">Discount</span>
+                        </div>
+                        <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="0" aria-label="Percent Discount" aria-describedby="Percent Discount" id="discountinput"></input>
+                        <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary my-1">
+                                <input onclick="getResults()" name="" type="radio" value="%" id="" checked>%</input>
+                            </label>
+                            
+                        </div>
+                        
+                        
+                    
+                    </div>
                     <small class="text-primary">Blue text indicates volume is sized for throughput.</small></br>
                     <small>The 'Capacity Pool Cost' is the amount you will be charged. The 'Volume Show Back' amount is for show back purposes only.</small></br>
                     <small>You can replicate between volumes of different service levels.</small></br>
                     <small>Replication transfer costs are based on a 35% storage efficiency rating.</small></br>
-                    <small>Monthly costs are based on a 744 hour billing month.</small></br>
+                    <small>Monthly costs are based on a 730 hour billing month.</small></br>
                 </div>
             </div>
             <div class="card-footer">
