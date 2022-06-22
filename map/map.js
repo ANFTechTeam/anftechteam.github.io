@@ -32,8 +32,9 @@ function GetMap(){
     map.sources.add(anfregions);
 
     var regionlocation = {
+        australiacentral: [149.1144, -35.3075],
+        australiacentral2: [149.1344, -35.3075],
         australiaeast: [151.2094, -33.86],
-        australiacentral: [149.1244, -35.3075],
         australiasoutheast: [144.9631, -37.8136],
         brazilsouth: [-46.633, -23.55],
         canadacentral: [-79.383, 43.653],
@@ -44,8 +45,8 @@ function GetMap(){
         eastus: [-79.8164, 37.3719],
         eastus2: [-78.3889, 36.6681],
         francecentral: [2.3730, 46.3772],
-        germanywestcentral: [8.682127, 50.110924],
         germanynorth: [8.806422, 53.073635],
+        germanywestcentral: [8.682127, 50.110924],
         japaneast: [139.77, 35.68],
         japanwest: [135.5022, 34.6939],
         koreacentral: [126.9780, 37.5665],
@@ -54,8 +55,8 @@ function GetMap(){
         norwayeast: [10.752245, 59.913868],
         norwaywest: [ 5.733107, 58.969975],
         southcentralus: [-98.5, 29.4167],
-        southindia: [80.1636, 12.9822],
         southeastasia: [103.833, 1.283],
+        southindia: [80.1636, 12.9822],
         switzerlandnorth: [8.564572,47.451542],
         switzerlandwest: [6.143158,46.204391],
         uaecentral: [54.366669, 24.466667],
@@ -73,16 +74,22 @@ function GetMap(){
 
     var regionlist = [
         {
+            "shortname": "australiacentral",
+            "longname": "Australia Central",
+            "location": regionlocation.australiacentral,
+            "crrregions": ["australiacentral2"]
+        },
+        {
+            "shortname": "australiacentral2",
+            "longname": "Australia Central 2",
+            "location": regionlocation.australiacentral2,
+            "crrregions": ["australiacentral"]
+        },
+        {
             "shortname": "australiaeast",
             "longname": "Australia East",
             "location": regionlocation.australiaeast,
             "crrregions": ["australiasoutheast","southeastasia"]
-        },
-        {
-            "shortname": "australiacentral, australiacentral2",
-            "longname": "Australia Central, Australia Central 2",
-            "location": regionlocation.australiacentral,
-            "crrregions": []
         },
         {
             "shortname": "australiasoutheast",
@@ -130,7 +137,7 @@ function GetMap(){
             "shortname": "eastus",
             "longname": "East US",
             "location": regionlocation.eastus,
-            "crrregions": ["westus","westus2","southcentralus","eastus2"]
+            "crrregions": ["westus","westus2","southcentralus","eastus2","westus3"]
         },
         {
             "shortname": "eastus2",
@@ -142,7 +149,7 @@ function GetMap(){
             "shortname": "francecentral",
             "longname": "France Central",
             "location": regionlocation.francecentral,
-            "crrregions": ["germanywestcentral"]
+            "crrregions": ["germanywestcentral","westeurope"]
         },
         {
             "shortname": "germanywestcentral",
@@ -201,7 +208,7 @@ function GetMap(){
             "shortname": "southcentralus",
             "longname": "South Central US",
             "location": regionlocation.southcentralus,
-            "crrregions": ["centralus","eastus","eastus2","northcentralus"]
+            "crrregions": ["centralus","eastus","eastus2","northcentralus","brazilsouth"]
         },
         {
             "shortname": "southindia",
@@ -273,7 +280,7 @@ function GetMap(){
             "shortname": "westeurope",
             "longname": "West Europe",
             "location": regionlocation.westeurope,
-            "crrregions": ["northeurope","germanywestcentral"]
+            "crrregions": ["northeurope","germanywestcentral","francecentral"]
         },
         {
             "shortname": "westus",
