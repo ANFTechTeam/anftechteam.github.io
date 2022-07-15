@@ -13,9 +13,22 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
       <title>ANF AVS TCO Calculator</title>
       <style media="screen">
+         body {
+         z-index: 50;
+         }
          .required-field::after {
          content: "*";
          color: red;
+         }
+         .watermark {
+         position: absolute;
+         color: lightgray;
+         opacity: 0.45;
+         font-size: 5em;
+         width: 100%;
+         top: 63%;    
+         text-align: center;
+         z-index: 0;
          }
       </style>
       <script type="text/javascript">
@@ -715,6 +728,7 @@
                </center>
                <div id="tableout" style='overflow-x:auto;'>
                   <table class='table-bordered table table-sm table-hover' style='table-layout:fixed;font-size:14px;'>
+                     <div class="watermark">TCO Estimator is for estimation purposes only</div>
                      <thead class='thead-light'>
                         <tr>
                            <th class="align-top" width="25%" style="text-align:center">Profile</th>
