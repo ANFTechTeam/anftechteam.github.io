@@ -24,7 +24,7 @@
          position: absolute;
          color: lightgray;
          opacity: 0.45;
-         font-size: 5em;
+         font-size: 6em;
          width: 100%;
          top: 63%;    
          text-align: center;
@@ -368,7 +368,7 @@
              //document.getElementById("avs2_profile").innerText = "AVS-vSAN with additional capacity";
              document.getElementById("avs3_profile").innerText = "AVS-vSAN with ANF premium tier";
              document.getElementById("avs4_profile").innerText = "AVS-vSAN with ANF premium/standard tier (perf optimized)";
-             document.getElementById("avs5_profile").innerText = "AVS-vSAN with ANF standard tier pilot light cluster";
+             document.getElementById("avs5_profile").innerText = "AVS-vSAN with ANF standard tier w/ minimum host configuration";
              document.getElementById("avs6_profile").innerText = "AVS-vSAN with ANF standard tier zero host footprint";
              document.getElementById("avs7_profile").innerText = "AVS-vSAN with ANF standard tier";
              document.getElementById("avs8_profile").innerText = "AVS-vSAN with ANF ultra tier";
@@ -598,11 +598,12 @@
                      </div>
                   </div>
                </div>
+               <small id="volumewarning" class="form-text text-muted">vSAN</small>
                <div class="row mb-3">
                   <!-- <small id="tputwarning" class="form-text text-muted">Storage</small> -->
                   <div class="col input-group mb-3">
                      <div class="input-group-prepend">
-                        <span class="my-1 input-group-text" style="color:#000">Slack Space <button type="button" class="m-0 ml-1 btn p-0 bg-transparent" style="line-height:normal" data-toggle="tooltip" data-html="true" title="Free space set aside for system operations"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg></button></span>
+                        <span class="my-1 input-group-text" style="color:#000">Slack Space  <button type="button" class="m-0 ml-1 btn p-0 bg-transparent" style="line-height:normal" data-toggle="tooltip" data-html="true" title="Free space set aside for system operations"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg></button></span>
                      </div>
                      <input oninput="getResults()" type="number" class="my-1  form-control" placeholder="" min="0" max="100" value="25" aria-label="Slack Space" aria-describedby="Slack Space" id="slackspace"></input>
                      <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
@@ -741,9 +742,9 @@
                            <th class="align-top">Total Capacity vSAN <small class="text-muted">(TB)</small></th>
                            <!-- <th class="align-top">vSAN Overhead <small class="text-muted">(TB)</small></th> -->
                            <!-- <th class="align-top">Required VM Space</th> -->
-                           <th class="align-top">VMs on vSAN <small class="text-muted">(TB)</small></th>
-                           <th class="align-top">VMs on ANF <small class="text-muted">(TB)</small></th>
-                           <th class="align-top">Free Space Available <small class="text-muted">(TB)</small></th>
+                           <th class="align-top">vSAN Storage Capacity <small class="text-muted">(TB)</small></th>
+                           <th class="align-top">ANF Storage Capacity <small class="text-muted">(TB)</small></th>
+                           <th class="align-top">Free Space Available (vSAN) <small class="text-muted">(TB)</small></th>
                            <!-- <th class="align-top">Free Space Percent vSAN</th> -->
                            <!-- <th class="align-top">Profile</th> -->
                            <th class="align-top">TCO One Year AVS</th>
@@ -754,9 +755,9 @@
                         </tr>
                      </thead>
                      <tr>
-                        <td class="bg-dark text-white" colspan="11">
+                        <td class="bg-info text-white" colspan="11">
                            <center>
-                              <div class="h5 mb-1 mt-1">AVS with vSAN only</div>
+                              <div class="h4 mb-1 mt-1">AVS with vSAN only</div>
                            </center>
                         </td>
                      </tr>
@@ -805,9 +806,9 @@
                         <td id="avs2_tcoopt">N/A</td>
                      </tr>
                      <tr>
-                        <td class="bg-dark text-white" colspan="11">
+                        <td class="bg-info text-white" colspan="11">
                            <center>
-                              <div class="h5 mb-1 mt-1">AVS with vSAN and ANF</div>
+                              <div class="h4 mb-1 mt-1">AVS with vSAN and ANF</div>
                            </center>
                         </td>
                      </tr>
@@ -948,9 +949,9 @@
                         <td id="avs7_tcoopt">N/A</td>
                      </tr>
                      <tr>
-                        <td class="bg-dark text-white" colspan="11">
+                        <td class="bg-info text-white" colspan="11">
                            <center>
-                              <div class="h5 mb-2 mt-2">AVS with ANF for Disaster Recovery</div>
+                              <div class="h4 mb-1 mt-1">AVS with ANF for Disaster Recovery</div>
                            </center>
                         </td>
                      </tr>
