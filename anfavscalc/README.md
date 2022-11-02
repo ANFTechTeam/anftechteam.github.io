@@ -13,4 +13,4 @@ Copyright: 2022 NetApp Inc.
 - [Vedant Sethia](mailto:vedant.sethia@netapp.com)
 - [Dhruv Tyagi](mailto:dhruv.tyagi@netapp.com)
 
-NetApp Solutions Engineering Team
+NetApp MHC Solutions Engineering Team
