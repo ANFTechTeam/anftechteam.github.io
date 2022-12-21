@@ -50,6 +50,7 @@ function GetMap(){
         japaneast: [139.77, 35.68],
         japanwest: [135.5022, 34.6939],
         koreacentral: [126.9780, 37.5665],
+        koreasouth: [129.0756, 35.1796],
         northcentralus: [-87.6278, 41.8819],
         northeurope: [-6.2597, 53.3478],
         norwayeast: [10.752245, 59.913868],
@@ -143,7 +144,7 @@ function GetMap(){
             "shortname": "eastus2",
             "longname": "East US 2",
             "location": regionlocation.eastus2,
-            "crrregions": ["southcentralus","centralus","eastus","westus2"]
+            "crrregions": ["southcentralus","centralus","eastus","northcentralus","westus2"]
         },
         {
             "shortname": "francecentral",
@@ -178,13 +179,20 @@ function GetMap(){
         {
             "shortname": "koreacentral",
             "longname": "Korea Central",
-            "location": regionlocation.koreacentral
+            "location": regionlocation.koreacentral,
+            "crrregions": ["koreasouth"]
+        },
+        {
+            "shortname": "koreasouth",
+            "longname": "Korea South",
+            "location": regionlocation.koreasouth,
+            "crrregions": ["koreacentral"]
         },
         {
             "shortname": "northcentralus",
             "longname": "North Central US",
             "location": regionlocation.northcentralus,
-            "crrregions": ["southcentralus"]
+            "crrregions": ["eastus2","southcentralus"]
         },
         {
             "shortname": "northeurope",
@@ -292,13 +300,13 @@ function GetMap(){
             "shortname": "westus2",
             "longname": "West US 2",
             "location": regionlocation.westus2,
-            "crrregions": ["eastus","eastus2"]
+            "crrregions": ["eastus","eastus2", "westus3"]
         },
         {
             "shortname": "westus3",
             "longname": "West US 3",
             "location": regionlocation.westus3,
-            "crrregions": ["eastus"]
+            "crrregions": ["eastus", "westus2"]
         }
     ];
 
