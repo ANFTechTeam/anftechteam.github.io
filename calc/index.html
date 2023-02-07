@@ -38,175 +38,193 @@
             max_tput = 4500.00 * 1;
             
             var standard_region_rates = {
-                "Central US": 0.000202 * month_hours,
-                "East US": 0.000202 * month_hours,
-                "East US 2": 0.000202 * month_hours,
-                "North Central US": 0.000242 * month_hours,
-                "South Central US": 0.000202 * month_hours,
-                "West US": 0.000202 * month_hours,
-                "West US 2": 0.000202 * month_hours,
-                "West US 3": 0.000202 * month_hours,
+                "Central US": 0.14746,
+                "East US": 0.14746,
+                "East US 2": 0.14746,
+                "North Central US": 0.17666,
+                "South Central US": 0.14746,
+                "West US": 0.14746,
+                "West US 2": 0.14746,
+                "West US 3": 0.14746,
 
-                "US Gov Arizona": 0.000243 * month_hours,
-                "US Gov Virginia": 0.000252 * month_hours,
-                "US Gov Texas": 0.000252 * month_hours,
+                "US Gov Arizona": 0.17739,
+                "US Gov Virginia": 0.18396,
+                "US Gov Texas": 0.18396,
             
-                "UK South": 0.000222 * month_hours,
-                "UK West": 0.000222 * month_hours,
+                "UK South": 0.16206,
+                "UK West": 0.16206,
 
-                "UAE Central": 0.000316 * month_hours,
-                "UAE North": 0.000288 * month_hours,
+                "UAE Central": 0.23068,
+                "UAE North": 0.21024,
 
-                "Switzerland North": 0.000222 * month_hours,
-                "Switzerland West": 0.000289 * month_hours,
+                "Switzerland North": 0.16206,
+                "Switzerland West": 0.21097,
 
-                "Sweden Central": 0.000202 * month_hours,
-                "Sweden South": 0.000263 * month_hours,
+                "Sweden Central": 0.14746,
+                "Sweden South": 0.19199,
 
-                "Norway East": 0.000315 * month_hours,
-                "Norway West": 0.000315 * month_hours,
+                "Qatar Central": 0.21097,
 
-                "Korea Central": 0.000272 * month_hours,
+                "Norway East": 0.16206,
+                "Norway West": 0.16206,
 
-                "Japan East": 0.000242 * month_hours,
-                "Japan West": 0.000314 * month_hours,
+                "Korea Central": 0.19856,
+                "Korea South": 0.18396,
 
-                "Central India": 0.000223 * month_hours,
-                "South India": 0.000285 * month_hours,
+                "Japan East": 0.17666,
+                "Japan West": 0.22922,
 
-                "Germany North": 0.000324 * month_hours,
-                "Germany West Central": 0.000243 * month_hours,
+                "Central India": 0.16279,
+                "South India": 0.20805,
 
-                "France Central": 0.000252 * month_hours,
+                "Germany North": 0.23652,
+                "Germany West Central": 0.17739,
 
-                "North Europe": 0.000202 * month_hours,
-                "West Europe": 0.000202 * month_hours,
+                "France Central": 0.18396,
 
-                "Canada Central": 0.000223 * month_hours,
-                "Canada East": 0.000243 * month_hours,
+                "North Europe": 0.14746,
+                "West Europe": 0.14746,
+
+                "Canada Central": 0.16279,
+                "Canada East": 0.17739,
               
-                "Brazil South": 0.000403 * month_hours,
+                "Brazil South": 0.29419,
                 
-                "Australia Central": 0.000292 * month_hours,
-                "Australia East": 0.000223 * month_hours,
-                "Australia Southeast": 0.000263 * month_hours,
+                "Australia Central": 0.21316,
+                "Australia Central 2": 0.17666,
+                "Australia East": 0.16279,
+                "Australia Southeast": 0.19199,
 
-                "East Asia": 0.000312 * month_hours,
-                "Southeast Asia": 0.000202 * month_hours
+                "East Asia": 0.22776,
+                "Southeast Asia": 0.14746,
+
+                "South Africa North": 0.21535
             };
             var premium_region_rates = {
-                "Central US": 0.000403 * month_hours,
-                "East US": 0.000403 * month_hours,
-                "East US 2": 0.000403 * month_hours,
-                "North Central US": 0.000484 * month_hours,
-                "South Central US": 0.000403 * month_hours,
-                "West US": 0.000403 * month_hours,
-                "West US 2": 0.000403 * month_hours,
-                "West US 3": 0.000403 * month_hours,
+                "Central US": 0.29419,
+                "East US": 0.29419,
+                "East US 2": 0.29419,
+                "North Central US": 0.35332,
+                "South Central US": 0.29419,
+                "West US": 0.29419,
+                "West US 2": 0.29419,
+                "West US 3": 0.29419,
 
-                "US Gov Arizona": 0.000484 * month_hours,
-                "US Gov Virginia": 0.000504 * month_hours,
-                "US Gov Texas": 0.000504 * month_hours,
+                "US Gov Arizona": 0.35332,
+                "US Gov Virginia": 0.36792,
+                "US Gov Texas": 0.36792,
             
-                "UK South": 0.000443 * month_hours,
-                "UK West": 0.000443 * month_hours,
+                "UK South": 0.32339,
+                "UK West": 0.32339,
 
-                "UAE Central": 0.000629 * month_hours,
-                "UAE North": 0.000577 * month_hours,
+                "UAE Central": 0.45917,
+                "UAE North": 0.42121,
 
-                "Switzerland North": 0.000443 * month_hours,
-                "Switzerland West": 0.000576 * month_hours,
+                "Switzerland North": 0.32339,
+                "Switzerland West": 0.42048,
 
-                "Sweden Central": 0.000403 * month_hours,
-                "Sweden South": 0.000524 * month_hours,
+                "Sweden Central": 0.29419,
+                "Sweden South": 0.38252,
 
-                "Norway East": 0.000629 * month_hours,
-                "Norway West": 0.000629 * month_hours,
+                "Qatar Central": 0.42048,
 
-                "Korea Central": 0.000544 * month_hours,
+                "Norway East": 0.32339,
+                "Norway West": 0.32339,
 
-                "Japan East": 0.000483 * month_hours,
-                "Japan West": 0.000625 * month_hours,
+                "Korea Central": 0.39712,
+                "Korea South": 0.36792,
 
-                "Central India": 0.000444 * month_hours,
-                "South India": 0.000569 * month_hours,
+                "Japan East": 0.35259,
+                "Japan West": 0.45625,
 
-                "Germany North": 0.000645 * month_hours,
-                "Germany West Central": 0.000484 * month_hours,
+                "Central India": 0.32412,
+                "South India": 0.41537,
 
-                "France Central": 0.000504 * month_hours,
+                "Germany North": 0.47085,
+                "Germany West Central": 0.35332,
 
-                "North Europe": 0.000403 * month_hours,
-                "West Europe": 0.000403 * month_hours,
+                "France Central": 0.36792,
 
-                "Canada Central": 0.000444 * month_hours,
-                "Canada East": 0.000484 * month_hours,
-              
-                "Brazil South": 0.000806 * month_hours,
+                "North Europe": 0.29419,
+                "West Europe": 0.29419,
+
+                "Canada Central": 0.32412,
+                "Canada East": 0.35332,
+
+                "Brazil South": 0.58838,
                 
-                "Australia Central": 0.000585 * month_hours,
-                "Australia East": 0.000444 * month_hours,
-                "Australia Southeast": 0.000524 * month_hours,
+                "Australia Central": 0.42705,
+                "Australia Central 2": 0.35332,
+                "Australia East": 0.32412,
+                "Australia Southeast": 0.38252,
 
-                "East Asia": 0.000625 * month_hours,
-                "Southeast Asia": 0.000403 * month_hours
+                "East Asia": 0.45625,
+                "Southeast Asia": 0.29419,
+
+                "South Africa North": 0.42924
             };
             var ultra_region_rates = {
-                "Central US": 0.000538 * month_hours,
-                "East US": 0.000538 * month_hours,
-                "East US 2": 0.000538 * month_hours,
-                "North Central US": 0.000646 * month_hours,
-                "South Central US": 0.000538 * month_hours,
-                "West US": 0.000538 * month_hours,
-                "West US 2": 0.000538 * month_hours,
-                "West US 3": 0.000538 * month_hours,
+                "Central US": 0.39274,
+                "East US": 0.39274,
+                "East US 2": 0.39274,
+                "North Central US": 0.47158,
+                "South Central US": 0.39274,
+                "West US": 0.39274,
+                "West US 2": 0.39274,
+                "West US 3": 0.39274,
 
-                "US Gov Arizona": 0.000646 * month_hours,
-                "US Gov Virginia": 0.000672 * month_hours,
-                "US Gov Texas": 0.000673 * month_hours,
+                "US Gov Arizona": 0.47158,
+                "US Gov Virginia": 0.49056,
+                "US Gov Texas": 0.49129,
             
-                "UK South": 0.000591 * month_hours,
-                "UK West": 0.000591 * month_hours,
+                "UK South": 0.43143,
+                "UK West": 0.43143,
 
-                "UAE Central": 0.000840 * month_hours,
-                "UAE North": 0.000769 * month_hours,
+                "UAE Central": 0.6132,
+                "UAE North": 0.56137,
 
-                "Switzerland North": 0.000592 * month_hours,
-                "Switzerland West": 0.000770 * month_hours,
+                "Switzerland North": 0.43216,
+                "Switzerland West": 0.5621,
 
-                "Sweden Central": 0.000538 * month_hours,
-                "Sweden South": 0.000699 * month_hours,
+                "Sweden Central": 0.39274,
+                "Sweden South": 0.51027,
 
-                "Norway East": 0.000839 * month_hours,
-                "Norway West": 0.000839 * month_hours,
+                "Qatar Central": 0.56137,
 
-                "Korea Central": 0.000726 * month_hours,
+                "Norway East": 0.43216,
+                "Norway West": 0.43216,
 
-                "Japan East": 0.000645 * month_hours,
-                "Japan West": 0.000834 * month_hours,
+                "Korea Central": 0.52998,
+                "Korea South": 0.49129,
 
-                "Central India": 0.000592 * month_hours,
-                "South India": 0.000759 * month_hours,
+                "Japan East": 0.47085,
+                "Japan West": 0.60882,
 
-                "Germany North": 0.000861 * month_hours,
-                "Germany West Central": 0.000646 * month_hours,
+                "Central India": 0.43216,
+                "South India": 0.55407,
 
-                "France Central": 0.000673 * month_hours,
+                "Germany North": 0.62853,
+                "Germany West Central": 0.47158,
 
-                "North Europe": 0.000538 * month_hours,
-                "West Europe": 0.000538 * month_hours,
+                "France Central": 0.49129,
 
-                "Canada Central": 0.000592 * month_hours,
-                "Canada East": 0.000646 * month_hours,
+                "North Europe": 0.39274,
+                "West Europe": 0.39274,
+
+                "Canada Central": 0.43216,
+                "Canada East": 0.47158,
               
-                "Brazil South": 0.001080 * month_hours,
+                "Brazil South": 0.7884,
                 
-                "Australia Central": 0.000780 * month_hours,
-                "Australia East": 0.000591 * month_hours,
-                "Australia Southeast": 0.000700 * month_hours,
+                "Australia Central": 0.5694,
+                "Australia Central 2": 0.47158,
+                "Australia East": 0.43143,
+                "Australia Southeast": 0.511,
 
-                "East Asia": 0.000834 * month_hours,
-                "Southeast Asia": 0.000538 * month_hours
+                "East Asia": 0.60882,
+                "Southeast Asia": 0.39274,
+
+                "South Africa North": 0.57305
             };
 
             var tenmin_region_rates = {
@@ -341,15 +359,20 @@
                 "West US 3": 0.05,
                 "UK South": 0.063,
                 "UK West": 0.066,
+                "UAE Central": .086,
                 "UAE North": 0.066,
                 "Switzerland North": 0.075,
                 "Switzerland West": 0.083,
+                "Sweden Central": 0.05,
+                "Sweden South": 0.05,
+                "Qatar Central": 0.072,
                 "Norway East": 0.072,
                 "Norway West": 0.078,
                 "Korea Central": 0.068,
                 "Korea South": 0.063,
                 "Japan East": 0.073,
                 "Japan West": 0.078,
+                "Central India": 0.07,
                 "South India": 0.076,
                 "Germany North": 0.070,
                 "Germany West Central": 0.065,
@@ -367,7 +390,9 @@
                 "Australia Central 2": 0.06,
                 "Australia East": 0.073,
                 "Australia Southeast": 0.07,
+                "East Asia": 0.05,
                 "Southeast Asia": 0.065,
+                "South Africa North": 0.05
             }
 
             var backup_region_restore = {
@@ -884,10 +909,13 @@
                             <option value="Sweden Central">Sweden Central</option>
                             <option value="Sweden South">Sweden South</option>
 
+                            <option value="Qatar Central">Qatar Central</option>
+
                             <option value="Norway East">Norway East</option>
                             <option value="Norway West">Norway West</option>
 
                             <option value="Korea Central">Korea Central</option>
+                            <option value="Korea South">Korea South</option>
 
                             <option value="Japan East">Japan East</option>
                             <option value="Japan West">Japan West</option>
@@ -909,11 +937,13 @@
                             <option value="Brazil South">Brazil South</option>
 
                             <option value="Australia Central">Australia Central</option>
+                            <option value="Australia Central 2">Australia Central 2</option>
                             <option value="Australia East">Australia East</option>
                             <option value="Australia Southeast">Australia Southeast</option>
                             
                             <option value="East Asia">East Asia</option>
                             <option value="Southeast Asia">Southeast Asia</option>
+                            <option value="South Africa North">South Africa North</option>
                         </select>
                     </div>                 
             </div>
