@@ -31,182 +31,200 @@
             premium_tputpertib = 64;
             ultra_tputpertib = 128;
             min_vol_capacity = 100;
-            max_vol_capacity = 102400;
-            min_pool_capacity = 4;
+            max_vol_capacity = 10240000;
+            min_pool_capacity = 2;
             max_pool_capacity = 500;
             min_tput = 1.56;
             max_tput = 4500.00 * 1;
             
             var standard_region_rates = {
-                "Central US": 0.000202 * month_hours,
-                "East US": 0.000202 * month_hours,
-                "East US 2": 0.000202 * month_hours,
-                "North Central US": 0.000242 * month_hours,
-                "South Central US": 0.000202 * month_hours,
-                "West US": 0.000202 * month_hours,
-                "West US 2": 0.000202 * month_hours,
-                "West US 3": 0.000202 * month_hours,
+                "Central US": 0.14746,
+                "East US": 0.14746,
+                "East US 2": 0.14746,
+                "North Central US": 0.17666,
+                "South Central US": 0.14746,
+                "West US": 0.14746,
+                "West US 2": 0.14746,
+                "West US 3": 0.14746,
 
-                "US Gov Arizona": 0.000243 * month_hours,
-                "US Gov Virginia": 0.000252 * month_hours,
-                "US Gov Texas": 0.000252 * month_hours,
+                "US Gov Arizona": 0.17739,
+                "US Gov Virginia": 0.18396,
+                "US Gov Texas": 0.18396,
             
-                "UK South": 0.000222 * month_hours,
-                "UK West": 0.000222 * month_hours,
+                "UK South": 0.16206,
+                "UK West": 0.16206,
 
-                "UAE Central": 0.000316 * month_hours,
-                "UAE North": 0.000288 * month_hours,
+                "UAE Central": 0.23068,
+                "UAE North": 0.21024,
 
-                "Switzerland North": 0.000222 * month_hours,
-                "Switzerland West": 0.000289 * month_hours,
+                "Switzerland North": 0.16206,
+                "Switzerland West": 0.21097,
 
-                "Sweden Central": 0.000202 * month_hours,
-                "Sweden South": 0.000263 * month_hours,
+                "Sweden Central": 0.14746,
+                "Sweden South": 0.19199,
 
-                "Norway East": 0.000315 * month_hours,
-                "Norway West": 0.000315 * month_hours,
+                "Qatar Central": 0.21097,
 
-                "Korea Central": 0.000272 * month_hours,
+                "Norway East": 0.16206,
+                "Norway West": 0.16206,
 
-                "Japan East": 0.000242 * month_hours,
-                "Japan West": 0.000314 * month_hours,
+                "Korea Central": 0.19856,
+                "Korea South": 0.18396,
 
-                "Central India": 0.000223 * month_hours,
-                "South India": 0.000285 * month_hours,
+                "Japan East": 0.17666,
+                "Japan West": 0.22922,
 
-                "Germany North": 0.000324 * month_hours,
-                "Germany West Central": 0.000243 * month_hours,
+                "Central India": 0.16279,
+                "South India": 0.20805,
 
-                "France Central": 0.000252 * month_hours,
+                "Germany North": 0.23652,
+                "Germany West Central": 0.17739,
 
-                "North Europe": 0.000202 * month_hours,
-                "West Europe": 0.000202 * month_hours,
+                "France Central": 0.18396,
 
-                "Canada Central": 0.000223 * month_hours,
-                "Canada East": 0.000243 * month_hours,
+                "North Europe": 0.14746,
+                "West Europe": 0.14746,
+
+                "Canada Central": 0.16279,
+                "Canada East": 0.17739,
               
-                "Brazil South": 0.000403 * month_hours,
+                "Brazil South": 0.29419,
                 
-                "Australia Central": 0.000292 * month_hours,
-                "Australia East": 0.000223 * month_hours,
-                "Australia Southeast": 0.000263 * month_hours,
+                "Australia Central": 0.21316,
+                "Australia Central 2": 0.17666,
+                "Australia East": 0.16279,
+                "Australia Southeast": 0.19199,
 
-                "East Asia": 0.000312 * month_hours,
-                "Southeast Asia": 0.000202 * month_hours
+                "East Asia": 0.22776,
+                "Southeast Asia": 0.14746,
+
+                "South Africa North": 0.21535
             };
             var premium_region_rates = {
-                "Central US": 0.000403 * month_hours,
-                "East US": 0.000403 * month_hours,
-                "East US 2": 0.000403 * month_hours,
-                "North Central US": 0.000484 * month_hours,
-                "South Central US": 0.000403 * month_hours,
-                "West US": 0.000403 * month_hours,
-                "West US 2": 0.000403 * month_hours,
-                "West US 3": 0.000403 * month_hours,
+                "Central US": 0.29419,
+                "East US": 0.29419,
+                "East US 2": 0.29419,
+                "North Central US": 0.35332,
+                "South Central US": 0.29419,
+                "West US": 0.29419,
+                "West US 2": 0.29419,
+                "West US 3": 0.29419,
 
-                "US Gov Arizona": 0.000484 * month_hours,
-                "US Gov Virginia": 0.000504 * month_hours,
-                "US Gov Texas": 0.000504 * month_hours,
+                "US Gov Arizona": 0.35332,
+                "US Gov Virginia": 0.36792,
+                "US Gov Texas": 0.36792,
             
-                "UK South": 0.000443 * month_hours,
-                "UK West": 0.000443 * month_hours,
+                "UK South": 0.32339,
+                "UK West": 0.32339,
 
-                "UAE Central": 0.000629 * month_hours,
-                "UAE North": 0.000577 * month_hours,
+                "UAE Central": 0.45917,
+                "UAE North": 0.42121,
 
-                "Switzerland North": 0.000443 * month_hours,
-                "Switzerland West": 0.000576 * month_hours,
+                "Switzerland North": 0.32339,
+                "Switzerland West": 0.42048,
 
-                "Sweden Central": 0.000403 * month_hours,
-                "Sweden South": 0.000524 * month_hours,
+                "Sweden Central": 0.29419,
+                "Sweden South": 0.38252,
 
-                "Norway East": 0.000629 * month_hours,
-                "Norway West": 0.000629 * month_hours,
+                "Qatar Central": 0.42048,
 
-                "Korea Central": 0.000544 * month_hours,
+                "Norway East": 0.32339,
+                "Norway West": 0.32339,
 
-                "Japan East": 0.000483 * month_hours,
-                "Japan West": 0.000625 * month_hours,
+                "Korea Central": 0.39712,
+                "Korea South": 0.36792,
 
-                "Central India": 0.000444 * month_hours,
-                "South India": 0.000569 * month_hours,
+                "Japan East": 0.35259,
+                "Japan West": 0.45625,
 
-                "Germany North": 0.000645 * month_hours,
-                "Germany West Central": 0.000484 * month_hours,
+                "Central India": 0.32412,
+                "South India": 0.41537,
 
-                "France Central": 0.000504 * month_hours,
+                "Germany North": 0.47085,
+                "Germany West Central": 0.35332,
 
-                "North Europe": 0.000403 * month_hours,
-                "West Europe": 0.000403 * month_hours,
+                "France Central": 0.36792,
 
-                "Canada Central": 0.000444 * month_hours,
-                "Canada East": 0.000484 * month_hours,
-              
-                "Brazil South": 0.000806 * month_hours,
+                "North Europe": 0.29419,
+                "West Europe": 0.29419,
+
+                "Canada Central": 0.32412,
+                "Canada East": 0.35332,
+
+                "Brazil South": 0.58838,
                 
-                "Australia Central": 0.000585 * month_hours,
-                "Australia East": 0.000444 * month_hours,
-                "Australia Southeast": 0.000524 * month_hours,
+                "Australia Central": 0.42705,
+                "Australia Central 2": 0.35332,
+                "Australia East": 0.32412,
+                "Australia Southeast": 0.38252,
 
-                "East Asia": 0.000625 * month_hours,
-                "Southeast Asia": 0.000403 * month_hours
+                "East Asia": 0.45625,
+                "Southeast Asia": 0.29419,
+
+                "South Africa North": 0.42924
             };
             var ultra_region_rates = {
-                "Central US": 0.000538 * month_hours,
-                "East US": 0.000538 * month_hours,
-                "East US 2": 0.000538 * month_hours,
-                "North Central US": 0.000646 * month_hours,
-                "South Central US": 0.000538 * month_hours,
-                "West US": 0.000538 * month_hours,
-                "West US 2": 0.000538 * month_hours,
-                "West US 3": 0.000538 * month_hours,
+                "Central US": 0.39274,
+                "East US": 0.39274,
+                "East US 2": 0.39274,
+                "North Central US": 0.47158,
+                "South Central US": 0.39274,
+                "West US": 0.39274,
+                "West US 2": 0.39274,
+                "West US 3": 0.39274,
 
-                "US Gov Arizona": 0.000646 * month_hours,
-                "US Gov Virginia": 0.000672 * month_hours,
-                "US Gov Texas": 0.000673 * month_hours,
+                "US Gov Arizona": 0.47158,
+                "US Gov Virginia": 0.49056,
+                "US Gov Texas": 0.49129,
             
-                "UK South": 0.000591 * month_hours,
-                "UK West": 0.000591 * month_hours,
+                "UK South": 0.43143,
+                "UK West": 0.43143,
 
-                "UAE Central": 0.000840 * month_hours,
-                "UAE North": 0.000769 * month_hours,
+                "UAE Central": 0.6132,
+                "UAE North": 0.56137,
 
-                "Switzerland North": 0.000592 * month_hours,
-                "Switzerland West": 0.000770 * month_hours,
+                "Switzerland North": 0.43216,
+                "Switzerland West": 0.5621,
 
-                "Sweden Central": 0.000538 * month_hours,
-                "Sweden South": 0.000699 * month_hours,
+                "Sweden Central": 0.39274,
+                "Sweden South": 0.51027,
 
-                "Norway East": 0.000839 * month_hours,
-                "Norway West": 0.000839 * month_hours,
+                "Qatar Central": 0.56137,
 
-                "Korea Central": 0.000726 * month_hours,
+                "Norway East": 0.43216,
+                "Norway West": 0.43216,
 
-                "Japan East": 0.000645 * month_hours,
-                "Japan West": 0.000834 * month_hours,
+                "Korea Central": 0.52998,
+                "Korea South": 0.49129,
 
-                "Central India": 0.000592 * month_hours,
-                "South India": 0.000759 * month_hours,
+                "Japan East": 0.47085,
+                "Japan West": 0.60882,
 
-                "Germany North": 0.000861 * month_hours,
-                "Germany West Central": 0.000646 * month_hours,
+                "Central India": 0.43216,
+                "South India": 0.55407,
 
-                "France Central": 0.000673 * month_hours,
+                "Germany North": 0.62853,
+                "Germany West Central": 0.47158,
 
-                "North Europe": 0.000538 * month_hours,
-                "West Europe": 0.000538 * month_hours,
+                "France Central": 0.49129,
 
-                "Canada Central": 0.000592 * month_hours,
-                "Canada East": 0.000646 * month_hours,
+                "North Europe": 0.39274,
+                "West Europe": 0.39274,
+
+                "Canada Central": 0.43216,
+                "Canada East": 0.47158,
               
-                "Brazil South": 0.001080 * month_hours,
+                "Brazil South": 0.7884,
                 
-                "Australia Central": 0.000780 * month_hours,
-                "Australia East": 0.000591 * month_hours,
-                "Australia Southeast": 0.000700 * month_hours,
+                "Australia Central": 0.5694,
+                "Australia Central 2": 0.47158,
+                "Australia East": 0.43143,
+                "Australia Southeast": 0.511,
 
-                "East Asia": 0.000834 * month_hours,
-                "Southeast Asia": 0.000538 * month_hours
+                "East Asia": 0.60882,
+                "Southeast Asia": 0.39274,
+
+                "South Africa North": 0.57305
             };
 
             var tenmin_region_rates = {
@@ -341,15 +359,20 @@
                 "West US 3": 0.05,
                 "UK South": 0.063,
                 "UK West": 0.066,
+                "UAE Central": .086,
                 "UAE North": 0.066,
                 "Switzerland North": 0.075,
                 "Switzerland West": 0.083,
+                "Sweden Central": 0.05,
+                "Sweden South": 0.05,
+                "Qatar Central": 0.072,
                 "Norway East": 0.072,
                 "Norway West": 0.078,
                 "Korea Central": 0.068,
                 "Korea South": 0.063,
                 "Japan East": 0.073,
                 "Japan West": 0.078,
+                "Central India": 0.07,
                 "South India": 0.076,
                 "Germany North": 0.070,
                 "Germany West Central": 0.065,
@@ -367,7 +390,9 @@
                 "Australia Central 2": 0.06,
                 "Australia East": 0.073,
                 "Australia Southeast": 0.07,
+                "East Asia": 0.05,
                 "Southeast Asia": 0.065,
+                "South Africa North": 0.05
             }
 
             var backup_region_restore = {
@@ -413,7 +438,8 @@
 
             cap_target = document.getElementById("capinput").value;
             tput_target = document.getElementById("tputinput").value;
-            change_rate = document.getElementById("changerate").value;
+            //change_rate = document.getElementById("changerate").value;
+            change_rate = 0
             active_region = document.getElementById("regionselector").value
 
             discount_percent = (100 - document.getElementById("discountinput").value) / 100;
@@ -430,50 +456,6 @@
                 volume_in_gb = cap_target * 1;
             }
 
-            //CRR calculations
-            tenmin_rate = tenmin_region_rates[active_region] * discount_percent;
-            hourly_rate = hourly_region_rates[active_region] * discount_percent;
-            dailyplus_rate = daily_region_rates[active_region] * discount_percent;
-
-
-            //backup calculations
-            backup_rate = backup_region_backup[active_region] * discount_percent;
-            restore_rate = backup_region_restore[active_region] * discount_percent;
-            monthly_delta = (volume_in_gb * (change_rate / 100)) * 30
-
-            if (isNaN(change_rate) || change_rate <= 0 || change_rate > 100) {
-                document.getElementById("destinationvolume").classList.add("d-none");
-                document.getElementById("replicationcost").classList.add("d-none");
-                document.getElementById("backupcost").classList.add("d-none");
-                document.getElementById("crrwarning").classList.remove('text-muted');
-                document.getElementById("crrwarning").classList.add('text-danger');
-                if (change_rate == 0) {
-                document.getElementById("crrwarning").classList.remove('text-danger');
-                document.getElementById("crrwarning").classList.add('text-muted');
-                }
-            } else {
-                document.getElementById("destinationvolume").classList.remove("d-none");
-                document.getElementById("replicationcost").classList.remove("d-none");
-                document.getElementById("backupcost").classList.remove("d-none");
-                document.getElementById("crrwarning").classList.remove('text-danger');
-                document.getElementById("crrwarning").classList.add('text-muted');
-                document.getElementById("init_10min_cell").innerText = (volume_in_gb * tenmin_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("init_hourly_cell").innerText = (volume_in_gb * hourly_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("init_daily_cell").innerText = (volume_in_gb * dailyplus_rate * .65).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("inc_10min_cell").innerText = ((((volume_in_gb * (change_rate/100)) * tenmin_rate * .65))*31).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("inc_hourly_cell").innerText = ((((volume_in_gb * (change_rate/100)) * hourly_rate * .65))*31).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("inc_daily_cell").innerText = ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*31).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("month1_10min_cell").innerText = ((volume_in_gb * tenmin_rate * .65) + ((((volume_in_gb * (change_rate/100)) * tenmin_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("month1_hourly_cell").innerText = ((volume_in_gb * hourly_rate * .65) + ((((volume_in_gb * (change_rate/100)) * hourly_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("month1_daily_cell").innerText = ((volume_in_gb * dailyplus_rate * .65) +  ((((volume_in_gb * (change_rate/100)) * dailyplus_rate * .65))*31)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                document.getElementById("init_bkup_daily_cell").innerText = (volume_in_gb * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
-                document.getElementById("init_bkup_weekly_cell").innerText = (volume_in_gb * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
-                document.getElementById("inc_bkup_daily_cell").innerText = (((monthly_delta / 30) * 30) * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
-                document.getElementById("inc_bkup_weekly_cell").innerText = (((monthly_delta / 30) * 4) * backup_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
-                document.getElementById("month1_bkup_daily_cell").innerText = ((((monthly_delta / 30) * 30) * backup_rate) + (volume_in_gb * backup_rate)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
-                document.getElementById("month1_bkup_weekly_cell").innerText = ((((monthly_delta / 30) * 4) * backup_rate) + (volume_in_gb * backup_rate)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');;
-            
-            }
 
             document.getElementById("size_standard_cell").classList.remove('text-primary');
             document.getElementById("size_premium_cell").classList.remove('text-primary');
@@ -486,46 +468,37 @@
                 document.getElementById("volumewarning").classList.remove('text-muted');
                 document.getElementById("volumewarning").classList.add('text-danger');
 
+                document.getElementById("qty_standard_cell").innerText = "";
+                document.getElementById("qty_premium_cell").innerText = "";
+                document.getElementById("qty_ultra_cell").innerText = "";
+
                 document.getElementById("size_standard_cell").innerText = "";
-                        document.getElementById("size_premium_cell").innerText = "";
-                        document.getElementById("size_ultra_cell").innerText = "";
+                document.getElementById("size_premium_cell").innerText = "";
+                document.getElementById("size_ultra_cell").innerText = "";
 
-                        document.getElementById("dest_size_standard_cell").innerText = "";
-                        document.getElementById("dest_size_premium_cell").innerText = "";
-                        document.getElementById("dest_size_ultra_cell").innerText = "";
+                document.getElementById("tput_standard_cell").innerText = "";
+                document.getElementById("tput_premium_cell").innerText = "";
+                document.getElementById("tput_ultra_cell").innerText = "";
 
-                        document.getElementById("poolsize_standard_cell").innerText = "";
-                        document.getElementById("poolsize_premium_cell").innerText = "";
-                        document.getElementById("poolsize_ultra_cell").innerText = "";
+                document.getElementById("cost_standard_cell").innerText = "";
+                document.getElementById("cost_premium_cell").innerText = "";
+                document.getElementById("cost_ultra_cell").innerText = "";
 
-                        document.getElementById("dest_poolsize_standard_cell").innerText = "";
-                        document.getElementById("dest_poolsize_premium_cell").innerText = "";
-                        document.getElementById("dest_poolsize_ultra_cell").innerText = "";
+                document.getElementById("totalsize_standard_cell").innerText = "";
+                document.getElementById("totalsize_premium_cell").innerText = "";
+                document.getElementById("totalsize_ultra_cell").innerText = "";
 
-                        document.getElementById("tput_standard_cell").innerText = "";
-                        document.getElementById("tput_premium_cell").innerText = "";
-                        document.getElementById("tput_ultra_cell").innerText = "";
+                document.getElementById("totaltput_standard_cell").innerText = "";
+                document.getElementById("totaltput_premium_cell").innerText = "";
+                document.getElementById("totaltput_ultra_cell").innerText = "";
 
-                        document.getElementById("dest_tput_standard_cell").innerText = "";
-                        document.getElementById("dest_tput_premium_cell").innerText = "";
-                        document.getElementById("dest_tput_ultra_cell").innerText = "";
+                document.getElementById("totalcost_standard_cell").innerText = "";
+                document.getElementById("totalcost_premium_cell").innerText = "";
+                document.getElementById("totalcost_ultra_cell").innerText = "";
 
-                        document.getElementById("poolcost_standard_cell").innerText = "";
-                        document.getElementById("poolcost_premium_cell").innerText = "";
-                        document.getElementById("poolcost_ultra_cell").innerText = "";
-                        
-                        document.getElementById("dest_poolcost_standard_cell").innerText = "";
-                        document.getElementById("dest_poolcost_premium_cell").innerText = "";
-                        document.getElementById("dest_poolcost_ultra_cell").innerText = "";
 
-                        document.getElementById("cost_standard_cell").innerText = "";
-                        document.getElementById("cost_premium_cell").innerText = "";
-                        document.getElementById("cost_ultra_cell").innerText = "";
 
-                        document.getElementById("dest_cost_standard_cell").innerText = "";
-                        document.getElementById("dest_cost_premium_cell").innerText = "";
-                        document.getElementById("dest_cost_ultra_cell").innerText = "";
-                } else {
+            } else {
                     document.getElementById("capinput").style.borderColor = "lightgray";
                     document.getElementById("volumewarning").classList.add('text-muted');
                     document.getElementById("volumewarning").classList.remove('text-danger');
@@ -534,45 +507,33 @@
                         document.getElementById("tputwarning").classList.add('text-danger');
                         document.getElementById("tputwarning").classList.remove('text-muted');
 
+                        document.getElementById("qty_standard_cell").innerText = "";
+                        document.getElementById("qty_premium_cell").innerText = "";
+                        document.getElementById("qty_ultra_cell").innerText = "";
+
                         document.getElementById("size_standard_cell").innerText = "";
                         document.getElementById("size_premium_cell").innerText = "";
                         document.getElementById("size_ultra_cell").innerText = "";
-
-                        document.getElementById("dest_size_standard_cell").innerText = "";
-                        document.getElementById("dest_size_premium_cell").innerText = "";
-                        document.getElementById("dest_size_ultra_cell").innerText = "";
-
-                        document.getElementById("poolsize_standard_cell").innerText = "";
-                        document.getElementById("poolsize_premium_cell").innerText = "";
-                        document.getElementById("poolsize_ultra_cell").innerText = "";
-
-                        document.getElementById("dest_poolsize_standard_cell").innerText = "";
-                        document.getElementById("dest_poolsize_premium_cell").innerText = "";
-                        document.getElementById("dest_poolsize_ultra_cell").innerText = "";
 
                         document.getElementById("tput_standard_cell").innerText = "";
                         document.getElementById("tput_premium_cell").innerText = "";
                         document.getElementById("tput_ultra_cell").innerText = "";
 
-                        document.getElementById("dest_tput_standard_cell").innerText = "";
-                        document.getElementById("dest_tput_premium_cell").innerText = "";
-                        document.getElementById("dest_tput_ultra_cell").innerText = "";
-
-                        document.getElementById("poolcost_standard_cell").innerText = "";
-                        document.getElementById("poolcost_premium_cell").innerText = "";
-                        document.getElementById("poolcost_ultra_cell").innerText = "";
-                        
-                        document.getElementById("dest_poolcost_standard_cell").innerText = "";
-                        document.getElementById("dest_poolcost_premium_cell").innerText = "";
-                        document.getElementById("dest_poolcost_ultra_cell").innerText = "";
-
                         document.getElementById("cost_standard_cell").innerText = "";
                         document.getElementById("cost_premium_cell").innerText = "";
                         document.getElementById("cost_ultra_cell").innerText = "";
 
-                        document.getElementById("dest_cost_standard_cell").innerText = "";
-                        document.getElementById("dest_cost_premium_cell").innerText = "";
-                        document.getElementById("dest_cost_ultra_cell").innerText = "";
+                        document.getElementById("totalsize_standard_cell").innerText = "";
+                        document.getElementById("totalsize_premium_cell").innerText = "";
+                        document.getElementById("totalsize_ultra_cell").innerText = "";
+
+                        document.getElementById("totaltput_standard_cell").innerText = "";
+                        document.getElementById("totaltput_premium_cell").innerText = "";
+                        document.getElementById("totaltput_ultra_cell").innerText = "";
+
+                        document.getElementById("totalcost_standard_cell").innerText = "";
+                        document.getElementById("totalcost_premium_cell").innerText = "";
+                        document.getElementById("totalcost_ultra_cell").innerText = "";
                     } else {
                         document.getElementById("tputinput").style.borderColor = "lightgray";
                         document.getElementById("tputwarning").classList.remove('text-danger');
@@ -858,8 +819,7 @@
             <div class="card-header">
                 <div class="h5"><img src="anficon.png" class="float-left" height="40"></div>
                     <div class="float-left"><span class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span></div>
-                    <div class="float-right" class="input-group mb-3">
-                      
+                    <div class="float-right" class="input-group mb-3">                      
                         <select input oninput="getResults()" class="custom-select float-right" id="regionselector">
                             <option value="Central US">Central US</option>
                             <option value="East US" selected>East US</option>
@@ -884,10 +844,13 @@
                             <option value="Sweden Central">Sweden Central</option>
                             <option value="Sweden South">Sweden South</option>
 
+                            <option value="Qatar Central">Qatar Central</option>
+
                             <option value="Norway East">Norway East</option>
                             <option value="Norway West">Norway West</option>
 
                             <option value="Korea Central">Korea Central</option>
+                            <option value="Korea South">Korea South</option>
 
                             <option value="Japan East">Japan East</option>
                             <option value="Japan West">Japan West</option>
@@ -909,20 +872,22 @@
                             <option value="Brazil South">Brazil South</option>
 
                             <option value="Australia Central">Australia Central</option>
+                            <option value="Australia Central 2">Australia Central 2</option>
                             <option value="Australia East">Australia East</option>
                             <option value="Australia Southeast">Australia Southeast</option>
                             
                             <option value="East Asia">East Asia</option>
                             <option value="Southeast Asia">Southeast Asia</option>
+                            <option value="South Africa North">South Africa North</option>
                         </select>
                     </div>                 
             </div>
             <div class="card-body">
                 
-                <small id="volumewarning" class="form-text text-muted">Minimum volume size is 100GiB. Maximum volume size is 100TiB.</small>
+                <small id="volumewarning" class="form-text text-muted">Minimum capacity is 100GiB.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="my-1 input-group-text">Volume Size</span>
+                        <span class="my-1 input-group-text">Capacity</span>
                     </div>
                     <input oninput="getResults()" type="text" class="my-1 mr-sm-1 form-control" placeholder="" value="100" aria-label="Volume Size" aria-describedby="Volume Size" id="capinput"></input>
                     <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
@@ -930,7 +895,7 @@
                             <input onclick="getResults()" name="units" type="radio" value="1024" id="GiB" checked>GiB</input>
                         </label>
                         <label class="btn btn-outline-primary my-1">
-                          <input onclick="getResults()" name="units" type="radio" value="1" id="TiB">TiB</input>
+                            <input onclick="getResults()" name="units" type="radio" value="1" id="TiB">TiB</input>
                         </label>
                     </div>
                 </div>
@@ -946,6 +911,7 @@
                         </label>
                     </div>
                 </div>
+                <!--
                 <small id="crrwarning" class="form-text text-muted">Specify percent daily change rate (.1 - 100) to calculate replication and/or backup costs.</small>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -959,151 +925,61 @@
                     
                     </div>
                 </div>
-                
+                -->
                 <div id="tableout">
                     <table class='table-bordered table table-sm table-hover'>
                         <thead class='thead-light'>
                             <tr>
-                                <th class="align-top">Source Volume</th>
+                                <th class="align-top">Multiple Volumes</th>
                                 <th>Standard<br><small class="text-muted">(16MiB/s per TiB)</small></th>
                                 <th>Premium<br><small class="text-muted">(64MiB/s per TiB)</small></th>
                                 <th>Ultra<br><small class="text-muted">(128MiB/s per TiB)</small></th>
                             </tr>
                         </thead>
                         <tr>
-                            <td>Throughput <small>(MiB/s)</small></td>
-                            <td id="tput_standard_cell"></td>
-                            <td id="tput_premium_cell"></td>
-                            <td id="tput_ultra_cell"></td>
+                            <td>Number of volumes needed</td>
+                            <td id="qty_standard_cell"></td>
+                            <td id="qty_premium_cell"></td>
+                            <td id="qty_ultra_cell"></td>
                         </tr>
                         <tr style="background-color: #e9ecef;">
-                            <td id="table_unit">Volume Size <small>(GiB)</small></td>
+                            <td id="table_unit">Capacity per volume <small>(TiB)</small></td>
                             <td id="size_standard_cell"></td>
                             <td id="size_premium_cell"></td>
                             <td id="size_ultra_cell"></td>
                         </tr>
                         <tr>
-                            <td>Volume Show Back <small>(USD/month)</small></td>
+                            <td>Throughput per volume <small>(MiB/s)</small></td>
+                            <td id="tput_standard_cell"></td>
+                            <td id="tput_premium_cell"></td>
+                            <td id="tput_ultra_cell"></td>
+                        </tr>
+                        <tr style="background-color: #e9ecef;"></tr>
+                            <td>Cost per volume <small>(USD/month)</small></td>
                             <td id="cost_standard_cell"></td>
                             <td id="cost_premium_cell"></td>
                             <td id="cost_ultra_cell"></td>
                         </tr>
-                        <tr style="background-color: #e9ecef;">
-                            <td>Capacity Pool Size <small>(TiB)</small></td>
-                            <td id="poolsize_standard_cell"></td>
-                            <td id="poolsize_premium_cell"></td>
-                            <td id="poolsize_ultra_cell"></td>
-                        </tr>
-                        <tr style="border-style: solid; border-color: #007bff;">
-                            <td>Capacity Pool Cost <small>(USD/month)</small></td>
-                            <td id="poolcost_standard_cell"></td>
-                            <td id="poolcost_premium_cell"></td>
-                            <td id="poolcost_ultra_cell"></td>
-                        </tr>
-                    </table>
-                    <table class='table-bordered table table-sm table-hover' id="destinationvolume">
-                        <thead class='thead-light'>
-                            <tr>
-                                <th class="align-top">Destination Volume</th>
-                                <th>Standard<br><small class="text-muted">(16MiB/s per TiB)</small></th>
-                                <th>Premium<br><small class="text-muted">(64MiB/s per TiB)</small></th>
-                                <th>Ultra<br><small class="text-muted">(128MiB/s per TiB)</small></th>
-                            </tr>
-                        </thead>
                         <tr>
-                            <td>Throughput <small>(MiB/s)</small></td>
-                            <td id="dest_tput_standard_cell"></td>
-                            <td id="dest_tput_premium_cell"></td>
-                            <td id="dest_tput_ultra_cell"></td>
+                            <td id="table_unit">Total capacity <small>(TiB)</small></td>
+                            <td id="totalsize_standard_cell"></td>
+                            <td id="totalsize_premium_cell"></td>
+                            <td id="totalsize_ultra_cell"></td>
                         </tr>
-                        <tr style="background-color: #e9ecef;">
-                            <td id="table_unit">Volume Size <small>(GiB)</small></td>
-                            <td id="dest_size_standard_cell"></td>
-                            <td id="dest_size_premium_cell"></td>
-                            <td id="dest_size_ultra_cell"></td>
+                        <tr style="background-color: #e9ecef;"></tr>
+                            <td>Total throughput <small>(MiB/s)</small></td>
+                            <td id="totaltput_standard_cell"></td>
+                            <td id="totaltput_premium_cell"></td>
+                            <td id="totaltput_ultra_cell"></td>
                         </tr>
                         <tr>
-                            <td>Volume Show Back <small>(USD/month)</small></td>
-                            <td id="dest_cost_standard_cell"></td>
-                            <td id="dest_cost_premium_cell"></td>
-                            <td id="dest_cost_ultra_cell"></td>
-                        </tr>
-                        <tr style="background-color: #e9ecef;">
-                            <td>Capacity Pool Size <small>(TiB)</small></td>
-                            <td id="dest_poolsize_standard_cell"></td>
-                            <td id="dest_poolsize_premium_cell"></td>
-                            <td id="dest_poolsize_ultra_cell"></td>
-                        </tr>
-                        <tr style="border-style: solid; border-color: #007bff;">
-                            <td>Capacity Pool Cost <small>(USD/month)</small></td>
-                            <td id="dest_poolcost_standard_cell"></td>
-                            <td id="dest_poolcost_premium_cell"></td>
-                            <td id="dest_poolcost_ultra_cell"></td>
+                            <td>Total cost <small>(USD/month)</small></td>
+                            <td id="totalcost_standard_cell"></td>
+                            <td id="totalcost_premium_cell"></td>
+                            <td id="totalcost_ultra_cell"></td>
                         </tr>
                     </table>
-                    <table class='table-bordered table table-sm table-hover' id='replicationcost'>
-                        <thead class='thead-light'>
-                            <tr>
-                                <th class="align-top">Replication Cost</th>
-                                <th>10 minutes<br><small class="text-muted"></small></th>
-                                <th>hourly<br><small class="text-muted"></small></th>
-                                <th>daily+<br><small class="text-muted"></small></th>
-                            </tr>
-                        </thead>
-                            <tr>
-                                <td>Initial Transfer Cost <small>(USD)</small></td>
-                                <td id="init_10min_cell"></td>
-                                <td id="init_hourly_cell"></td>
-                                <td id="init_daily_cell"></td>
-                            </tr>
-                            <tr style="background-color: #e9ecef;">
-                                <td>Incremental Cost <small>(USD/month)</small></td>
-                                <td id="inc_10min_cell"></td>
-                                <td id="inc_hourly_cell"></td>
-                                <td id="inc_daily_cell"></td>
-                            </tr>
-                            <tr style="border-style: solid; border-color: #007bff;">
-                                <td>Replication Cost First Month <small>(USD/month)</small></td>
-                                <td id="month1_10min_cell"></td>
-                                <td id="month1_hourly_cell"></td>
-                                <td id="month1_daily_cell"></td>
-                            </tr>
-                      
-                        
-                    </table>
-
-                    <table class='table-bordered table table-sm table-hover' id='backupcost'>
-                        <thead class='thead-light'>
-                            <tr>
-                                <th class="align-top">Backup Cost</th>
-                                <th>daily (30x)<br><small class="text-muted"></small></th>
-                                <th>weekly (4x)<br><small class="text-muted"></small></th>
-                            </tr>
-                        </thead>
-                            <tr>
-                                <td>Initial Backup Cost <small>(USD)</small></td>
-                                <td id="init_bkup_daily_cell"></td>
-                                <td id="init_bkup_weekly_cell"></td>
-                            </tr>
-                            <tr style="background-color: #e9ecef;">
-                                <td>Incremental Cost <small>(USD/month)</small></td>
-                                <td id="inc_bkup_daily_cell"></td>
-                                <td id="inc_bkup_weekly_cell"></td>
-                            </tr>
-                            <tr style="border-style: solid; border-color: #007bff;">
-                                <td>Backup Cost First Month <small>(USD/month)</small></td>
-                                <td id="month1_bkup_daily_cell"></td>
-                                <td id="month1_bkup_weekly_cell"></td>
-                            </tr>
-                      
-                        
-                    </table>
-
-
-
                     <div class="input-group mb-3">
-
-     
                         <div class="input-group-prepend">
                             <span style="background-color: #ffa99f;" class="my-1 input-group-text">Discount</span>
                         </div>
@@ -1132,7 +1008,7 @@
             </div>
         </div>
         <div class="text-right">
-            <small class="text-muted">&copy;Copyright 2020, <a href="https://github.com/seanluce">@seanluce :D</a></small>
+            <small class="text-muted">&copy;Copyright 2023, <a href="https://github.com/seanluce">@seanluce :D</a></small>
         </div>
     </div>
 
