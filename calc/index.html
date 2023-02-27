@@ -23,6 +23,16 @@
     <title>Azure NetApp Files Performance Calculator</title>
     <script type="text/javascript">
         function getResults(convert) {
+            if (convert == 1) {
+                document.getElementById("capinput").value = cap_target * 1024
+                //getResults()
+            }
+
+            if (convert == 2) {
+                document.getElementById("capinput").value = cap_target / 1024
+                //getResults()
+            }
+            
             month_hours = 730;
             standard_rate = 0.14746;
             premium_rate = 0.29419;
@@ -453,16 +463,6 @@
             if (tput_target > 4500 && document.getElementById('GiB').checked) {
                 //document.getElementById("capinput").value = 100 * 1024
                 cap_target = 100 * 1024
-            }
-
-            if (convert == 1) {
-                document.getElementById("capinput").value = cap_target * 1024
-                getResults()
-            }
-
-            if (convert == 2) {
-                document.getElementById("capinput").value = cap_target / 1024
-                getResults()
             }
 
             if (document.getElementById('TiB').checked) {
