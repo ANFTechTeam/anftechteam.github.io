@@ -476,6 +476,11 @@
             if (tput_target <= 4500) {
                 max_premium_tput = 4500 * 1;
                 max_ultra_tput = 4500 * 1;
+                document.getElementById("size_premium_cell").classList.remove('text-success');
+                document.getElementById("dest_size_premium_cell").classList.remove('text-success');
+                document.getElementById("capinput").classList.remove('text-success');
+                document.getElementById("size_ultra_cell").classList.remove('text-success');
+                document.getElementById("dest_size_ultra_cell").classList.remove('text-success');
             } else {
                 document.getElementById("size_premium_cell").classList.add('text-success');
                 document.getElementById("dest_size_premium_cell").classList.add('text-success');
@@ -492,6 +497,12 @@
                 document.getElementById("capinput").classList.add('text-success');
                 document.getElementById("size_ultra_cell").classList.add('text-success');
                 document.getElementById("dest_size_ultra_cell").classList.add('text-success');
+            } else {
+                document.getElementById("size_premium_cell").classList.remove('text-success');
+                document.getElementById("dest_size_premium_cell").classList.remove('text-success');
+                document.getElementById("capinput").classList.remove('text-success');
+                document.getElementById("size_ultra_cell").classList.remove('text-success');
+                document.getElementById("dest_size_ultra_cell").classList.remove('text-success');
             }
 
             //CRR calculations
