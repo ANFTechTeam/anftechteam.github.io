@@ -203,6 +203,7 @@ var regionlist = [
         "location": regionlocation.koreacentral,
         "crrregions": ["koreasouth"],
         "snf": true,
+        "avsdatastore": true,
         "backup": false
     },
     {
@@ -405,6 +406,16 @@ var regionlist = [
     }
 ];
 
+function minimizePanel() {
+    document.getElementById("eventPanel").classList.add('hidden');
+    document.getElementById("minimizedPanel").classList.remove('hidden');
+}
+
+function restorePanel() {
+    document.getElementById("minimizedPanel").classList.add('hidden');
+    document.getElementById("eventPanel").classList.remove('hidden');
+}
+
 var SNFregions = [];
 regionlist.forEach(filterSNFregions);
 //this function build an array based on which regions have 'snf' set to true
@@ -437,8 +448,8 @@ function initMap() {
     //Initialize a map instance.
     map = new atlas.Map('myMap', {
         center: [0, 0],
-        zoom: 0,
-        renderWorldCopies: true, 
+        zoom: 2,
+        renderWorldCopies: false, 
         view: "Auto",
         style: "grayscale_light",
         authOptions: {
@@ -476,32 +487,28 @@ function initMap() {
         displayedList.forEach(createhtmlmarker);
 
         function createhtmlmarker(item, index) {
-            var shortname = displayedList[index].shortname
-            var longname = displayedList[index].longname;
-            var location = displayedList[index].location;
-            var targetregions = displayedList[index].crrregions;
-            window[displayedList[index].shortname] = new atlas.HtmlMarker({
+            var targetregions = item.crrregions;
+            window[item.shortname] = new atlas.HtmlMarker({
                 color: 'DodgerBlue',
                 text: '10',
-                position: location,
+                position: item.location,
                 htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/map/anficon.png'></div>",
                 popup: new atlas.Popup({
-                    content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + longname + '</strong> (' + displayedList[index].shortname + ')<br>CRR Targets: ' + targetregions + '<br>Coordinates: ' + location + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
+                    content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>ANF backup: ' + item.backup + '<br>AVS datastore: ' + item.avsdatastore + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
                     pixelOffset: [0, -50],
                     fillColor: 'rgba(0,0,0,0.6)'
                 })
             });
-            console.log(window)
-            map.markers.add(window[displayedList[index].shortname]);
+            map.markers.add(window[item.shortname]);
             //Add a click event to toggle the popup.
-            map.events.add('click',window[displayedList[index].shortname], () => {
-                //window[displayedList[index].shortname].togglePopup();
+            map.events.add('click',window[item.shortname], () => {
+                window[item.shortname].togglePopup();
                 if (targetregions) {
                     targetregions.forEach(targetregion => {
-                        linename = displayedList[index].shortname + '_' + targetregion;
+                        console.log(targetregion);
+                        linename = item.shortname + '_' + targetregion;
                         layername = linename + '_layer';
                         if (typeof window[layername] != "undefined") {
-                            console.log("exists!");
                             existingoptions = window[layername].getOptions();
                             console.log(existingoptions);
                             if (existingoptions.visible == true) {
@@ -513,8 +520,8 @@ function initMap() {
                         window[linename] = new atlas.source.DataSource(null, {lineMetrics: true});
                         map.sources.add(window[linename]);
                         console.log(linename);
-                        var targetlatlong = regionlocation[targetregion];
-                        window[linename].add(new atlas.data.LineString([location, targetlatlong]));
+                        targetlatlong = regionlocation[targetregion];
+                        window[linename].add(new atlas.data.LineString([item.location, targetlatlong]));
                         //Create a line layer to render the line to the map.
                         window[layername] = new atlas.layer.LineLayer(window[linename], null, {
                             visible: true,
@@ -537,11 +544,11 @@ function initMap() {
                 
                 }
             });
-            map.events.add('mouseenter',window[displayedList[index].shortname], () => {  
-                window[displayedList[index].shortname].togglePopup();
+            map.events.add('mouseenter',window[item.shortname], () => {  
+                window[item.shortname].togglePopup();
             });
-            map.events.add('mouseleave',window[displayedList[index].shortname], () => {
-                window[displayedList[index].shortname].togglePopup();
+            map.events.add('mouseleave',window[item.shortname], () => {
+                window[item.shortname].togglePopup();
             });
         }
     });
@@ -571,31 +578,38 @@ function updateMap() {
 
     document.getElementById("totalFilteredCount").innerText = displayedList.length
 
+    desaturatedList = [];
+
+    regionlist.forEach(element => {
+        if (!displayedList.includes(element)) {
+            desaturatedList.push(element)
+        }
+    });
+
+    desaturatedList.forEach(createDesaturatedhtmlmarker);
     displayedList.forEach(createhtmlmarker);
+    
 
     function createhtmlmarker(item, index) {
-        var shortname = displayedList[index].shortname
-        var longname = displayedList[index].longname;
-        var location = displayedList[index].location;
-        var targetregions = displayedList[index].crrregions;
-        window[displayedList[index].shortname] = new atlas.HtmlMarker({
+        var targetregions = item.crrregions;
+        window[item.shortname] = new atlas.HtmlMarker({
             color: 'DodgerBlue',
             text: '10',
-            position: location,
+            position: item.location,
             htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/map/anficon.png'></div>",
             popup: new atlas.Popup({
-                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + longname + '</strong> (' + displayedList[index].shortname + ')<br>CRR Targets: ' + targetregions + '<br>Coordinates: ' + location + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
+                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>ANF backup: ' + item.backup + '<br>AVS datastore: ' + item.avsdatastore + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
                 pixelOffset: [0, -50],
                 fillColor: 'rgba(0,0,0,0.6)'
             })
         });
-        map.markers.add(window[displayedList[index].shortname]);
+        map.markers.add(window[item.shortname]);
         //Add a click event to toggle the popup.
-        map.events.add('click',window[displayedList[index].shortname], () => {
-            //window[displayedList[index].shortname].togglePopup();
+        map.events.add('click',window[item.shortname], () => {
+            //window[item.shortname].togglePopup();
             if (targetregions) {
                 targetregions.forEach(targetregion => {
-                    linename = displayedList[index].shortname + '_' + targetregion;
+                    linename = item.shortname + '_' + targetregion;
                     layername = linename + '_layer';
                     if (typeof window[layername] != "undefined") {
                         console.log("exists!");
@@ -611,7 +625,7 @@ function updateMap() {
                     map.sources.add(window[linename]);
                     console.log(linename);
                     var targetlatlong = regionlocation[targetregion];
-                    window[linename].add(new atlas.data.LineString([location, targetlatlong]));
+                    window[linename].add(new atlas.data.LineString([item.location, targetlatlong]));
                     //Create a line layer to render the line to the map.
                     window[layername] = new atlas.layer.LineLayer(window[linename], null, {
                         visible: true,
@@ -634,13 +648,80 @@ function updateMap() {
             
             }
         });
-        map.events.add('mouseenter',window[displayedList[index].shortname], () => {  
-            window[displayedList[index].shortname].togglePopup();
+        map.events.add('mouseenter',window[item.shortname], () => {  
+            window[item.shortname].togglePopup();
         });
-        map.events.add('mouseleave',window[displayedList[index].shortname], () => {
-            window[displayedList[index].shortname].togglePopup();
+        map.events.add('mouseleave',window[item.shortname], () => {
+            window[item.shortname].togglePopup();
         });
     }
+
+    function createDesaturatedhtmlmarker(item, index) {
+        var targetregions = item.crrregions;
+        window[item.shortname] = new atlas.HtmlMarker({
+            color: 'DodgerBlue',
+            text: '10',
+            position: item.location,
+            htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/map/anficon_gray.png'></div>",
+            popup: new atlas.Popup({
+                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>ANF backup: ' + item.backup + '<br>AVS datastore: ' + item.avsdatastore + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
+                pixelOffset: [0, -50],
+                fillColor: 'rgba(0,0,0,0.6)'
+            })
+        });
+        map.markers.add(window[item.shortname]);
+        //Add a click event to toggle the popup.
+        map.events.add('click',window[item.shortname], () => {
+            //window[item.shortname].togglePopup();
+            if (targetregions) {
+                targetregions.forEach(targetregion => {
+                    linename = item.shortname + '_' + targetregion;
+                    layername = linename + '_layer';
+                    if (typeof window[layername] != "undefined") {
+                        console.log("exists!");
+                        existingoptions = window[layername].getOptions();
+                        console.log(existingoptions);
+                        if (existingoptions.visible == true) {
+                            window[layername].setOptions({visible: false});
+                        } else {
+                            window[layername].setOptions({visible: true});
+                        }
+                    } else {
+                    window[linename] = new atlas.source.DataSource(null, {lineMetrics: true});
+                    map.sources.add(window[linename]);
+                    console.log(linename);
+                    var targetlatlong = regionlocation[targetregion];
+                    window[linename].add(new atlas.data.LineString([item.location, targetlatlong]));
+                    //Create a line layer to render the line to the map.
+                    window[layername] = new atlas.layer.LineLayer(window[linename], null, {
+                        visible: true,
+                        strokeWidth: 4,
+                        strokeGradient: [
+                            'interpolate',
+                            ['linear'],
+                            ['line-progress'],
+                            0, "blue",
+                            0.1, "royalblue",
+                            0.4, "cyan",
+                            0.6, "cyan",
+                            0.9, "royalblue",
+                            1, "blue"
+                        ]
+                    });
+                    map.layers.add(window[layername]);
+                }
+                });
+            
+            }
+        });
+        map.events.add('mouseenter',window[item.shortname], () => {  
+            window[item.shortname].togglePopup();
+        });
+        map.events.add('mouseleave',window[item.shortname], () => {
+            window[item.shortname].togglePopup();
+        });
+    }
+
 };
 
 
