@@ -15,21 +15,75 @@
      <script src="map.js"></script>
 
      <style>
-         html,
-         body {
+        html,
+        body {
              width: 100%;
              height: 100%;
              padding: 0;
              margin: 0;
-         }
+        }
 
-         #map {
+        #myMap {
              width: 100%;
              height: 100%;
-         }
+        }
+
+        #eventPanel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            border-radius: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-bottom: 25px;
+            -webkit-column-count: 1;
+            -moz-column-count: 1;
+            column-count: 1;
+            font-size: 1.0rem;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url(https://anftechteam.github.io/calc/anficon.png);
+            background-size: 15%;
+            background-repeat: no-repeat;
+            background-position-y: 100%;
+            background-position-x: 100%;
+        }
+        #eventPanel ul {
+            padding-left: 20px;
+            padding-top: 0;
+            list-style: circle;
+            margin-top: 0;
+        }
+        #eventPanel h4,h3 {
+            padding: 0;
+            margin-bottom: 2px
+
+        }
+
+
      </style>
  </head>
- <body onload="GetMap()">
-     <div id="map"></div>
+ <body onload="initMap()">
+    <div id="myMap"></div>
+    <div id="eventPanel">
+        <h3>Azure NetApp Files Region and Feature Map</h3>
+        <ul>
+        <li>Hover to see details about a region.</li>
+        <li>Click to see cross-region replication region pairs.</li>
+        </ul>
+        <h4>Total number of regions: <span id="totalRegionCount"></span></h4>
+        <h4>Filter view by specific features</h4>
+        <input onclick="updateMap()" type="checkbox" id="snf" name="snf" value="snf">
+        <label for="snf">standard network features </label>(<span id="snfRegionCount"></span>)<br>
+        <input onclick="updateMap()" type="checkbox" id="avs" name="avs" value="avs">
+        <label for="avs">datastore for Azure VMware Solution </label>(<span id="avsRegionCount"></span>)<br>
+        <input onclick="updateMap()" type="checkbox" id="backup" name="backup" value="backup">
+        <label for="backup">Azure NetApp Files backup </label>(<span id="backupRegionCount"></span>)<br>
+        <h4>Total filtered regions: <span id="totalFilteredCount"></span></h4><br>
+        <button onclick="window.location.href=window.location.href">Reset</button>
+    </div>
  </body>
  </html>
