@@ -1,6 +1,6 @@
 var map;
 var controls;
-var displayedList = []
+var displayedList = [];
 var regionlocation = {
     australiacentral: [149.1144, -35.3075],
     australiacentral2: [149.1344, -35.3075],
@@ -203,7 +203,7 @@ var regionlist = [
         "location": regionlocation.koreacentral,
         "crrregions": ["koreasouth"],
         "snf": true,
-        "avsdatastore": true,
+        "avsdatastore": false,
         "backup": false
     },
     {
@@ -301,7 +301,7 @@ var regionlist = [
         "longname": "Switzerland West",
         "location": regionlocation.switzerlandwest,
         "crrregions": ["switzerlandnorth"],
-        "snf": true,
+        "snf": false,
         "avsdatastore": true,
         "backup": false
     },
@@ -311,7 +311,7 @@ var regionlist = [
         "location": regionlocation.uaecentral,
         "crrregions": ["uaenorth"],
         "snf": true,
-        "avsdatastore": true,
+        "avsdatastore": false,
         "backup": false
     },
     {
@@ -320,7 +320,7 @@ var regionlist = [
         "location": regionlocation.uaenorth,
         "crrregions": ["uaecentral"],
         "snf": true,
-        "avsdatastore": true,
+        "avsdatastore": false,
         "backup": false
     },
     {
@@ -338,7 +338,7 @@ var regionlist = [
         "location": regionlocation.ukwest,
         "crrregions": ["uksouth"],
         "snf": false,
-        "avsdatastore": false,
+        "avsdatastore": true,
         "backup": false
     },
     {
@@ -401,7 +401,7 @@ var regionlist = [
         "location": regionlocation.westus3,
         "crrregions": ["eastus", "westus2"],
         "snf": true,
-        "avsdatastore": true,
+        "avsdatastore": false,
         "backup": false
     }
 ];
@@ -428,7 +428,6 @@ function filterSNFregions(item, index) {
 var AVSregions = [];
 regionlist.forEach(filterAVSregions);
 //this function build an array based on which regions have 'avs' set to true
-
 function filterAVSregions(item, index) {
     if (regionlist[index].avsdatastore == true) {
         AVSregions.push(regionlist[index])
@@ -441,6 +440,16 @@ regionlist.forEach(filterBackupregions);
 function filterBackupregions(item, index) {
     if (regionlist[index].backup == true) {
         Backupregions.push(regionlist[index])
+    }
+};
+
+var USGovregions = [];
+regionlist.forEach(filterUSGovregions);
+//this function build an array based on which regions have 'US Gov' set to true
+function filterUSGovregions(item, index) {
+    const govLabel = 'US Gov';
+    if (item.longname.indexOf(govLabel) >= 0) {
+        USGovregions.push(regionlist[index])
     }
 };
 
@@ -473,10 +482,11 @@ function initMap() {
         
     displayedList = regionlist;
 
-    document.getElementById("totalRegionCount").innerText = regionlist.length
-    document.getElementById("snfRegionCount").innerText = SNFregions.length
-    document.getElementById("avsRegionCount").innerText = AVSregions.length
-    document.getElementById("backupRegionCount").innerText = Backupregions.length
+    document.getElementById("totalRegionCount").innerHTML = '<a target="_blank" href="https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=netapp&regions=all&rar=true">' + regionlist.length + '</a>'
+    document.getElementById("snfRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/azure-netapp-files-network-topologies#supported-regions">' + SNFregions.length + '</a>'
+    document.getElementById("avsRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal#supported-regions">' + AVSregions.length + '</a>'
+    document.getElementById("backupRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/backup-introduction#supported-regions">' + Backupregions.length + '</a>'
+    document.getElementById("USGovRegionCount").innerHTML = '<a target="_blank" href="https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=netapp&regions=usgov-non-regional,us-dod-central,us-dod-east,usgov-arizona,usgov-texas,usgov-virginia&rar=true">' + USGovregions.length + '</a>'
     document.getElementById("totalFilteredCount").innerText = displayedList.length
 
     //Wait until the map resources are ready.
@@ -574,6 +584,13 @@ function updateMap() {
         Backupregions = [];
         displayedList.forEach(filterBackupregions);
         displayedList = Backupregions;
+    }
+    if (document.getElementById("usgov").checked) {
+        USGovregions = [];
+        displayedList.forEach(filterUSGovregions);
+        console.log(displayedList)
+        console.log(USGovregions)
+        displayedList = USGovregions;
     }
 
     document.getElementById("totalFilteredCount").innerText = displayedList.length
