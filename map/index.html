@@ -58,7 +58,7 @@
         #eventPanel h4,h3 {
             padding: 0;
             margin-bottom: 2px;
-
+            margin-top: 5px;
         }
         #miniImg {
             float: right;
@@ -73,6 +73,7 @@
         }
         #mainPanel {
             padding: 25px;
+            padding-bottom: 10px;
         }
         #mainPanel a {
             color: rgb(33, 82, 138);
@@ -97,6 +98,9 @@
             width: 20px;
             margin: 0;
         }
+        small {
+            color: gray;
+        }
      </style>
  </head>
  <body onload="initMap()">
@@ -113,6 +117,7 @@
             <li>Click to see cross-region replication region pairs.</li>
             </ul>
             <h4>Total number of regions: <span id="totalRegionCount"></span></h4>
+            <br>
             <h4>Filter view by specific features</h4>
             <input onclick="updateMap()" type="checkbox" id="snf" name="snf" value="snf">
             <label for="snf">standard network features </label>(<span id="snfRegionCount"></span>)<br>
@@ -124,6 +129,8 @@
             <label for="usgov">US Gov </label>(<span id="USGovRegionCount"></span>)<br>
             <h4>Total filtered regions: <span id="totalFilteredCount"></span></h4><br>
             <button onclick="window.location.href=window.location.href">Reset</button>
+            <br><br>
+            <small>Created by <a target="_blank" href="https://github.com/seanluce">@seanluce</a> | <a target="_blank" href="https://netapp.com">NetApp</a></small>
         </div>
     </div>
     <div class="hidden" id="minimizedPanel">
