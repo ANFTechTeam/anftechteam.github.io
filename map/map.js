@@ -532,7 +532,7 @@ function initMap() {
         style: "grayscale_light",
         authOptions: {
                     authType: 'subscriptionKey',
-                    subscriptionKey: 'pRU8GPM_C5_5RK91QFK7jGoWm_DERX_pztOtdxlCI9M'
+                    subscriptionKey: '7JKG0vOTSryydJexb9CnVwireDc4oGsbfC7XW8eTnrU'
                 }
     });
     controls = [];
