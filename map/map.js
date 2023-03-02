@@ -20,6 +20,7 @@ var regionlocation = {
     japaneast: [139.77, 35.68],
     japanwest: [135.5022, 34.6939],
     koreacentral: [126.9780, 37.5665],
+    koreasouth: [129.0756, 35.1796],
     northcentralus: [-87.6278, 41.8819],
     northeurope: [-6.2597, 53.3478],
     norwayeast: [10.752245, 59.913868],
@@ -203,6 +204,15 @@ var regionlist = [
         "location": regionlocation.koreacentral,
         "crrregions": ["koreasouth"],
         "snf": true,
+        "avsdatastore": false,
+        "backup": false
+    },
+    {
+        "shortname": "koreasouth",
+        "longname": "Korea South",
+        "location": regionlocation.koreasouth,
+        "crrregions": ["koreacentral"],
+        "snf": false,
         "avsdatastore": false,
         "backup": false
     },
