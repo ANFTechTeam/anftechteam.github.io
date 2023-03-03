@@ -608,7 +608,7 @@ function initMap() {
     document.getElementById("avsRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal#supported-regions">' + AVSregions.length + '</a>'
     document.getElementById("backupRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/backup-introduction#supported-regions">' + Backupregions.length + '</a>'
     document.getElementById("largevolumesRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/large-volumes-requirements-considerations#supported-regions">' + Largevolumesregions.length + '</a>'
-    document.getElementById("cmkRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/en-us/azure/azure-netapp-files/configure-customer-managed-keys#supported-regions">' + CMKregions.length + '</a>'
+    document.getElementById("cmkRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/configure-customer-managed-keys#supported-regions">' + CMKregions.length + '</a>'
 
     document.getElementById("USGovRegionCount").innerHTML = '<a target="_blank" href="https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=netapp&regions=usgov-non-regional,us-dod-central,us-dod-east,usgov-arizona,usgov-texas,usgov-virginia&rar=true">' + USGovregions.length + '</a>'
     document.getElementById("totalFilteredCount").innerText = displayedList.length
