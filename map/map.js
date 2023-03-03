@@ -512,8 +512,8 @@ var SNFregions = [];
 regionlist.forEach(filterSNFregions);
 //this function build an array based on which regions have 'snf' set to true
 function filterSNFregions(item, index) {
-    if (regionlist[index].snf == true) {
-        SNFregions.push(regionlist[index])
+    if (item.snf == true) {
+        SNFregions.push(item)
     }
 };
 
@@ -530,8 +530,8 @@ var AVSregions = [];
 regionlist.forEach(filterAVSregions);
 //this function build an array based on which regions have 'avs' set to true
 function filterAVSregions(item, index) {
-    if (regionlist[index].avsdatastore == true) {
-        AVSregions.push(regionlist[index])
+    if (item.avsdatastore == true) {
+        AVSregions.push(item)
     }
 };
 
@@ -539,8 +539,8 @@ var Backupregions = [];
 regionlist.forEach(filterBackupregions);
 //this function build an array based on which regions have 'backup' set to true
 function filterBackupregions(item, index) {
-    if (regionlist[index].backup == true) {
-        Backupregions.push(regionlist[index])
+    if (item.backup == true) {
+        Backupregions.push(item)
     }
 };
 
@@ -548,8 +548,8 @@ var Largevolumesregions = [];
 regionlist.forEach(filterLargevolumesregions);
 //this function build an array based on which regions have 'US Gov' set to true
 function filterLargevolumesregions(item, index) {
-    if (regionlist[index].largevolumes == true) {
-        Largevolumesregions.push(regionlist[index])
+    if (item.largevolumes == true) {
+        Largevolumesregions.push(item)
     }
 };
 
