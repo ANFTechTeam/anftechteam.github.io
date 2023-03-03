@@ -53,7 +53,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "australiacentral2",
@@ -63,7 +64,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "australiaeast",
@@ -73,7 +75,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "australiasoutheast",
@@ -83,7 +86,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "brazilsouth",
@@ -93,7 +97,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "canadacentral",
@@ -103,7 +108,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "canadaeast",
@@ -113,7 +119,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "centralindia",
@@ -123,7 +130,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "centralus",
@@ -133,7 +141,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "eastasia",
@@ -143,7 +152,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": true
     },
     {
         "shortname": "eastus",
@@ -153,7 +163,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "eastus2",
@@ -163,7 +174,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": true
     },
     {
         "shortname": "francecentral",
@@ -173,7 +185,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "germanywestcentral",
@@ -183,7 +196,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "germanynorth",
@@ -193,7 +207,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "japaneast",
@@ -203,7 +218,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "japanwest",
@@ -213,7 +229,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "koreacentral",
@@ -223,7 +240,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "koreasouth",
@@ -233,7 +251,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "northcentralus",
@@ -243,7 +262,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "northeurope",
@@ -253,7 +273,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "norwayeast",
@@ -263,7 +284,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "norwaywest",
@@ -273,7 +295,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "southafricanorth",
@@ -283,7 +306,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "southcentralus",
@@ -293,7 +317,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "southindia",
@@ -303,7 +328,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "southeastasia",
@@ -313,7 +339,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "swedencentral",
@@ -323,7 +350,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "switzerlandnorth",
@@ -333,7 +361,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "switzerlandwest",
@@ -343,7 +372,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "uaecentral",
@@ -353,7 +383,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "uaenorth",
@@ -363,7 +394,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "uksouth",
@@ -373,7 +405,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "ukwest",
@@ -383,7 +416,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "usgovarizona",
@@ -393,7 +427,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "usgovvirginia",
@@ -403,7 +438,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "usgovtexas",
@@ -413,7 +449,8 @@ var regionlist = [
         "snf": false,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": false
+        "largevolumes": false,
+        "cmk": false
     },
     {
         "shortname": "westeurope",
@@ -423,7 +460,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": true
     },
     {
         "shortname": "westus",
@@ -433,7 +471,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "westus2",
@@ -443,7 +482,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": true,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     },
     {
         "shortname": "westus3",
@@ -453,7 +493,8 @@ var regionlist = [
         "snf": true,
         "avsdatastore": false,
         "backup": false,
-        "largevolumes": true
+        "largevolumes": true,
+        "cmk": false
     }
 ];
 
@@ -478,10 +519,10 @@ function filterSNFregions(item, index) {
 
 var CRRregions = [];
 regionlist.forEach(filterCRRregions);
-//this function build an array based on which regions have 'snf' set to true
+//this function build an array based on which regions have 'crr' set to true
 function filterCRRregions(item, index) {
-    if (regionlist[index].crrregions.length > 0) {
-        CRRregions.push(regionlist[index])
+    if (item.crrregions.length > 0) {
+        CRRregions.push(item)
     }
 };
 
@@ -512,13 +553,22 @@ function filterLargevolumesregions(item, index) {
     }
 };
 
+var CMKregions = [];
+regionlist.forEach(filterCMKregions);
+//this function build an array based on which regions have 'US Gov' set to true
+function filterCMKregions(item, index) {
+    if (item.cmk == true) {
+        CMKregions.push(item)
+    }
+};
+
 var USGovregions = [];
 regionlist.forEach(filterUSGovregions);
 //this function build an array based on which regions have 'US Gov' set to true
 function filterUSGovregions(item, index) {
     const govLabel = 'US Gov';
     if (item.longname.indexOf(govLabel) >= 0) {
-        USGovregions.push(regionlist[index])
+        USGovregions.push(item)
     }
 };
 
@@ -558,6 +608,7 @@ function initMap() {
     document.getElementById("avsRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal#supported-regions">' + AVSregions.length + '</a>'
     document.getElementById("backupRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/backup-introduction#supported-regions">' + Backupregions.length + '</a>'
     document.getElementById("largevolumesRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/large-volumes-requirements-considerations#supported-regions">' + Largevolumesregions.length + '</a>'
+    document.getElementById("cmkRegionCount").innerHTML = '<a target="_blank" href="https://learn.microsoft.com/en-us/azure/azure-netapp-files/configure-customer-managed-keys#supported-regions">' + CMKregions.length + '</a>'
 
     document.getElementById("USGovRegionCount").innerHTML = '<a target="_blank" href="https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=netapp&regions=usgov-non-regional,us-dod-central,us-dod-east,usgov-arizona,usgov-texas,usgov-virginia&rar=true">' + USGovregions.length + '</a>'
     document.getElementById("totalFilteredCount").innerText = displayedList.length
@@ -577,7 +628,7 @@ function initMap() {
                 position: item.location,
                 htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/map/anficon.png'></div>",
                 popup: new atlas.Popup({
-                    content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>ANF backup: ' + item.backup + '<br>AVS datastore: ' + item.avsdatastore + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
+                    content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>backup: ' + item.backup + '<br>datastore for AVS: ' + item.avsdatastore + '<br>large volumes: ' + item.largevolumes +  '<br>customer-managed keys: ' + item.cmk + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '</div>',
                     pixelOffset: [0, -50],
                     fillColor: 'rgba(0,0,0,0.6)'
                 })
@@ -651,6 +702,8 @@ function updateMap() {
     if (document.getElementById("crr").checked) {
         CRRregions = [];
         displayedList.forEach(filterCRRregions);
+        console.log(displayedList)
+        console.log(USGovregions)
         displayedList = CRRregions;
     }
     if (document.getElementById("avs").checked) {
@@ -667,6 +720,11 @@ function updateMap() {
         Largevolumesregions = [];
         displayedList.forEach(filterLargevolumesregions);
         displayedList = Largevolumesregions;
+    }
+    if (document.getElementById("cmk").checked) {
+        CMKregions = [];
+        displayedList.forEach(filterCMKregions);
+        displayedList = CMKregions;
     }
     if (document.getElementById("usgov").checked) {
         USGovregions = [];
@@ -698,7 +756,7 @@ function updateMap() {
             position: item.location,
             htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/map/anficon.png'></div>",
             popup: new atlas.Popup({
-                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>ANF backup: ' + item.backup + '<br>AVS datastore: ' + item.avsdatastore + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
+                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>backup: ' + item.backup + '<br>datastore for AVS: ' + item.avsdatastore + '<br>large volumes: ' + item.largevolumes +  '<br>customer-managed keys: ' + item.cmk + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '</div>',
                 pixelOffset: [0, -50],
                 fillColor: 'rgba(0,0,0,0.6)'
             })
@@ -764,7 +822,7 @@ function updateMap() {
             position: item.location,
             htmlContent: "<div style='width:3em;'><img style='width:3em;' src='https://anftechteam.github.io/map/anficon_gray.png'></div>",
             popup: new atlas.Popup({
-                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>ANF backup: ' + item.backup + '<br>AVS datastore: ' + item.avsdatastore + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '<br>Source: <a style="color:LightBlue" href="https://azure.microsoft.com/en-us/global-infrastructure/services/?products=netapp&regions=all&rar=true">Microsoft</a></div>',
+                content: '<div style="padding:10px;color:white"><strong>ANF Region: ' + item.longname + '</strong> (' + item.shortname + ')<br>CRR Targets: ' + targetregions + '<br>standard networking: ' + item.snf + '<br>backup: ' + item.backup + '<br>datastore for AVS: ' + item.avsdatastore + '<br>large volumes: ' + item.largevolumes +  '<br>customer-managed keys: ' + item.cmk + '<br>Latitude: ' + item.location[1] + '<br>Longitude: ' + item.location[0] + '</div>',
                 pixelOffset: [0, -50],
                 fillColor: 'rgba(0,0,0,0.6)'
             })
