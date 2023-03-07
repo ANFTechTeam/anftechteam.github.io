@@ -263,7 +263,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "northeurope",
