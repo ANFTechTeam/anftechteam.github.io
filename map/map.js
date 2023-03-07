@@ -54,7 +54,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "australiacentral2",
@@ -65,7 +65,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "australiaeast",
@@ -76,7 +76,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "australiasoutheast",
@@ -87,7 +87,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "brazilsouth",
@@ -98,7 +98,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "canadacentral",
@@ -109,7 +109,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "canadaeast",
@@ -142,7 +142,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "eastasia",
@@ -164,7 +164,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "eastus2",
@@ -186,7 +186,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "germanywestcentral",
@@ -197,7 +197,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "germanynorth",
@@ -208,7 +208,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "japaneast",
@@ -219,7 +219,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "japanwest",
@@ -230,7 +230,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "koreacentral",
@@ -241,7 +241,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "koreasouth",
@@ -274,7 +274,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "norwayeast",
@@ -285,7 +285,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "norwaywest",
@@ -296,7 +296,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "southafricanorth",
@@ -307,7 +307,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "southcentralus",
@@ -318,7 +318,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "southindia",
@@ -329,7 +329,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "southeastasia",
@@ -340,7 +340,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "swedencentral",
@@ -351,7 +351,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "switzerlandnorth",
@@ -362,7 +362,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "switzerlandwest",
@@ -384,7 +384,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": false,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "uaenorth",
@@ -395,7 +395,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "uksouth",
@@ -406,7 +406,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "ukwest",
@@ -472,7 +472,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "westus2",
@@ -483,7 +483,7 @@ var regionlist = [
         "avsdatastore": true,
         "backup": true,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     },
     {
         "shortname": "westus3",
@@ -494,7 +494,7 @@ var regionlist = [
         "avsdatastore": false,
         "backup": false,
         "largevolumes": true,
-        "cmk": false
+        "cmk": true
     }
 ];
 
