@@ -24,7 +24,8 @@ var regionlocation = {
     northcentralus: [-87.6278, 41.8819],
     northeurope: [-6.2597, 53.3478],
     norwayeast: [10.752245, 59.913868],
-    norwaywest: [ 5.733107, 58.969975],
+    norwaywest: [5.733107, 58.969975],
+    qatarcentral: [51.439327, 25.551462],
     southafricanorth: [28.21837, -25.73134],
     southcentralus: [-98.5, 29.4167],
     southeastasia: [103.833, 1.283],
@@ -374,6 +375,17 @@ var regionlist = [
         "backup": false,
         "largevolumes": false,
         "cmk": false
+    },
+    {
+        "shortname": "qatarcentral",
+        "longname": "Qatar Central",
+        "location": regionlocation.qatarcentral,
+        "crrregions": [],
+        "snf": true,
+        "avsdatastore": true,
+        "backup": false,
+        "largevolumes": false,
+        "cmk": true
     },
     {
         "shortname": "uaecentral",
