@@ -262,7 +262,7 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": true,
+        "largevolumes": false,
         "cmk": true
     },
     {
