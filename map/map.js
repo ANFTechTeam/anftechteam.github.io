@@ -300,6 +300,17 @@ var regionlist = [
         "cmk": true
     },
     {
+        "shortname": "qatarcentral",
+        "longname": "Qatar Central",
+        "location": regionlocation.qatarcentral,
+        "crrregions": [],
+        "snf": true,
+        "avsdatastore": true,
+        "backup": false,
+        "largevolumes": true,
+        "cmk": true
+    },
+    {
         "shortname": "southafricanorth",
         "longname": "South Africa North",
         "location": regionlocation.southafricanorth,
@@ -307,7 +318,7 @@ var regionlist = [
         "snf": true,
         "avsdatastore": true,
         "backup": false,
-        "largevolumes": false,
+        "largevolumes": true,
         "cmk": true
     },
     {
@@ -375,17 +386,6 @@ var regionlist = [
         "backup": false,
         "largevolumes": false,
         "cmk": false
-    },
-    {
-        "shortname": "qatarcentral",
-        "longname": "Qatar Central",
-        "location": regionlocation.qatarcentral,
-        "crrregions": [],
-        "snf": true,
-        "avsdatastore": true,
-        "backup": false,
-        "largevolumes": false,
-        "cmk": true
     },
     {
         "shortname": "uaecentral",
