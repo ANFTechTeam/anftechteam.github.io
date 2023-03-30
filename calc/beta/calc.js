@@ -521,22 +521,17 @@ function getResults(convert) {
     language = getBrowserLocales()[0];
 
     if (language == 'ja') {
-        console.log(language);
-        currencyPerMonth = '(円/月)'
+        currencyPerMonth = '(USD/month)'
         document.title = "ANF パフォーマンス計算ツール";
-        document.getElementById("headerTitle").innerHTML = '&nbsp;&nbsp;Azure NetApp Files パフォーマンス計算ツール';
+        document.getElementById("headerTitle").innerHTML = '&nbsp;&nbsp;Azure NetApp Files パフォーマンス計算ツール <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span>';
         document.getElementById("volumewarning").innerHTML = '最小サイズは 100 GiB、最大サイズは 500TiB.';
         document.getElementById("tputwarning").innerHTML = '特定サイズボリュームの性能を確認するには「0」を、スループットからボリュームサイズを逆算するにはループットを入力してください。最大スループットは'+ max_tput + ' MiB/sとなります。';
-        document.getElementById("crrwarning").innerHTML = 'パーセントの日次変化率（.1-100）を指定して、レプリケーションおよび/またはバックアップコストを計算します。';
+        document.getElementById("crrwarning").innerHTML = 'レプリケーションやバックアップのコストを計算するために、日次データの変化率（.1～100）を指定します';
         document.getElementById("volumeSizeLabel").innerHTML = 'ボリューム サイズ';
         document.getElementById("throughputLabel").innerHTML = 'スループット';
         document.getElementById("changeRateLabel").innerHTML = '変化率';
         document.getElementById("sourceVolumeLabel").innerHTML = 'サービス レベル';
-        document.getElementById("throughputCellLabel").innerHTML = 'スループット <small>(MiB/s)</small>';
-        document.getElementById("volumeShowBackCellLabel").innerHTML = 'ボリューム表示バック <small>' + currencyPerMonth + '</small>';
-        document.getElementById("volumeSizeCellLabel").innerHTML = 'ボリューム サイズ <small id="table_unit"></small>';
-        document.getElementById("capacityPoolSizeCellLabel").innerHTML = '容量プール サイズ <small>(TiB)</small>'; 
-        document.getElementById("capacityPoolCostCellLabel").innerHTML = '容量プール コスト <small>' + currencyPerMonth + '</small>';
+        document.getElementById("destinationVolumeLabel").innerHTML = '目的地のボリューム';
         document.getElementById("discountLabel").innerHTML = '割引';
         document.getElementById("blueTextExplain").innerHTML = 'ボリュームサイズが青いテキストで表示されている場合は、そのサイズが指定されたスループット、IOPSに基づいて計算されているものを示します。';
         document.getElementById("largeVolumeNote").innerHTML = 'スループットが4500 MiB/sを超えるか、サイズが100 TiBを超えるボリュームは、<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/large-volumes-requirements-considerations">大容量のボリューム</a>が必要です。';
@@ -546,6 +541,32 @@ function getResults(convert) {
         document.getElementById("billingMonthWarningNote").innerHTML = '「容量プール コスト」で表示されている月額料金は、730時間に基づいて計算されています。';
         document.getElementById("sourceLabel").innerHTML = 'ソース: <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a target="_blank" href="https://azure.microsoft.com/pricing/details/netapp/">Pricing</a>, <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-resource-limits">Resource Limits</a>';
         document.getElementById("estimateOnlyWarningNote").innerHTML = 'ご注意事項: 本ツールは概算目的のみであり、性能、課金の詳細情報は公式ドキュメントを参照ください。';
+        document.getElementsByClassName("throughputCellLabel").innerHTML = 'スループット <small>(MiB/s)</small>';
+        Array.from(document.getElementsByClassName("throughputCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'スループット <small>(MiB/s)</small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("volumeSizeCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'ボリューム サイズ <small class="table_unit"></small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("volumeShowBackCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'ボリューム表示バック <small>' + currencyPerMonth + '</small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("capacityPoolSizeCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = '容量プール サイズ <small>(TiB)</small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("capacityPoolCostCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = '容量プール コスト <small>' + currencyPerMonth + '</small>';
+            }
+        );
     }
 
     if (isNaN(change_rate) || change_rate <= 0 || change_rate > 100) {
@@ -701,7 +722,11 @@ function getResults(convert) {
                     ultra_cost = (volume_in_gb * ultra_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 }
                 if (document.getElementById('GiB').checked) {
-                    document.getElementById("table_unit").innerText = "(GiB)";
+                    Array.from(document.getElementsByClassName("table_unit")).forEach(
+                        function(element, index, array) {
+                            element.innerHTML = '(GiB)';
+                        }
+                    );
                     document.getElementById("size_standard_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     document.getElementById("size_premium_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     document.getElementById("size_ultra_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -710,7 +735,11 @@ function getResults(convert) {
                     document.getElementById("dest_size_premium_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     document.getElementById("dest_size_ultra_cell").innerText = volume_in_gb.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                 } else {
-                    document.getElementById("table_unit").innerText = "(TiB)";
+                    Array.from(document.getElementsByClassName("table_unit")).forEach(
+                        function(element, index, array) {
+                            element.innerHTML = '(TiB)';
+                        }
+                    );
                     document.getElementById("size_standard_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     document.getElementById("size_premium_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     document.getElementById("size_ultra_cell").innerText = (volume_in_gb / 1024).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -781,13 +810,21 @@ function getResults(convert) {
                     ultra_size_needed = volume_in_gb
                 }
                 if (document.getElementById('GiB').checked) {
-                    document.getElementById("table_unit").innerText = "(GiB)";
+                    Array.from(document.getElementsByClassName("table_unit")).forEach(
+                        function(element, index, array) {
+                            element.innerHTML = '(GiB)';
+                        }
+                    );
                     standard_as_displayed = standard_size_needed;
                     premium_as_displayed = premium_size_needed;
                     ultra_as_displayed = ultra_size_needed;
                     mincap_as_displayed = min_vol_capacity;
                 } else {
-                    document.getElementById("table_unit").innerText = "(TiB)";
+                    Array.from(document.getElementsByClassName("table_unit")).forEach(
+                        function(element, index, array) {
+                            element.innerHTML = '(TiB)';
+                        }
+                    );
                     standard_as_displayed = standard_size_needed / 1024;
                     premium_as_displayed = premium_size_needed / 1024;
                     ultra_as_displayed = ultra_size_needed / 1024;
