@@ -10,6 +10,18 @@ cfg: { // Application Insights Configuration
     /* ...Other Configuration Options... */
 }});
 
+overrideLanguage = '';
+
+function english() {
+    overrideLanguage = 'en';
+    getResults();
+}
+
+function japanese() {
+    overrideLanguage = 'ja';
+    getResults();
+}
+
 function getBrowserLocales(options = {}) {
     const defaultOptions = {
       languageCodeOnly: false,
@@ -32,18 +44,6 @@ function getBrowserLocales(options = {}) {
         : trimmedLocale;
     });
   }
-
-overrideLanguage = 'en'
-
-function english() {
-    overrideLanguage = 'en';
-    getResults();
-}
-
-function japanese() {
-    overrideLanguage = 'ja';
-    getResults();
-}
 
 function getResults(convert) {
     if (convert == 1) {
@@ -530,9 +530,13 @@ function getResults(convert) {
     restore_rate = backup_region_restore[active_region] * discount_percent;
     monthly_delta = (volume_in_gb * (change_rate / 100)) * 30
 
-    language = getBrowserLocales()[0];
+    if (overrideLanguage != '') {
+        language = overrideLanguage;
+    } else {
+        language = getBrowserLocales()[0];
+    }
 
-    if (language == 'ja' || overrideLanguage == 'ja') {
+    if (language == 'ja') {
         currencyPerMonth = '(USD/month)'
         document.title = "ANF パフォーマンス計算ツール";
         document.getElementById("headerTitle").innerHTML = '&nbsp;&nbsp;Azure NetApp Files パフォーマンス計算ツール <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span>';
