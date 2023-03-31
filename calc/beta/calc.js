@@ -33,6 +33,18 @@ function getBrowserLocales(options = {}) {
     });
   }
 
+overrideLanguage = 'en'
+
+function english() {
+    overrideLanguage = 'en';
+    getResults();
+}
+
+function japanese() {
+    overrideLanguage = 'ja';
+    getResults();
+}
+
 function getResults(convert) {
     if (convert == 1) {
         document.getElementById("capinput").value = cap_target * 1024
@@ -520,7 +532,7 @@ function getResults(convert) {
 
     language = getBrowserLocales()[0];
 
-    if (language == 'ja') {
+    if (language == 'ja' || overrideLanguage == 'ja') {
         currencyPerMonth = '(USD/month)'
         document.title = "ANF パフォーマンス計算ツール";
         document.getElementById("headerTitle").innerHTML = '&nbsp;&nbsp;Azure NetApp Files パフォーマンス計算ツール <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span>';
@@ -531,13 +543,13 @@ function getResults(convert) {
         document.getElementById("throughputLabel").innerHTML = 'スループット';
         document.getElementById("changeRateLabel").innerHTML = '変化率';
         document.getElementById("sourceVolumeLabel").innerHTML = 'サービス レベル';
-        document.getElementById("destinationVolumeLabel").innerHTML = '目的地のボリューム';
+        document.getElementById("destinationVolumeLabel").innerHTML = '宛先ボリューム';
         document.getElementById("discountLabel").innerHTML = '割引';
         document.getElementById("blueTextExplain").innerHTML = 'ボリュームサイズが青いテキストで表示されている場合は、そのサイズが指定されたスループット、IOPSに基づいて計算されているものを示します。';
         document.getElementById("largeVolumeNote").innerHTML = 'スループットが4500 MiB/sを超えるか、サイズが100 TiBを超えるボリュームは、<a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/large-volumes-requirements-considerations">大容量のボリューム</a>が必要です。';
-        document.getElementById("costWarningNote").innerHTML = '「容量プールコスト」は請求される金額です。「ボリューム表示バック」の金額は、表示バックの目的のみです。';
+        document.getElementById("costWarningNote").innerHTML = '「容量プールコスト」は請求される金額です。「ボリュームショーバック」の金額は、ショーバックの目的のみです。';
         document.getElementById("replicateWarningNote").innerHTML = '異なるサービスレベルのボリューム間でレプリケーションできます。';
-        document.getElementById("replicationCostsWarningNote").innerHTML = 'レプリケーション転送コストは、35％のストレージ効率評価に基づいています。';
+        document.getElementById("replicationCostsWarningNote").innerHTML = 'レプリケーション転送コストは、ストレージ効率エンジンによって35％の転送データ量を抑えた前提で計算しています。';
         document.getElementById("billingMonthWarningNote").innerHTML = '「容量プール コスト」で表示されている月額料金は、730時間に基づいて計算されています。';
         document.getElementById("sourceLabel").innerHTML = 'ソース: <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a target="_blank" href="https://azure.microsoft.com/pricing/details/netapp/">Pricing</a>, <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-resource-limits">Resource Limits</a>';
         document.getElementById("estimateOnlyWarningNote").innerHTML = 'ご注意事項: 本ツールは概算目的のみであり、性能、課金の詳細情報は公式ドキュメントを参照ください。';
@@ -554,7 +566,7 @@ function getResults(convert) {
         );
         Array.from(document.getElementsByClassName("volumeShowBackCellLabel")).forEach(
             function(element, index, array) {
-                element.innerHTML = 'ボリューム表示バック <small>' + currencyPerMonth + '</small>';
+                element.innerHTML = 'ボリュームショーバック <small>' + currencyPerMonth + '</small>';
             }
         );
         Array.from(document.getElementsByClassName("capacityPoolSizeCellLabel")).forEach(
@@ -565,6 +577,53 @@ function getResults(convert) {
         Array.from(document.getElementsByClassName("capacityPoolCostCellLabel")).forEach(
             function(element, index, array) {
                 element.innerHTML = '容量プール コスト <small>' + currencyPerMonth + '</small>';
+            }
+        );
+    } else {
+        currencyPerMonth = '(USD/month)'
+        document.title = "Azure NetApp Files Performance Calculator";
+        document.getElementById("headerTitle").innerHTML = '&nbsp;&nbsp;Azure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span>';
+        document.getElementById("volumewarning").innerHTML = 'Minimum volume size is 100 GiB. Maximum volume size is 500 TiB.';
+        document.getElementById("tputwarning").innerHTML = 'Enter 0 to size for capacity only. Maximum throughput is '+ max_tput + ' MiB/s.';
+        document.getElementById("crrwarning").innerHTML = 'Specify percent daily change rate (.1 - 100) to calculate replication and/or backup costs.';
+        document.getElementById("volumeSizeLabel").innerHTML = 'Volume Size';
+        document.getElementById("throughputLabel").innerHTML = 'Throughput';
+        document.getElementById("changeRateLabel").innerHTML = 'Change Rate';
+        document.getElementById("sourceVolumeLabel").innerHTML = 'Source Volume';
+        document.getElementById("destinationVolumeLabel").innerHTML = 'Destination Volume';
+        document.getElementById("discountLabel").innerHTML = 'Discount';
+        document.getElementById("blueTextExplain").innerHTML = 'Blue text indicates volume is sized for throughput.';
+        document.getElementById("largeVolumeNote").innerHTML = 'Volumes with a throughput greater than 4500 MiB/s or a size greater than 100 TiB require <a target="_blank" href="https://learn.microsoft.com/azure/azure-netapp-files/large-volumes-requirements-considerations">large volumes</a>.';
+        document.getElementById("costWarningNote").innerHTML = "The 'Capacity Pool Cost' is the amount you will be charged. The 'Volume Show Back' amount is for show back purposes only.";
+        document.getElementById("replicateWarningNote").innerHTML = 'You can replicate between volumes of different service levels.';
+        document.getElementById("replicationCostsWarningNote").innerHTML = 'Replication transfer costs are based on a 35% storage efficiency rating.';
+        document.getElementById("billingMonthWarningNote").innerHTML = 'Monthly costs are based on a 730 hour billing month.';
+        document.getElementById("sourceLabel").innerHTML = 'source: <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a target="_blank" href="https://azure.microsoft.com/pricing/details/netapp/">Pricing</a>, <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-resource-limits">Resource Limits</a>';
+        document.getElementById("estimateOnlyWarningNote").innerHTML = 'notes: calculator is for estimation purposes only';
+        document.getElementsByClassName("throughputCellLabel").innerHTML = 'スループット <small>(MiB/s)</small>';
+        Array.from(document.getElementsByClassName("throughputCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'Throughput <small>(MiB/s)</small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("volumeSizeCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'Volume Size <small class="table_unit"></small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("volumeShowBackCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'Volume Show Back <small>' + currencyPerMonth + '</small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("capacityPoolSizeCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'Capacity Pool Size <small>(TiB)</small>';
+            }
+        );
+        Array.from(document.getElementsByClassName("capacityPoolCostCellLabel")).forEach(
+            function(element, index, array) {
+                element.innerHTML = 'Capacity Pool Cost' + currencyPerMonth + '</small>';
             }
         );
     }
