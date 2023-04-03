@@ -53,7 +53,7 @@ var regionlist = [
         "crrregions": ["australiacentral2"],
         "snf": true,
         "avsdatastore": false,
-        "backup": false,
+        "backup": true,
         "largevolumes": false,
         "cmk": true
     },
@@ -97,7 +97,7 @@ var regionlist = [
         "crrregions": ["southcentralus"],
         "snf": true,
         "avsdatastore": true,
-        "backup": false,
+        "backup": true,
         "largevolumes": true,
         "cmk": true
     },
@@ -152,7 +152,7 @@ var regionlist = [
         "crrregions": ["southeastasia"],
         "snf": true,
         "avsdatastore": true,
-        "backup": false,
+        "backup": true,
         "largevolumes": false,
         "cmk": true
     },
@@ -317,7 +317,7 @@ var regionlist = [
         "crrregions": [],
         "snf": true,
         "avsdatastore": true,
-        "backup": false,
+        "backup": true,
         "largevolumes": true,
         "cmk": true
     },
