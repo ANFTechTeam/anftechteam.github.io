@@ -43,7 +43,7 @@ function getBrowserLocales(options = {}) {
         ? trimmedLocale.split(/-|_/)[0]
         : trimmedLocale;
     });
-  }
+}
 
 function getResults(convert) {
     if (convert == 1) {
@@ -65,7 +65,7 @@ function getResults(convert) {
     ultra_tputpertib = 128;
     min_vol_capacity = 100;
     max_vol_capacity = 102400;
-    max_largevol_capacity = 102400*5;
+    max_largevol_capacity = 102400 * 5;
     min_pool_capacity = 2;
     max_pool_capacity = 500;
     min_tput = 1.56;
@@ -83,58 +83,40 @@ function getResults(convert) {
         "West US": 0.14746,
         "West US 2": 0.14746,
         "West US 3": 0.14746,
-
         "US Gov Arizona": 0.17739,
         "US Gov Virginia": 0.18396,
         "US Gov Texas": 0.18396,
-    
         "UK South": 0.16206,
         "UK West": 0.16206,
-
         "UAE Central": 0.23068,
         "UAE North": 0.21024,
-
         "Switzerland North": 0.16206,
         "Switzerland West": 0.21097,
-
         "Sweden Central": 0.14746,
         "Sweden South": 0.19199,
-
         "Qatar Central": 0.21097,
-
         "Norway East": 0.16206,
         "Norway West": 0.16206,
-
         "Korea Central": 0.19856,
         "Korea South": 0.18396,
-
         "Japan East": 0.17666,
         "Japan West": 0.22922,
-
         "Central India": 0.16279,
         "South India": 0.20805,
-
         "Germany North": 0.23652,
         "Germany West Central": 0.17739,
-
         "France Central": 0.18396,
-
         "North Europe": 0.14746,
         "West Europe": 0.14746,
-
         "Canada Central": 0.16279,
         "Canada East": 0.17739,
-      
-        "Brazil South": 0.29419,
-        
+        "Brazil South": 0.29419, 
         "Australia Central": 0.21316,
         "Australia Central 2": 0.17666,
         "Australia East": 0.16279,
         "Australia Southeast": 0.19199,
-
         "East Asia": 0.22776,
         "Southeast Asia": 0.14746,
-
         "South Africa North": 0.21535
     };
     var premium_region_rates = {
@@ -146,58 +128,40 @@ function getResults(convert) {
         "West US": 0.29419,
         "West US 2": 0.29419,
         "West US 3": 0.29419,
-
         "US Gov Arizona": 0.35332,
         "US Gov Virginia": 0.36792,
         "US Gov Texas": 0.36792,
-    
         "UK South": 0.32339,
         "UK West": 0.32339,
-
         "UAE Central": 0.45917,
         "UAE North": 0.42121,
-
         "Switzerland North": 0.32339,
         "Switzerland West": 0.42048,
-
         "Sweden Central": 0.29419,
         "Sweden South": 0.38252,
-
         "Qatar Central": 0.42048,
-
         "Norway East": 0.32339,
         "Norway West": 0.32339,
-
         "Korea Central": 0.39712,
         "Korea South": 0.36792,
-
         "Japan East": 0.35259,
         "Japan West": 0.45625,
-
         "Central India": 0.32412,
         "South India": 0.41537,
-
         "Germany North": 0.47085,
         "Germany West Central": 0.35332,
-
         "France Central": 0.36792,
-
         "North Europe": 0.29419,
         "West Europe": 0.29419,
-
         "Canada Central": 0.32412,
         "Canada East": 0.35332,
-
         "Brazil South": 0.58838,
-        
         "Australia Central": 0.42705,
         "Australia Central 2": 0.35332,
         "Australia East": 0.32412,
         "Australia Southeast": 0.38252,
-
         "East Asia": 0.45625,
         "Southeast Asia": 0.29419,
-
         "South Africa North": 0.42924
     };
     var ultra_region_rates = {
@@ -209,58 +173,40 @@ function getResults(convert) {
         "West US": 0.39274,
         "West US 2": 0.39274,
         "West US 3": 0.39274,
-
         "US Gov Arizona": 0.47158,
         "US Gov Virginia": 0.49056,
         "US Gov Texas": 0.49129,
-    
         "UK South": 0.43143,
         "UK West": 0.43143,
-
         "UAE Central": 0.6132,
         "UAE North": 0.56137,
-
         "Switzerland North": 0.43216,
         "Switzerland West": 0.5621,
-
         "Sweden Central": 0.39274,
         "Sweden South": 0.51027,
-
         "Qatar Central": 0.56137,
-
         "Norway East": 0.43216,
         "Norway West": 0.43216,
-
         "Korea Central": 0.52998,
         "Korea South": 0.49129,
-
         "Japan East": 0.47085,
         "Japan West": 0.60882,
-
         "Central India": 0.43216,
         "South India": 0.55407,
-
         "Germany North": 0.62853,
         "Germany West Central": 0.47158,
-
         "France Central": 0.49129,
-
         "North Europe": 0.39274,
         "West Europe": 0.39274,
-
         "Canada Central": 0.43216,
         "Canada East": 0.47158,
-      
         "Brazil South": 0.7884,
-        
         "Australia Central": 0.5694,
         "Australia Central 2": 0.47158,
         "Australia East": 0.43143,
         "Australia Southeast": 0.511,
-
         "East Asia": 0.60882,
         "Southeast Asia": 0.39274,
-
         "South Africa North": 0.57305
     };
     var tenmin_region_rates = {
@@ -478,14 +424,12 @@ function getResults(convert) {
     premium_rate = premium_region_rates[active_region] * discount_percent;
     ultra_rate = ultra_region_rates[active_region] * discount_percent;
 
-    if (tput_target > 4500 && document.getElementById('TiB').checked) {
-        //document.getElementById("capinput").value = 100
-        cap_target = 100
+    if (tput_target > 4500 && document.getElementById('TiB').checked && cap_target < 102400 / 1024) {
+        cap_target = 102401 / 1024
     }
 
-    if (tput_target > 4500 && document.getElementById('GiB').checked) {
-        //document.getElementById("capinput").value = 100 * 1024
-        cap_target = 100 * 1024
+    if (tput_target > 4500 && document.getElementById('GiB').checked && cap_target < 102400) {
+        cap_target = 102401
     }
 
     if (document.getElementById('TiB').checked) {
@@ -780,7 +724,7 @@ function getResults(convert) {
                     }
                     ultra_tput = (volume_in_gb / 1024) * 128;
                     if (ultra_tput > max_ultra_tput) {
-                      ultra_tput = max_ultra_tput;
+                        ultra_tput = max_ultra_tput;
                     }
                     standard_cost = (volume_in_gb * standard_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     premium_cost = (volume_in_gb * premium_rate).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
