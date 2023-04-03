@@ -502,12 +502,16 @@ function getResults(convert) {
     }
 
     if (tput_target > 4500 || volume_in_gb > 102400) {
+        document.getElementById("size_standard_cell").classList.add('text-success');
+        document.getElementById("dest_size_standard_cell").classList.add('text-success');
         document.getElementById("size_premium_cell").classList.add('text-success');
         document.getElementById("dest_size_premium_cell").classList.add('text-success');
         document.getElementById("capinput").classList.add('text-success');
         document.getElementById("size_ultra_cell").classList.add('text-success');
         document.getElementById("dest_size_ultra_cell").classList.add('text-success');
     } else {
+        document.getElementById("size_standard_cell").classList.remove('text-success');
+        document.getElementById("dest_size_standard_cell").classList.remove('text-success');
         document.getElementById("size_premium_cell").classList.remove('text-success');
         document.getElementById("dest_size_premium_cell").classList.remove('text-success');
         document.getElementById("capinput").classList.remove('text-success');
