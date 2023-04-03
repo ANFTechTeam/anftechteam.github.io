@@ -7,13 +7,13 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <meta name="description" content="Azure NetApp Files datastores for Azure VMware Solution TCO Estimator">
+      <meta name="description" content="Azure NetApp Files with Azure VMware Solution TCO Estimator">
       <meta name="keywords" content="NetApp, Azure, ANF, AVS, TCO">
       <meta name="author" content="Vedant Sethia, Dhruv Tyagi, Mohamed Niyaz">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-      <title>ANF AVS TCO Estimator</title>
+      <title>ANF AVS TCO Calculator</title>
       <style media="screen">
          body {
            z-index: 50;
@@ -28,17 +28,31 @@
            opacity: 0.3;
            font-size: 5em;
            width: 100%;
-           top: 60%;
+           top: 73%;
            text-align: center;
            z-index: 0;
          }
          .bgc-danger {
            background-color: #ff9595;
          }
+         .graphTooltip {
+            background-color: #aaa;
+         }
+         .bullet {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            margin-right: 5px;
+         }
+         .blue {
+            background-color: #969696;
+         }
+         .red {
+            background-color: #17a2b8;
+         }
       </style>
       <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-
-
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    </head>
    <body onload="getResults()">
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -46,11 +60,11 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
       <div class="overflow-hidden">
          <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
                <div class="h5"><img src="anficon.png" class="float-left" height="40"></div>
-                 <div class="float-left"><span class="h5">&nbsp&nbspAzure NetApp Files datastore for Azure VMware Solution TCO Estimator </span><sup class="text-muted">(v2)</sup></div>
+                 <div class="float-left"><span class="h5">&nbsp&nbspAzure NetApp Files Datastore TCO Estimator </span><sup class="text-muted">(v2)</sup></div>
 
-            </div>
+            </div> -->
             <div class="card-body">
               <div class="row border-bottom mb-2">
                 <div class="col float-left"><span class="h5">Sizer Input </span></div>
@@ -84,7 +98,6 @@
                          <option value="East Asia">East Asia</option>
                          <option value="Southeast Asia">Southeast Asia</option>
                          <!-- <option value="South Africa North">South Africa North</option> -->
-
                      </select>
                   </div>
                 </div>
@@ -104,7 +117,7 @@
                <div id="azurervtoolsdiv" style="display: none" class="border-bottom mb-3">
 
 
-                 <div class="input-group mb-3">
+                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon01">Upload RVTOOLS file</span>
                   </div>
@@ -113,6 +126,7 @@
                     <label class="custom-file-label" for="excel_file">Choose file</label>
                   </div>
                 </div>
+                <div class="text-secondary mb-3"><small>Don't want to upload RVtools. Download <a href="./RVTools/netapp_rvtools_parser.html" download>this</a> parser and enter the numbers generated manually</small></div>
 
                   <div class="row mb-2">
                      <div class="col-2">
@@ -140,11 +154,11 @@
                      </div>
                      <div class="col">
                         <div class="form-check form-check-inline">
-                           <input oninput="getResults()" class="form-check-input" type="radio" id="utilized" name="storage_per_vm" value="utilized">
+                           <input oninput="getResults()" class="form-check-input" type="radio" id="utilized" name="storage_per_vm" value="utilized" checked>
                            <label class="form-check-label" for="utilized">Utilized</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input oninput="getResults()" class="form-check-input" type="radio" id="provisioned" name="storage_per_vm" value="provisioned" checked>
+                           <input oninput="getResults()" class="form-check-input" type="radio" id="provisioned" name="storage_per_vm" value="provisioned">
                            <label class="form-check-label" for="provisioned">Provisioned</label>
                         </div>
                      </div>
@@ -187,6 +201,17 @@
                         </div>
                         <div class="row text-secondary">
                            <h6>vCPU/pcore</h6>
+                        </div>
+                        <div class="row text-secondary">
+                           <div class="form-check-prepend">
+                              <label class="form-check-label" for="vcpupcoreoverrideradio">Override</label>
+                              <input type="checkbox" class="form-check-input ml-1 float-right" id="vcpupcoreoverrideradio" onclick="changeDisplay('vcpupcoreoverridediv');getResults();"/>
+                           </div>
+                        </div>
+                        <div class="row text-secondary" id="vcpupcoreoverridediv" style="display: none">
+                           <div class="form-check-prepend">
+                              <input oninput="getResults()" type="number" class="my-1 w-50 form-control" placeholder="" value="4" aria-label="vCPU/pCore" aria-describedby="vVCPU/pCore" id="vcpupcoreoverride" min="0"></input>
+                           </div>
                         </div>
                       </div>
 
@@ -236,7 +261,7 @@
                         </div>
                       </div>
                     </div>
-
+                    <div class="text-danger mt-3">Note:  Ensure to right size the virtual machines based on the current usage patterns and re-import the RVTools if required</div>
                   </div>
               </div>
 
@@ -255,18 +280,42 @@
                        <input oninput="getResults()" type="number" class="my-1  form-control" placeholder="" value="3" aria-label="vCPU/pCore" aria-describedby="vVCPU/pCore" id="vcpupcore" required></input>
                     </div>
                  </div>
-                 <div class="row mb-3">
+                 <div class="row">
                     <div class="col">
-                       <small id="volumewarning" class="form-text text-muted">CPU</small>
+                       <small id="volumewarning" class="form-text text-muted">
+                        <div class="row m-0 p-0">
+                           <div class="col-6 m-0 p-0">CPU</div>
+                           <div class="col-6">
+                              <span class="float-right">
+                                 <div class="form-check-prepend">
+                                    <label class="form-check-label" for="cpuoverride">Show Totals</label>
+                                    <input type="checkbox" class="form-check-input ml-1 float-right" id="showtotalscpu" oninput="showTotals('showtotalscpu','vcpuvm');getResults()" />
+                                 </div>
+                              </span>
+                           </div>
+                        </div>
+                       </small>
                        <div class="input-group mb-3">
                           <div class="input-group-prepend">
                              <span class="my-1 input-group-text required-field" style="color:#000">vCPUs/VM</span>
                           </div>
-                          <input oninput="getResults()" type="number" class="my-1  form-control" placeholder="" value="8" aria-label="vCPUs/VM" aria-describedby="vCPUs/VM" id="vcpuvm" required></input>
+                          <input oninput="getResults()" type="number" class="my-1  form-control" placeholder="" value="4" aria-label="vCPUs/VM" aria-describedby="vCPUs/VM" id="vcpuvm" required></input>
                        </div>
                     </div>
                     <div class="col">
-                       <small id="tputwarning" class="form-text text-muted">Memory</small>
+                       <small id="tputwarning" class="form-text text-muted">
+                        <div class="row m-0 p-0">
+                           <div class="col-6 m-0 p-0">Memory</div>
+                           <div class="col-6">
+                              <span class="float-right">
+                                 <div class="form-check-prepend">
+                                    <label class="form-check-label" for="cpuoverride">Show Totals</label>
+                                    <input type="checkbox" class="form-check-input ml-1 float-right" id="showtotalsmemory" oninput="showTotals('showtotalsmemory','vramvm');getResults()" />
+                                 </div>
+                              </span>
+                           </div>
+                        </div>
+                       </small>
                        <div class="input-group mb-3">
                           <div class="input-group-prepend">
                              <span class="my-1 input-group-text required-field" style="color:#000">vRAM/VM</span>
@@ -278,7 +327,19 @@
                        </div>
                     </div>
                     <div class="col">
-                       <small id="tputwarning" class="form-text text-muted">Storage</small>
+                       <small id="tputwarning" class="form-text text-muted">
+                        <div class="row m-0 p-0">
+                           <div class="col-6 m-0 p-0">Storage</div>
+                           <div class="col-6">
+                              <span class="float-right">
+                                 <div class="form-check-prepend">
+                                    <label class="form-check-label" for="cpuoverride">Show Totals</label>
+                                    <input type="checkbox" class="form-check-input ml-1 float-right" id="showtotalsstorage" oninput="showTotals('showtotalsstorage','utilstoragevm');getResults()" />
+                                 </div>
+                              </span>
+                           </div>
+                        </div>
+                       </small>
                        <div class="input-group mb-3">
                           <div class="input-group-prepend">
                              <span class="my-1 input-group-text required-field" style="color:#000">Utilized Storage/VM</span>
@@ -381,6 +442,7 @@
                        <select oninput="getResults()" class="form-select custom-select my-1  form-control" id="dedupcomp">
                           <option value="1" id="dedup1" selected>1</option>
                           <option value="1.2" id="dedup12">1.2</option>
+                          <option value="1.3" id="dedup12">1.3</option>
                           <option value="1.5">1.5</option>
                        </select>
                        </div>
@@ -468,7 +530,101 @@
                </div>
                <hr>
                <center>
-                  <div class="h3 text-primary mb-3">Output</div>
+                  <div class="h3 text-primary mb-3">Projected Savings with ANF</div>
+               </center>
+               <div id="tableout2" style='overflow-x:auto;'>
+                  
+                  <table class='table-bordered table table-sm table-hover' style='table-layout:fixed;font-size:14px;'>
+                     <!-- <div class="watermark">TCO Estimator is for estimation purposes only</div> -->
+                     <thead class='thead-light'>
+                        <tr>
+                           <th class="align-top" width="25%" style="text-align:center">Profile</th>
+                           <th class="align-top">Additional AVS hosts required only for storage</th>
+                           <th class="align-top">ANF storage to optimize
+                              <small class="text-muted">(TB)</small>
+                             <!-- <button type="button" class="m-0 ml-1 btn p-0 bg-transparent" style="line-height:normal" data-toggle="tooltip" data-html="true" title="Capacity required based on inputs"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg></button> -->
+                           </th>
+                           <th class="align-top">TCO One Year AVS</th>
+                           <th class="align-top">TCO One Year ANF
+                             <!-- <button type="button" class="m-0 ml-1 btn p-0 bg-transparent" style="line-height:normal" data-toggle="tooltip" data-html="true" title="Based on number of hosts required"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg></button> -->
+                           </th>
+                           <th class="align-top">TCO Savings
+                             <button type="button" class="m-0 ml-1 btn p-0 bg-transparent" style="line-height:normal" data-toggle="tooltip" data-html="true" title="Logic here"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg></button>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tr id="anf1_ultra">
+                        <td id="anf1_profile" class="bg-light">ANF Ultra Tier</td>
+                        <td id="anf1_avshosts"></td>
+                        <td id="anf1_anfstorage"></td>
+                        <td id="anf1_avscost"></td>
+                        <td id="anf1_anfcost"></td>
+                        <td id="anf1_tcosavings"></td>
+                     </tr>
+                     <tr id="anf1_premium">
+                        <td id="anf2_profile" class="bg-light">ANF Premium Tier</td>
+                        <td id="anf2_avshosts"></td>
+                        <td id="anf2_anfstorage"></td>
+                        <td id="anf2_avscost"></td>
+                        <td id="anf2_anfcost"></td>
+                        <td id="anf2_tcosavings"></td>
+                     </tr>
+                     <tr id="anf1_standard">
+                        <td id="anf2_profile" class="bg-light">ANF Standard Tier</td>
+                        <td id="anf3_avshosts"></td>
+                        <td id="anf3_anfstorage"></td>
+                        <td id="anf3_avscost"></td>
+                        <td id="anf3_anfcost"></td>
+                        <td id="anf3_tcosavings"></td>
+                     </tr>
+
+                  </table>
+                  <center><div class="graphCanvas" style='overflow-x:auto;height:500px;'>
+                     <canvas id="anfChart"></canvas>
+                  </div></center>
+               </div>
+               <div class="row mb-2 m-0 p-0 mt-3">
+                  <div class="col pl-0">
+                     <!-- <small id="volumewarning" class="form-text text-muted">CPU</small> -->
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <span class="input-group-text" style="color:#000">Host type</span>
+                        </div>
+                        <select class="form-control custom-select" oninput="getResults()"  id="hosttypeselector">
+                          <option value="AV36" id="host_type_av36" selected>AV36</option>
+                          <option value="AV36P" id="host_type_av36P">AV36P</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col pr-0">
+                     <!-- <small id="tputwarning" class="form-text text-muted">Memory</small> -->
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <span class="input-group-text" style="color:#000">AVS Savings Options</span>
+                        </div>
+                        <select oninput="getResults();"  id="savings_type" class="form-control custom-select">
+                            <option value="1" id="pay_go">Pay as you go</option>
+                            <option value="0.71" id="one_year_ri">1 year reserved instance</option>
+                            <option value="0.50" id="three_year_ri" selected>3 years reserved instance</option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col pr-0 pl-4" id="anf_discount_div">
+                     <!-- <small id="tputwarning" class="form-text text-muted">Storage</small> -->
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <span class="input-group-text" style="color:#000">ANF Discount</span>
+                        </div>
+                        <input oninput="getResults()" type="number" class="form-control" placeholder="" value="18" id="anf_discount" min="0" max="100" required></input>
+                        <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
+                           <label class="btn btn-primary">%</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <hr/>
+               <center>
+                  <div class="h3 text-primary mb-3">Calculations</div>
                </center>
                <div id="tableout" style='overflow-x:auto;'>
                   <table class='table-bordered table table-sm table-hover' style='table-layout:fixed;font-size:14px;'>
@@ -492,17 +648,17 @@
                              <small class="text-muted">(TB)</small>
                              <button type="button" class="m-0 ml-1 btn p-0 bg-transparent" style="line-height:normal" data-toggle="tooltip" data-html="true" title="Amount of VM data stored on ANF storage"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg></button>
                            </th>
-                           <th class="align-top">Free Space Available (vSAN) <small class="text-muted">(TB)</small></th>
+                           <!-- <th class="align-top">Free Space Available (vSAN) <small class="text-muted">(TB)</small></th> -->
                            <th class="align-top">TCO One Year AVS</th>
                            <th class="align-top">TCO One Year ANF</th>
                            <th class="align-top">Total One Year TCO</th>
-                           <th class="align-top">TCO Savings</th>
+                           <!-- <th class="align-top">Overall TCO Savings</th> -->
                         </tr>
                      </thead>
                      <tr>
-                        <td class="bg-info text-white" colspan="11">
+                        <td class="bg-info text-white" colspan="9">
                            <center>
-                              <div class="h5 mb-1 mt-1">AVS with vSAN only</div>
+                              <div class="h5 mb-1 mt-1">Azure VMware Solution (AVS) with vSAN only</div>
                            </center>
                         </td>
                      </tr>
@@ -513,21 +669,21 @@
                         <td id="avs2_totcapvsan"></td>
                         <td id="avs2_spacevmvsan"></td>
                         <td id="avs2_spacevmanf">N/A</td>
-                        <td id="avs2_spacefree"></td>
+                        <!-- <td id="avs2_spacefree"></td> -->
                         <td id="avs2_tcoavs"></td>
                         <td id="avs2_tcoanf">N/A</td>
                         <td id="avs2_tcototal"></td>
-                        <td id="avs2_tcoopt">N/A</td>
+                        <!-- <td id="avs2_tcoopt">N/A</td> -->
                      </tr>
                      <tr>
-                        <td class="bg-info text-white" colspan="11">
+                        <td class="bg-info text-white" colspan="9">
                            <center>
-                              <div class="h5 mb-1 mt-1">AVS with vSAN and ANF</div>
+                              <div class="h5 mb-1 mt-1">Azure VMware Solution (AVS) with vSAN and Azure NetApp Files (ANF)</div>
                            </center>
                         </td>
                      </tr>
                      <tr>
-                        <td class="bg-light text-dark" colspan="11">
+                        <td class="bg-light text-dark" colspan="9">
                            <center>
                               <div class="form-check form-check-inline">
                                  <input class="form-check-input" type="checkbox" id="standardRadio" value="standard" onclick="radioCheck('standardRadio','anf_standard')" checked>
@@ -559,11 +715,11 @@
                         <td id="avs8_totcapvsan"></td>
                         <td id="avs8_spacevmvsan"></td>
                         <td id="avs8_spacevmanf">N/A</td>
-                        <td id="avs8_spacefree"></td>
+                        <!-- <td id="avs8_spacefree"></td> -->
                         <td id="avs8_tcoavs"></td>
                         <td id="avs8_tcoanf">N/A</td>
                         <td id="avs8_tcototal"></td>
-                        <td id="avs8_tcoopt">N/A</td>
+                        <!-- <td id="avs8_tcoopt">N/A</td> -->
                      </tr>
                      <tr id="anf_pre_ult" class="" style="display: none">
                         <td id="avs9_profile"></td>
@@ -572,11 +728,11 @@
                         <td id="avs9_totcapvsan"></td>
                         <td id="avs9_spacevmvsan"></td>
                         <td id="avs9_spacevmanf">N/A</td>
-                        <td id="avs9_spacefree"></td>
+                        <!-- <td id="avs9_spacefree"></td> -->
                         <td id="avs9_tcoavs"></td>
                         <td id="avs9_tcoanf">N/A</td>
                         <td id="avs9_tcototal"></td>
-                        <td id="avs9_tcoopt">N/A</td>
+                        <!-- <td id="avs9_tcoopt">N/A</td> -->
                      </tr>
                      <tr id="anf_premium" class="">
                         <td id="avs3_profile"></td>
@@ -585,11 +741,11 @@
                         <td id="avs3_totcapvsan"></td>
                         <td id="avs3_spacevmvsan"></td>
                         <td id="avs3_spacevmanf">N/A</td>
-                        <td id="avs3_spacefree"></td>
+                        <!-- <td id="avs3_spacefree"></td> -->
                         <td id="avs3_tcoavs"></td>
                         <td id="avs3_tcoanf">N/A</td>
                         <td id="avs3_tcototal" style="background-color: #c3e6cb;"></td>
-                        <td id="avs3_tcoopt">N/A</td>
+                        <!-- <td id="avs3_tcoopt">N/A</td> -->
                      </tr>
                      <tr id="anf_pre_std" class="" style="display: none">
                         <td id="avs4_profile"></td>
@@ -598,11 +754,11 @@
                         <td id="avs4_totcapvsan"></td>
                         <td id="avs4_spacevmvsan"></td>
                         <td id="avs4_spacevmanf">N/A</td>
-                        <td id="avs4_spacefree"></td>
+                        <!-- <td id="avs4_spacefree"></td> -->
                         <td id="avs4_tcoavs"></td>
                         <td id="avs4_tcoanf">N/A</td>
                         <td id="avs4_tcototal"></td>
-                        <td id="avs4_tcoopt">N/A</td>
+                        <!-- <td id="avs4_tcoopt">N/A</td> -->
                      </tr>
                      <tr id="anf_standard" class="">
                         <td id="avs7_profile"></td>
@@ -611,16 +767,16 @@
                         <td id="avs7_totcapvsan"></td>
                         <td id="avs7_spacevmvsan"></td>
                         <td id="avs7_spacevmanf">N/A</td>
-                        <td id="avs7_spacefree"></td>
+                        <!-- <td id="avs7_spacefree"></td> -->
                         <td id="avs7_tcoavs"></td>
                         <td id="avs7_tcoanf">N/A</td>
                         <td id="avs7_tcototal"></td>
-                        <td id="avs7_tcoopt">N/A</td>
+                        <!-- <td id="avs7_tcoopt">N/A</td> -->
                      </tr>
                      <tr>
-                        <td class="bg-info text-white" colspan="11">
+                        <td class="bg-info text-white" colspan="9">
                            <center>
-                              <div class="h5 mb-1 mt-1">AVS with ANF for Disaster Recovery</div>
+                              <div class="h5 mb-1 mt-1">Azure VMware Solution (AVS) with Azure NetApp Files (ANF) for Disaster Recovery</div>
                            </center>
                         </td>
                      </tr>
@@ -631,11 +787,11 @@
                         <td id="avs5_totcapvsan"></td>
                         <td id="avs5_spacevmvsan"></td>
                         <td id="avs5_spacevmanf">N/A</td>
-                        <td id="avs5_spacefree"></td>
+                        <!-- <td id="avs5_spacefree"></td> -->
                         <td id="avs5_tcoavs"></td>
                         <td id="avs5_tcoanf">N/A</td>
                         <td id="avs5_tcototal"></td>
-                        <td id="avs5_tcoopt">N/A</td>
+                        <!-- <td id="avs5_tcoopt">N/A</td> -->
                      </tr>
                      <tr id="anf_dr_zero" class="" style="display:none">
                         <td id="avs6_profile"></td>
@@ -644,11 +800,11 @@
                         <td id="avs6_totcapvsan"></td>
                         <td id="avs6_spacevmvsan"></td>
                         <td id="avs6_spacevmanf">N/A</td>
-                        <td id="avs6_spacefree"></td>
+                        <!-- <td id="avs6_spacefree"></td> -->
                         <td id="avs6_tcoavs"></td>
                         <td id="avs6_tcoanf">N/A</td>
                         <td id="avs6_tcototal"></td>
-                        <td id="avs6_tcoopt">N/A</td>
+                        <!-- <td id="avs6_tcoopt">N/A</td> -->
                      </tr>
                   </table>
                   <center><small id="output_message_pre" class="text-danger"></small></center>
@@ -658,54 +814,23 @@
                   <center><small id="output_message_ultra_only" class="text-danger"></small></center>
 
 
-                  <div class="row mb-2 m-0 p-0 mt-3">
-                     <div class="col pl-0">
-                        <!-- <small id="volumewarning" class="form-text text-muted">CPU</small> -->
-                        <div class="input-group mb-3">
-                           <div class="input-group-prepend">
-                              <span class="input-group-text" style="color:#000">Host type</span>
-                           </div>
-                           <select class="form-control custom-select" oninput="getResults()"  id="hosttypeselector">
-                             <option value="AV36" id="host_type_av36" selected>AV36</option>
-                             <option value="AV36P" id="host_type_av36P">AV36P</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="col pr-0">
-                        <!-- <small id="tputwarning" class="form-text text-muted">Memory</small> -->
-                        <div class="input-group mb-3">
-                           <div class="input-group-prepend">
-                              <span class="input-group-text" style="color:#000">AVS Savings Options</span>
-                           </div>
-                           <select oninput="getResults()"  id="savings_type" class="form-control custom-select">
-                               <option value="1" id="pay_go" selected>Pay as you go</option>
-                               <option value="0.71" id="one_year_ri">1 year reserved instance</option>
-                               <option value="0.50" id="three_year_ri">3 years reserved instance</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="col pr-0 pl-4" id="anf_discount_div">
-                        <!-- <small id="tputwarning" class="form-text text-muted">Storage</small> -->
-                        <div class="input-group mb-3">
-                           <div class="input-group-prepend">
-                              <span class="input-group-text" style="color:#000">ANF Discount</span>
-                           </div>
-                           <input oninput="getResults()" type="number" class="form-control" placeholder="" value="18" id="anf_discount" min="0" max="100" required></input>
-                           <div class="input-group-append btn-group btn-group-toggle" data-toggle="buttons">
-                              <label class="btn btn-primary">%</label>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
                   <small id="avs_message" class="text-primary"></small><br/>
+                  <small id="avs_message" class="text-dark">
+                     <div class="form-check-prepend">
+                        <label class="form-check-label" for="cpuoverride">Override the CPU assumption used in the calculations by checking this box</label>
+                        <input type="checkbox" class="form-check-input ml-1 float-right" id="cpuoverride" oninput="getResults()"/>
+                    </div>
+                  </small>
+                  
                   <small id="er_message" class="mb-3"></small>
                </div>
+               
             </div>
             <center><small id="error_message" class="text-danger"></small></center>
             <div class="card-footer">
                <small class="text-muted"><b>Source</b>: <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a href="https://azure.microsoft.com/en-us/pricing/details/netapp/">Pricing</a>, <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-resource-limits">Resource Limits</a>
                </small><br>
-               <small class="text-muted"><b>Notes</b>: <ul><li>This calculator is based on storage capacity only. </li><li>Estimator is for estimation purposes only. Contact <b>Azure CSA's</b> to learn more about optimizing the deployment.</li></small>
+               <small class="text-muted"><b>Notes</b>: <ul><li>This calculator is based on storage capacity only. </li><li>Estimator is for estimation purposes only. Contact <b>Azure CSA's</b> to learn more about optimizing the deployment.</li><li>Ensure to right size the virtual machines based on the current usage patterns and re-import the RVTools if required.</li><li>Version: v3.0</li></small>
             </div>
          </div>
          <div class="row mb-3">
@@ -730,5 +855,4 @@
      })
    </script>
    <script type="text/javascript" src="index.js"></script>
-
 </html>
