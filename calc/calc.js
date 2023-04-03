@@ -557,7 +557,6 @@ function getResults(convert) {
         document.getElementById("billingMonthWarningNote").innerHTML = '「容量プール コスト」で表示されている月額料金は、730時間に基づいて計算されています。';
         document.getElementById("sourceLabel").innerHTML = 'ソース: <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a target="_blank" href="https://azure.microsoft.com/pricing/details/netapp/">Pricing</a>, <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-resource-limits">Resource Limits</a>';
         document.getElementById("estimateOnlyWarningNote").innerHTML = 'ご注意事項: 本ツールは概算目的のみであり、性能、課金の詳細情報は公式ドキュメントを参照ください。';
-        document.getElementsByClassName("throughputCellLabel").innerHTML = 'スループット <small>(MiB/s)</small>';
         Array.from(document.getElementsByClassName("throughputCellLabel")).forEach(
             function(element, index, array) {
                 element.innerHTML = 'スループット <small>(MiB/s)</small>';
@@ -604,7 +603,6 @@ function getResults(convert) {
         document.getElementById("billingMonthWarningNote").innerHTML = 'Monthly costs are based on a 730 hour billing month.';
         document.getElementById("sourceLabel").innerHTML = 'source: <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels">Service Levels</a>, <a target="_blank" href="https://azure.microsoft.com/pricing/details/netapp/">Pricing</a>, <a target="_blank" href="https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-resource-limits">Resource Limits</a>';
         document.getElementById("estimateOnlyWarningNote").innerHTML = 'notes: calculator is for estimation purposes only';
-        document.getElementsByClassName("throughputCellLabel").innerHTML = 'スループット <small>(MiB/s)</small>';
         Array.from(document.getElementsByClassName("throughputCellLabel")).forEach(
             function(element, index, array) {
                 element.innerHTML = 'Throughput <small>(MiB/s)</small>';
@@ -627,7 +625,7 @@ function getResults(convert) {
         );
         Array.from(document.getElementsByClassName("capacityPoolCostCellLabel")).forEach(
             function(element, index, array) {
-                element.innerHTML = 'Capacity Pool Cost' + currencyPerMonth + '</small>';
+                element.innerHTML = 'Capacity Pool Cost <small>' + currencyPerMonth + '</small>';
             }
         );
     }
