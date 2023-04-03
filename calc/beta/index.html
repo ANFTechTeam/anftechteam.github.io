@@ -21,11 +21,14 @@
     <div class="container">
         <div class="languageSelector float-right"><small class="text-muted">language:&nbsp;  <a onclick="english()" href="#">en</a>&nbsp;&nbsp;<a onclick="japanese()" href="#">ja</a></small></div>
 <br>
-        <div class="card">
+        <div class="card w-100">
             <div class="card-header">
-                <div class="h5"><img src="anficon.png" class="float-left" height="40"></div>
-                    <div class="float-left"><span id="headerTitle" class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span></div>
-                    <div class="float-right" class="input-group mb-3">
+                <div class="row align-items-center">
+                    <div class="col-md-auto"><img src="anficon.png" class="float-left" height="50">
+                    </div>
+                    <div class="col"><span id="headerTitle" class="h6">&nbsp&nbspAzure NetApp Files Performance Calculator <small>(<a href="https://anftechteam.github.io/calc/advanced/">advanced</a>)</small></span>
+                    </div>
+                    <div class="col-md-auto" class="input-group mb-3">
                         <select input oninput="getResults()" class="custom-select float-right" id="regionselector">
                             <option value="Central US">Central US</option>
                             <option value="East US" selected>East US</option>
@@ -84,7 +87,8 @@
                             <option value="Southeast Asia">Southeast Asia</option>
                             <option value="South Africa North">South Africa North</option>
                         </select>
-                    </div>                 
+                    </div> 
+                </div>                
             </div>
             <div class="card-body">
                 
