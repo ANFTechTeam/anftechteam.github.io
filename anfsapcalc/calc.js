@@ -75,6 +75,18 @@ let runningSnapshotSpace = {
     "P9": 0.0
 }
 
+let runningAnfCosts = {
+    "P1": 0.0,
+    "P2": 0.0,
+    "P3": 0.0,
+    "P4": 0.0,
+    "P5": 0.0,
+    "P6": 0.0,
+    "P7": 0.0,
+    "P8": 0.0,
+    "P9": 0.0
+}
+
 let masterInput = [];
 
 let inputId = 0000;
@@ -133,11 +145,11 @@ function addSystem() {
 
             // add to running totals
 
-            runningLogicalTotal[sysPool] += dataGiB/1024;
-            runningAddSnapshotTotal[sysPool] += dataAddSnapshotSpace/1024;
-            runningTotalCapacity[sysPool] += dataTotalSpace/1024;
+            runningLogicalTotal[sysPool] += dataGiB;
+            runningAddSnapshotTotal[sysPool] += dataAddSnapshotSpace;
+            runningTotalCapacity[sysPool] += dataTotalSpace;
             runningPerformance[sysPool] += dataPerf;
-            runningSnapshotSpace[sysPool] += dataSnapshotSize/1024;
+            runningSnapshotSpace[sysPool] += dataSnapshotSize;
 
             // create new row in the volume table, data
             var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
@@ -188,11 +200,11 @@ function addSystem() {
         let logTotalSpace = logGiB + logAddSnapshotSpace;
 
         // add to running totals
-        runningLogicalTotal[sysPool] += logGiB/1024;
-        runningAddSnapshotTotal[sysPool] += logAddSnapshotSpace/1024;
-        runningTotalCapacity[sysPool] += logTotalSpace/1024;
+        runningLogicalTotal[sysPool] += logGiB;
+        runningAddSnapshotTotal[sysPool] += logAddSnapshotSpace;
+        runningTotalCapacity[sysPool] += logTotalSpace;
         runningPerformance[sysPool] += logPerf;
-        runningSnapshotSpace[sysPool] += logSnapshotSize/1024;
+        runningSnapshotSpace[sysPool] += logSnapshotSize;
 
         // create new row in the volume table, data
         var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
@@ -241,11 +253,11 @@ function addSystem() {
         let sharedTotalSpace = sharedGiB + sharedAddSnapshotSpace;
 
         // add to running totals
-        runningLogicalTotal[sysPool] += sharedGiB/1024;
-        runningAddSnapshotTotal[sysPool] += sharedAddSnapshotSpace/1024;
-        runningTotalCapacity[sysPool] += sharedTotalSpace/1024;
+        runningLogicalTotal[sysPool] += sharedGiB;
+        runningAddSnapshotTotal[sysPool] += sharedAddSnapshotSpace;
+        runningTotalCapacity[sysPool] += sharedTotalSpace;
         runningPerformance[sysPool] += sharedPerf;
-        runningSnapshotSpace[sysPool] += sharedSnapshotSize/1024;
+        runningSnapshotSpace[sysPool] += sharedSnapshotSize;
 
         // create new row in the volume table, data
         var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
@@ -382,11 +394,11 @@ function updatePoolRequirementsTable() {
             var poolGroupRowRequiredPerformance = poolGroupRow.insertCell(4);
             var poolGroupRowSnapshotSize = poolGroupRow.insertCell(5);
             poolGroupRowPool.innerHTML = key;
-            poolGroupRowLogical.innerHTML = runningLogicalTotal[key].toFixed(2);
-            poolGroupRowAddSnapshot.innerHTML = runningAddSnapshotTotal[key].toFixed(2);
-            poolGroupRowRequiredCapacity.innerHTML = runningTotalCapacity[key].toFixed(2);
+            poolGroupRowLogical.innerHTML = (runningLogicalTotal[key]/1024).toFixed(2);
+            poolGroupRowAddSnapshot.innerHTML = (runningAddSnapshotTotal[key]/1024).toFixed(2);
+            poolGroupRowRequiredCapacity.innerHTML = (runningTotalCapacity[key]/1024).toFixed(2);
             poolGroupRowRequiredPerformance.innerHTML = runningPerformance[key].toFixed(2);
-            poolGroupRowSnapshotSize.innerHTML = runningSnapshotSpace[key].toFixed(2); 
+            poolGroupRowSnapshotSize.innerHTML = (runningSnapshotSpace[key]/1024).toFixed(2); 
         }
     }
     updatePoolAnfTcoTable();
@@ -428,21 +440,28 @@ function updatePoolAnfTcoTable() {
                 ultraSizedForPerformance = false;
                 ultraDisplayedCapacity = ceilTiBCapacity;
             }
-            console.log("Standard Cost: " + standardCost);
-            console.log("Premium Cost: " + premiumCost);
-            console.log("Ultra Cost: " + ultraCost);
+    
             if(Math.min(standardCost, premiumCost, ultraCost) == standardCost){
                 displayedCost = standardCost;
                 sizedForPerformance = standardSizedForPerformance;
                 displayedSize = standardDisplayedCapacity;
+                displayedServiceLevel = "Standard";
+                excessCapacity = standardDisplayedCapacity - (runningTotalCapacity[key] / 1024);
+                excessPerformance = (standardDisplayedCapacity * 16) - runningPerformance[key];
             }else if(Math.min(standardCost, premiumCost, ultraCost) == premiumCost){
                 displayedCost = premiumCost;
                 sizedForPerformance = premiumSizedForPerformance;
                 displayedSize = premiumDisplayedCapacity;
+                displayedServiceLevel = "Premium";
+                excessCapacity = premiumDisplayedCapacity - (runningTotalCapacity[key] / 1024);
+                excessPerformance = (premiumDisplayedCapacity * 64) - runningPerformance[key];
             }else if(Math.min(standardCost, premiumCost, ultraCost) == ultraCost){
                 displayedCost = ultraCost;
                 sizedForPerformance = ultraSizedForPerformance;
                 displayedSize = ultraDisplayedCapacity;
+                displayedServiceLevel = "Ultra";
+                excessCapacity = ultraDisplayedCapacity - (runningTotalCapacity[key] / 1024);
+                excessPerformance = (ultraDisplayedCapacity * 128) - runningPerformance[key];
             }
 
             var anfTcoRow = tbodyRef.insertRow();
@@ -454,17 +473,16 @@ function updatePoolAnfTcoTable() {
             var anfTcoRowExcessCapacity = anfTcoRow.insertCell(5);
             var anfTcoRowExcessPerformance = anfTcoRow.insertCell(6);
             anfTcoRowPool.innerHTML = key;
-            anfTcoRowServiceLevel.innerHTML = "Premium"; // will be calculated later
+            anfTcoRowServiceLevel.innerHTML = displayedServiceLevel;
             anfTcoRowCapacity.innerHTML = displayedSize;
-            anfTcoRowCost.innerHTML = displayedCost.toFixed(2); // will be calculated later
+            anfTcoRowCost.innerHTML = displayedCost.toFixed(2);
             if(sizedForPerformance == true){
-                anfTcoRowSizing.innerHTML = "performance";
-                
+                anfTcoRowSizing.innerHTML = "Performance";
             }else{
-                anfTcoRowSizing.innerHTML = "capacity";
+                anfTcoRowSizing.innerHTML = "Capacity";
             }
-            anfTcoRowExcessCapacity.innerHTML = "n/a"; // will be calculated later
-            anfTcoRowExcessPerformance.innerHTML = "n/a"; // will be calculated later 
+            anfTcoRowExcessCapacity.innerHTML = excessCapacity.toFixed(2); // will be calculated later
+            anfTcoRowExcessPerformance.innerHTML = excessPerformance; // will be calculated later 
         }
     }
 }
