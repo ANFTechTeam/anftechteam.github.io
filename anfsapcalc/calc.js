@@ -405,6 +405,8 @@ function updatePoolRequirementsTable() {
 }
 
 function updatePoolAnfTcoTable() {
+    totalAnfCost = 0;
+    totalAnfCapacity = 0;
     var tbodyRef = document.getElementById('anfVolumeTCO').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = '';
     for (const [key, value] of Object.entries(runningLogicalTotal)) {
@@ -476,6 +478,8 @@ function updatePoolAnfTcoTable() {
             anfTcoRowServiceLevel.innerHTML = displayedServiceLevel;
             anfTcoRowCapacity.innerHTML = displayedSize;
             anfTcoRowCost.innerHTML = displayedCost.toFixed(2);
+            totalAnfCost += displayedCost;
+            totalAnfCapacity += displayedSize;
             if(sizedForPerformance == true){
                 anfTcoRowSizing.innerHTML = "Performance";
             }else{
@@ -485,6 +489,18 @@ function updatePoolAnfTcoTable() {
             anfTcoRowExcessPerformance.innerHTML = excessPerformance; // will be calculated later 
         }
     }
+    var anfTcoRow = tbodyRef.insertRow();
+    var anfTcoRowPool = anfTcoRow.insertCell(0);
+    var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
+    var anfTcoRowCapacity = anfTcoRow.insertCell(2);
+    var anfTcoRowCost = anfTcoRow.insertCell(3);
+    var anfTcoRowSizing = anfTcoRow.insertCell(4);
+    var anfTcoRowExcessCapacity = anfTcoRow.insertCell(5);
+    var anfTcoRowExcessPerformance = anfTcoRow.insertCell(6);
+    anfTcoRowPool.innerHTML = "Total";
+    anfTcoRowCapacity.innerHTML = totalAnfCapacity;
+    anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
+
 }
 
 function saveToBlob(){
