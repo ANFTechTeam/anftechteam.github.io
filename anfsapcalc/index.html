@@ -170,46 +170,68 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2">
-                    <strong>Performance Factor</strong>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PROD</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">QAS</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DEV</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">TST</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SBX</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DR</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
-                        <span class="input-group-text">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">OTHER</span>
-                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
-                        <span class="input-group-text">%</span>
+                    <strong>Performance Modifiers</strong><br>
+                    <span>Baseline Performance</span>
+                    <div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">data</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="dataBaseline" aria-describedby="dataBaseline" value="400" id="dataBaseline">
+                            <span class="input-group-text">MiB/s</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">log</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="logBaseline" aria-describedby="logBaseline" value="250" id="logBaseline">
+                            <span class="input-group-text">MiB/s</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">shared</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="sharedBaseline" aria-describedby="sharedBaseline" value="50" id="sharedBaseline">
+                            <span class="input-group-text">MiB/s</span>
+                        </div>
+                        <span>Performance Factor</span>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PROD</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">QAS</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DEV</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">TST</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SBX</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DR</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="input-group input-group-sm mb-1">
+                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">OTHER</span>
+                            <input type="text" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="float-end">
+                            <button onclick="updateKpiMultipliers()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,7 +240,7 @@
                     <span><i class="bi bi-caret-right"></i>Estimated Costs</span>
                 </div>
             </div>
-            <div class="row collapse show" id="collapseOutput">
+            <div class="row bg-secondary collapse show" id="collapseOutput">
                 <div class="col">
                     <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfVolumeTCO">
                         <thead class="thead-light">
@@ -240,7 +262,7 @@
                     <span><i class="bi bi-caret-right"></i>Pool Group Requirements</span>
                 </div>
             </div>
-            <div class="row collapse show" id="collapsePoolGroup">
+            <div class="row bg-secondary collapse show" id="collapsePoolGroup">
                 <div class="col">
                     <table class="table table-hover table-light table-striped table-bordered table-sm" id="poolGroup-requirements">
                         <thead class="thead-light">
@@ -261,7 +283,7 @@
                     <span><i class="bi bi-caret-right"></i>Volume List</span>
                 </div>
             </div>
-            <div class="row collapse show" id="collapseVolumeList">
+            <div class="row bg-secondary collapse show" id="collapseVolumeList">
                 <div class="col">
                     <table class="table table-hover table-light table-striped table-bordered table-sm" id="volume-list">
                         <thead class="thead-light">

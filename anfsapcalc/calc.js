@@ -614,6 +614,11 @@ let exportName = 'ANF-SAP-TCO-Tool'
 
 function updateKpiMultipliers(){
     resetTables();
+
+    newDataBaseline = document.getElementById("dataBaseline").value;
+    newLogBaseline = document.getElementById("logBaseline").value;
+    newSharedBaseline = document.getElementById("sharedBaseline").value;
+
     newProdPerfMultiplier = document.getElementById("prodPerf").value/100;
     newPreProdPerfMultiplier = document.getElementById("preProdPerf").value/100;
     newQasPerfMultiplier = document.getElementById("qasPerf").value/100;
@@ -622,6 +627,12 @@ function updateKpiMultipliers(){
     newSbxPerfMultiplier = document.getElementById("sbxPerf").value/100;
     newDrPerfMultiplier = document.getElementById("drPerf").value/100;
     newOtherPerfMultiplier = document.getElementById("otherPerf").value/100;
+    
+    kpiTargets = {
+        "data": newDataBaseline,
+        "log": newLogBaseline,
+        "shared": newSharedBaseline
+    }
 
     kpiMultipliers = {
         "PROD": newProdPerfMultiplier,
