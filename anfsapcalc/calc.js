@@ -87,6 +87,86 @@ let runningAnfCosts = {
     "P9": 0.0
 }
 
+function resetTables() {
+    let tbodyRef = document.getElementById('anfVolumeTCO').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
+    tbodyRef = document.getElementById('poolGroup-requirements').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
+    tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
+    runningLogicalTotal = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+    
+    runningAddSnapshotTotal = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+    
+    runningTotalCapacity = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+    
+    runningPerformance = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+    
+    runningSnapshotSpace = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+    
+    runningAnfCosts = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+}
+
 let masterInput = [];
 
 let inputId = 0000;
@@ -95,15 +175,26 @@ let standardGiBPrice = 0.14746;
 let premiumGiBPrice = 0.29419;
 let ultraGiBPrice = 0.39274;
 
-function addSystem() {
-    // get the values from the form
-    let sysSid = document.getElementById("sys-sid").value;
-    let sysDescription = document.getElementById("sys-description").value;
-    let sysRamSize = document.getElementById("sys-ram").value;
-    let sysEnv = document.getElementById("sys-env").value;
-    let sysHA = document.getElementById("sys-ha").value;
-    let sysHostCount = document.getElementById("host-count").value;
-    let sysPool = document.getElementById("sys-pool").value;
+function addSystem(inputJson){
+    if(arguments.length == 0){
+        // get the values from the form
+        var sysSid = document.getElementById("sys-sid").value;
+        var sysDescription = document.getElementById("sys-description").value;
+        var sysRamSize = document.getElementById("sys-ram").value;
+        var sysEnv = document.getElementById("sys-env").value;
+        var sysHA = document.getElementById("sys-ha").value;
+        var sysHostCount = document.getElementById("host-count").value;
+        var sysPool = document.getElementById("sys-pool").value;
+    }else{
+        // get the values from the json
+        var sysSid = inputJson.inputSid;
+        var sysDescription = inputJson.inputDescription;
+        var sysRamSize = inputJson.inputRamSize;
+        var sysEnv = inputJson.inputEnv;
+        var sysHA = inputJson.inputHA;
+        var sysHostCount = inputJson.inputHostCount;
+        var sysPool = inputJson.inputPool;
+    };
 
     // add to input json for export
     inputObject = {
@@ -120,7 +211,6 @@ function addSystem() {
 
     inputId++;
     masterInput.push(inputObject);
-    console.log(masterInput);
     
     // if they select ha, we process the entire list twice, one for primary zone and one for secondary zone
     for (let ha = 1; ha <= sysHA; ha++) {
@@ -144,7 +234,6 @@ function addSystem() {
             let dataTotalSpace = dataGiB + dataAddSnapshotSpace;
 
             // add to running totals
-
             runningLogicalTotal[sysPool] += dataGiB;
             runningAddSnapshotTotal[sysPool] += dataAddSnapshotSpace;
             runningTotalCapacity[sysPool] += dataTotalSpace;
@@ -299,16 +388,25 @@ function addSystem() {
     updatePoolRequirementsTable();
 }
 
-function addVolume() {
+function addVolume(inputJson) {
+    if(arguments.length == 0){
     // get the values from the form
-    let volSid = document.getElementById("vol-sid").value;
-    let volDescription = document.getElementById("vol-description").value;
-    let volSize = document.getElementById("vol-size").value;
-    let volThroughput = document.getElementById("vol-tPut").value;
-    let volType = document.getElementById("vol-type").value;
-    let volPool = document.getElementById("vol-pool").value;
-    let volDailyChangeRate = parseFloat(document.getElementById("vol-changeRate").value);
-
+        var volSid = document.getElementById("vol-sid").value;
+        var volDescription = document.getElementById("vol-description").value;
+        var volSize = document.getElementById("vol-size").value;
+        var volThroughput = document.getElementById("vol-tPut").value;
+        var volType = document.getElementById("vol-type").value;
+        var volPool = document.getElementById("vol-pool").value;
+        var volDailyChangeRate = parseFloat(document.getElementById("vol-changeRate").value);
+    }else{
+        var volSid = inputJson["inputSid"];
+        var volDescription = inputJson["inputDescription"];
+        var volSize = inputJson["inputVolSize"];
+        var volThroughput = inputJson["inputThroughput"];
+        var volType = inputJson["inputVolType"];
+        var volPool = inputJson["inputPool"];
+        var volDailyChangeRate = inputJson["inputDailyChangeRate"];
+    }
     // add to input json for export
     inputObject = {
         "inputId": inputId,
@@ -514,4 +612,37 @@ let exportName = 'ANF-SAP-TCO-Tool'
     downloadAnchorNode.remove();
 }
 
+function updateKpiMultipliers(){
+    resetTables();
+    newProdPerfMultiplier = document.getElementById("prodPerf").value/100;
+    newPreProdPerfMultiplier = document.getElementById("preProdPerf").value/100;
+    newQasPerfMultiplier = document.getElementById("qasPerf").value/100;
+    newDevPerfMultiplier = document.getElementById("devPerf").value/100;
+    newTstPerfMultiplier = document.getElementById("tstPerf").value/100;
+    newSbxPerfMultiplier = document.getElementById("sbxPerf").value/100;
+    newDrPerfMultiplier = document.getElementById("drPerf").value/100;
+    newOtherPerfMultiplier = document.getElementById("otherPerf").value/100;
 
+    kpiMultipliers = {
+        "PROD": newProdPerfMultiplier,
+        "PRE-PROD": newPreProdPerfMultiplier,
+        "QAS": newQasPerfMultiplier,
+        "DEV": newDevPerfMultiplier,
+        "TST": newTstPerfMultiplier,
+        "SBX": newSbxPerfMultiplier,
+        "DR": newDrPerfMultiplier,
+        "OTHER": newOtherPerfMultiplier
+    }
+    importConfig(masterInput);
+}
+
+function importConfig(jsonInput){
+    masterInput = [];
+    jsonInput.forEach(element => {
+        if(element.inputType == "system"){
+            addSystem(element);
+        }else if(element.inputType == "volume"){
+            addVolume(element);
+        }
+    });
+}

@@ -11,7 +11,7 @@
             
         </style>
     </head>
-    <body>
+    <body onload="resetTables()">
         <script src="./calc.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <div class="container-fluid p-0">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="row bg-light collapse show justify-content-center py-2" id="collapseInput">
-                <div class="col-lg-4 col-sm-6">
+                <div class="col-lg-4 col-5">
                     <strong>Add SAP HANA Systems</strong>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
@@ -44,11 +44,6 @@
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
                         <input type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM Size</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
-                        <span class="input-group-text" id="sys-ram-unit">GiB</span>
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System Type</span>
@@ -63,6 +58,12 @@
                             <option value="OTHER">OTHER</option>
                         </select>
                     </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM Size</span>
+                        <input type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
+                        <span class="input-group-text" id="sys-ram-unit">GiB</span>
+                    </div>
+                    
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)</span>
                         <select class="form-select" aria-label="" id="sys-ha">
@@ -92,7 +93,7 @@
                         </select>
                     </div>
                     <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Capacity Pool</span>
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
                         <select class="form-select" aria-label="" id="sys-pool">
                             <option value="P1" selected>P1</option>
                             <option value="P2">P2</option>
@@ -109,7 +110,7 @@
                         <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6">
+                <div class="col-lg-4 col-5">
                     <strong>Add Single Volumes</strong>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
@@ -118,16 +119,6 @@
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
                         <input type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
-                        <span class="input-group-text" id="vol-size-unit">GiB</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
-                        <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
@@ -143,6 +134,24 @@
                         </select>
                     </div>
                     <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
+                        <input type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
+                        <span class="input-group-text" id="vol-size-unit">GiB</span>
+                    </div>
+                    
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
+                        <input type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
+                        <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
+                    </div>
+                    
+                    
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily Change</span>
+                        <input type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
+                        <span class="input-group-text" id="vol-changerate-unit">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
                         <select class="form-select" aria-label="" id="vol-pool">
                             <option value="P1" selected>P1</option>
@@ -156,13 +165,51 @@
                             <option value="P9">P9</option>
                         </select>
                     </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily Change</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
-                        <span class="input-group-text" id="vol-changerate-unit">%</span>
-                    </div>
                     <div class="float-end">
                         <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-2">
+                    <strong>Performance Factor</strong>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">PROD</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">PRE-PROD</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">QAS</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">DEV</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">TST</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SBX</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">DR</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="input-group input-group-sm mb-1">
+                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">OTHER</span>
+                        <input oninput="updateKpiMultipliers()" type="text" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
+                        <span class="input-group-text">%</span>
                     </div>
                 </div>
             </div>
