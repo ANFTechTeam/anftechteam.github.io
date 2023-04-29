@@ -6,7 +6,7 @@ let kpiTargets = {
 
 let kpiMultipliers = {
     "PROD": 1,
-    "PRE-PROD": 0.8,
+    "PREPROD": 0.8,
     "QAS": 0.5,
     "DEV": 0.25,
     "TST": 0.25,
@@ -602,52 +602,118 @@ function updatePoolAnfTcoTable() {
 }
 
 function saveToBlob(){
-let exportName = 'ANF-SAP-TCO-Tool'
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(masterInput));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+let exportJson = {
+    "settings": {
+        "kpiBaseline": {
+            "data": kpiTargets.data,
+            "log": kpiTargets.log,
+            "shared": kpiTargets.shared
+        },
+        "kpiMultipliers": {
+            "prodPerf": kpiMultipliers.PROD,
+            "preProdPerf": kpiMultipliers.PREPROD,
+            "qasPerf": kpiMultipliers.QAS,
+            "devPerf": kpiMultipliers.DEV,
+            "tstPerf": kpiMultipliers.TST,
+            "sbxPerf": kpiMultipliers.SBX,
+            "drPerf": kpiMultipliers.DR,
+            "otherPerf": kpiMultipliers.OTHER
+        },
+    },
+    "input": masterInput
 }
 
-function updateKpiMultipliers(){
+let exportName = document.getElementById("fileName").value;
+var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportJson));
+var downloadAnchorNode = document.createElement('a');
+downloadAnchorNode.setAttribute("href",     dataStr);
+downloadAnchorNode.setAttribute("download", exportName + ".json");
+document.body.appendChild(downloadAnchorNode); // required for firefox
+downloadAnchorNode.click();
+downloadAnchorNode.remove();
+}
+
+function updateKpiMultipliers(settings){
     resetTables();
+    if(arguments.length == 0){
+        newDataBaseline = document.getElementById("dataBaseline").value;
+        newLogBaseline = document.getElementById("logBaseline").value;
+        newSharedBaseline = document.getElementById("sharedBaseline").value;
 
-    newDataBaseline = document.getElementById("dataBaseline").value;
-    newLogBaseline = document.getElementById("logBaseline").value;
-    newSharedBaseline = document.getElementById("sharedBaseline").value;
+        newProdPerfMultiplier = document.getElementById("prodPerf").value/100;
+        newPreProdPerfMultiplier = document.getElementById("preProdPerf").value/100;
+        newQasPerfMultiplier = document.getElementById("qasPerf").value/100;
+        newDevPerfMultiplier = document.getElementById("devPerf").value/100;
+        newTstPerfMultiplier = document.getElementById("tstPerf").value/100;
+        newSbxPerfMultiplier = document.getElementById("sbxPerf").value/100;
+        newDrPerfMultiplier = document.getElementById("drPerf").value/100;
+        newOtherPerfMultiplier = document.getElementById("otherPerf").value/100;
+        
+        kpiTargets = {
+            "data": newDataBaseline,
+            "log": newLogBaseline,
+            "shared": newSharedBaseline
+        }
 
-    newProdPerfMultiplier = document.getElementById("prodPerf").value/100;
-    newPreProdPerfMultiplier = document.getElementById("preProdPerf").value/100;
-    newQasPerfMultiplier = document.getElementById("qasPerf").value/100;
-    newDevPerfMultiplier = document.getElementById("devPerf").value/100;
-    newTstPerfMultiplier = document.getElementById("tstPerf").value/100;
-    newSbxPerfMultiplier = document.getElementById("sbxPerf").value/100;
-    newDrPerfMultiplier = document.getElementById("drPerf").value/100;
-    newOtherPerfMultiplier = document.getElementById("otherPerf").value/100;
-    
-    kpiTargets = {
-        "data": newDataBaseline,
-        "log": newLogBaseline,
-        "shared": newSharedBaseline
+        kpiMultipliers = {
+            "PROD": newProdPerfMultiplier,
+            "PREPROD": newPreProdPerfMultiplier,
+            "QAS": newQasPerfMultiplier,
+            "DEV": newDevPerfMultiplier,
+            "TST": newTstPerfMultiplier,
+            "SBX": newSbxPerfMultiplier,
+            "DR": newDrPerfMultiplier,
+            "OTHER": newOtherPerfMultiplier
+        }
+        updateTables(masterInput);
+    }else{
+        newDataBaseline = settings.kpiBaseline.data;
+        newLogBaseline = settings.kpiBaseline.log;
+        newSharedBaseline = settings.kpiBaseline.shared;
+
+        newProdPerfMultiplier = settings.kpiMultipliers.prodPerf;
+        newPreProdPerfMultiplier = settings.kpiMultipliers.preProdPerf;
+        newQasPerfMultiplier = settings.kpiMultipliers.qasPerf;
+        newDevPerfMultiplier = settings.kpiMultipliers.devPerf;
+        newTstPerfMultiplier = settings.kpiMultipliers.tstPerf;
+        newSbxPerfMultiplier = settings.kpiMultipliers.sbxPerf;
+        newDrPerfMultiplier = settings.kpiMultipliers.drPerf;
+        newOtherPerfMultiplier = settings.kpiMultipliers.otherPerf;
+
+        kpiTargets = {
+            "data": newDataBaseline,
+            "log": newLogBaseline,
+            "shared": newSharedBaseline
+        }
+
+        kpiMultipliers = {
+            "PROD": newProdPerfMultiplier,
+            "PREPROD": newPreProdPerfMultiplier,
+            "QAS": newQasPerfMultiplier,
+            "DEV": newDevPerfMultiplier,
+            "TST": newTstPerfMultiplier,
+            "SBX": newSbxPerfMultiplier,
+            "DR": newDrPerfMultiplier,
+            "OTHER": newOtherPerfMultiplier
+        }
+
+        document.getElementById("dataBaseline").value = newDataBaseline;
+        document.getElementById("logBaseline").value = newLogBaseline;
+        document.getElementById("sharedBaseline").value = newSharedBaseline;
+
+        document.getElementById("prodPerf").value = newProdPerfMultiplier*100;
+        document.getElementById("preProdPerf").value = newPreProdPerfMultiplier*100;
+        document.getElementById("qasPerf").value = newQasPerfMultiplier*100;
+        document.getElementById("devPerf").value = newDevPerfMultiplier*100;
+        document.getElementById("tstPerf").value = newTstPerfMultiplier*100;
+        document.getElementById("sbxPerf").value = newSbxPerfMultiplier*100;
+        document.getElementById("drPerf").value = newDrPerfMultiplier*100;
+        document.getElementById("otherPerf").value = newOtherPerfMultiplier*100;
+
     }
-
-    kpiMultipliers = {
-        "PROD": newProdPerfMultiplier,
-        "PRE-PROD": newPreProdPerfMultiplier,
-        "QAS": newQasPerfMultiplier,
-        "DEV": newDevPerfMultiplier,
-        "TST": newTstPerfMultiplier,
-        "SBX": newSbxPerfMultiplier,
-        "DR": newDrPerfMultiplier,
-        "OTHER": newOtherPerfMultiplier
-    }
-    importConfig(masterInput);
 }
 
-function importConfig(jsonInput){
+function updateTables(jsonInput){
     masterInput = [];
     jsonInput.forEach(element => {
         if(element.inputType == "system"){
@@ -657,3 +723,32 @@ function importConfig(jsonInput){
         }
     });
 }
+
+function loadConfig() {
+    var files = document.getElementById('selectFiles').files;
+    console.log(files);
+    if (files.length <= 0) {
+        return false;
+    }
+
+    var fr = new FileReader();
+
+    fr.onload = function(e) { 
+        console.log(e);
+        var result = JSON.parse(e.target.result);
+        var formatted = JSON.stringify(result, null, 2);
+        document.getElementById('result').value = formatted;
+        
+        
+    }
+    fr.readAsText(files.item(0));
+};
+
+function importConfig(){
+    let result = JSON.parse(document.getElementById('result').value);
+    console.log(result);
+    updateKpiMultipliers(result.settings);
+    updateTables(result.input);
+}
+
+
