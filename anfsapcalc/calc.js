@@ -87,6 +87,12 @@ let runningAnfCosts = {
     "P9": 0.0
 }
 
+let masterInput = [];
+let inputId = 0;
+let standardGiBPrice = 0.14746;
+let premiumGiBPrice = 0.29419;
+let ultraGiBPrice = 0.39274;
+
 function resetTables() {
     let tbodyRef = document.getElementById('anfVolumeTCO').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = "";
@@ -167,14 +173,6 @@ function resetTables() {
     }
 }
 
-let masterInput = [];
-
-let inputId = 0000;
-
-let standardGiBPrice = 0.14746;
-let premiumGiBPrice = 0.29419;
-let ultraGiBPrice = 0.39274;
-
 function addSystem(inputJson){
     if(arguments.length == 0){
         // get the values from the form
@@ -209,9 +207,10 @@ function addSystem(inputJson){
         "inputPool": sysPool
     };
 
-    inputId++;
+    
     masterInput.push(inputObject);
     
+
     // if they select ha, we process the entire list twice, one for primary zone and one for secondary zone
     for (let ha = 1; ha <= sysHA; ha++) {
 
@@ -259,6 +258,7 @@ function addSystem(inputJson){
             var dataRowSnapshotRetentionDays = dataRow.insertCell(11);
             var dataRowSnapshotSize = dataRow.insertCell(12);
             var dataRowFreeSpace = dataRow.insertCell(13);
+            var dataRowDelete = dataRow.insertCell(14);
 
             dataRowDescription.innerHTML = sysDescription;
             dataRowSID.innerHTML = sidDisplayed;
@@ -274,6 +274,8 @@ function addSystem(inputJson){
             dataRowSnapshotRetentionDays.innerHTML = dataSnapshotRetentionDays;
             dataRowSnapshotSize.innerHTML = dataSnapshotSize;
             dataRowFreeSpace.innerHTML = dataFreeSpace;
+            dataRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
+            
         }
 
         for (let host = 1; host <= sysHostCount; host++) {
@@ -314,6 +316,7 @@ function addSystem(inputJson){
         var logRowSnapshotRetentionDays = logRow.insertCell(11);
         var logRowSnapshotSize = logRow.insertCell(12);
         var logRowFreeSpace = logRow.insertCell(13);
+        var logRowDelete = logRow.insertCell(14);
 
         logRowDescription.innerHTML = sysDescription;
         logRowSID.innerHTML = sidDisplayed;
@@ -329,6 +332,7 @@ function addSystem(inputJson){
         logRowSnapshotRetentionDays.innerHTML = logSnapshotRetentionDays;
         logRowSnapshotSize.innerHTML = logSnapshotSize;
         logRowFreeSpace.innerHTML = logFreeSpace;
+        logRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
         }
 
         // calculate
@@ -367,6 +371,7 @@ function addSystem(inputJson){
         var sharedRowSnapshotRetentionDays = sharedRow.insertCell(11);
         var sharedRowSnapshotSize = sharedRow.insertCell(12);
         var sharedRowFreeSpace = sharedRow.insertCell(13);
+        var sharedRowDelete = sharedRow.insertCell(14);
 
         sharedRowDescription.innerHTML = sysDescription;
         sharedRowSID.innerHTML = sidDisplayed;
@@ -382,9 +387,11 @@ function addSystem(inputJson){
         sharedRowSnapshotRetentionDays.innerHTML = sharedSnapshotRetentionDays;
         sharedRowSnapshotSize.innerHTML = sharedSnapshotSize;
         sharedRowFreeSpace.innerHTML = sharedFreeSpace;
+        sharedRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
 
     }
     // update the pool requirements table
+    inputId++;
     updatePoolRequirementsTable();
 }
 
@@ -420,7 +427,6 @@ function addVolume(inputJson) {
         "inputDailyChangeRate": volDailyChangeRate
     };
 
-    inputId++;
     masterInput.push(inputObject);
     console.log(masterInput);
 
@@ -459,6 +465,7 @@ function addVolume(inputJson) {
     var volRowSnapshotRetentionDays = volRow.insertCell(11);
     var volRowSnapshotSize = volRow.insertCell(12);
     var volRowFreeSpace = volRow.insertCell(13);
+    var volRowDelete = volRow.insertCell(14);
 
     volRowDescription.innerHTML = volDescription;
     volRowSID.innerHTML = volSid;
@@ -474,7 +481,9 @@ function addVolume(inputJson) {
     volRowSnapshotRetentionDays.innerHTML = volSnapshotRetentionDays;
     volRowSnapshotSize.innerHTML = volSnapshotSize;
     volRowFreeSpace.innerHTML = "0";
-
+    volRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete single volume?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
+    
+    inputId++;
     // update the pool requirements table
     updatePoolRequirementsTable();
 }
@@ -634,6 +643,7 @@ downloadAnchorNode.remove();
 }
 
 function updateKpiMultipliers(settings){
+    inputId = 0;
     resetTables();
     if(arguments.length == 0){
         newDataBaseline = document.getElementById("dataBaseline").value;
@@ -749,6 +759,24 @@ function importConfig(){
     console.log(result);
     updateKpiMultipliers(result.settings);
     updateTables(result.input);
+}
+
+function deleteRecord(recordId){
+    const arr = masterInput;
+     
+     const removeById = (arr, id) => {
+        const requiredIndex = arr.findIndex(el => {
+           return el.inputId === id;
+        });
+        if(requiredIndex === -1){
+           return false;
+        };
+        return !!arr.splice(requiredIndex, 1);
+     };
+     removeById(arr, recordId);
+     console.log(arr);
+     resetTables();
+     updateTables(arr);
 }
 
 

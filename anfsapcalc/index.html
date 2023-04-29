@@ -28,7 +28,7 @@
                                     Import Config&nbsp<i class="bi bi-filetype-json"></i>
                                 </button>
                                 <div class="bg-light dropdown-menu">
-                                    <div class="container">
+                                    <div class="container" style="width: 500px">
                                         <h5>Import JSON file or paste in to the text field below</h5>
                                         <input oninput="loadConfig()" class="pb-2" type="file" id="selectFiles" value="Import"></input>
                                         <textarea style="width: 100%; height: 300px" id="result"></textarea>
@@ -328,6 +328,7 @@
                                 <th class="text-dark align-middle" scope="col">Snapshot retention (days)</th>
                                 <th class="text-dark align-middle" scope="col">Total snapshot Size (GiB)</th>
                                 <th class="text-dark align-middle" scope="col">Assumed free space (GiB)</th>
+                                <th class="text-dark align-middle" scope="col"><i class="bi bi-trash"></i></th>
                             </tr>
                         </thead>
                         <tbody>
