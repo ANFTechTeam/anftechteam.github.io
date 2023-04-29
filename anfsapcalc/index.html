@@ -65,11 +65,11 @@
                     <strong>Add SAP HANA Systems</strong>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
+                        <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
+                        <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System Type</span>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM Size</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
+                        <input oninput="validateInput('sys-ram')" type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
                         <span class="input-group-text" id="sys-ram-unit">GiB</span>
                     </div>
                     
@@ -140,11 +140,11 @@
                     <strong>Add Single Volumes</strong>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
+                        <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
+                        <input oninput="validateInput('vol-description')" type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
@@ -161,20 +161,20 @@
                     </div>
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
+                        <input oninput="validateInput('vol-size')" type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
                         <span class="input-group-text" id="vol-size-unit">GiB</span>
                     </div>
                     
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
+                        <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
                         <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
                     </div>
                     
                     
                     <div class="input-group input-group-sm mb-1">
                         <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily Change</span>
-                        <input type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
+                        <input oninput="validateInput('vol-changeRate')" type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
                         <span class="input-group-text" id="vol-changerate-unit">%</span>
                     </div>
                     <div class="input-group input-group-sm mb-1">

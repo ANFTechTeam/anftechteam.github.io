@@ -173,16 +173,118 @@ function resetTables() {
     }
 }
 
+function validateInput(element) {
+    // get the values from the form
+    switch(element) {
+        case "sys-sid":
+            var sysSid = document.getElementById("sys-sid").value;
+            if(sysSid.length === 3){
+                document.getElementById("sys-sid").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("sys-sid").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "sys-description":
+            var sysDescription = document.getElementById("sys-description").value;
+            if(sysDescription.length > 0){
+                document.getElementById("sys-description").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("sys-description").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "sys-ram":
+            var sysRamSize = document.getElementById("sys-ram").value;
+            if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 0){
+                document.getElementById("sys-ram").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("sys-ram").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "vol-sid":
+            var volSid = document.getElementById("vol-sid").value;
+            if(volSid.length === 3){
+                document.getElementById("vol-sid").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-sid").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "vol-description":
+            var volDescription = document.getElementById("vol-description").value;
+            if(volDescription.length > 0){
+                document.getElementById("vol-description").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-description").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "vol-size":
+            var volSize = document.getElementById("vol-size").value;
+            if(Number.isInteger(Number(volSize)) && Number(volSize) > 0){
+                document.getElementById("vol-size").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-size").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "vol-tPut":
+            var volTput = document.getElementById("vol-tPut").value;
+            if(Number.isInteger(Number(volTput)) && Number(volTput) > 0){
+                document.getElementById("vol-tPut").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-tPut").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "vol-changeRate":
+            var volChangeRate = document.getElementById("vol-changeRate").value;
+            if(Number.isInteger(Number(volChangeRate)) && Number(volChangeRate) > 0.01 && Number(volChangeRate) <= 100){
+                document.getElementById("vol-changeRate").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-changeRate").style.borderColor = "red";
+                return false;
+            }
+            break;
+    }
+}
+
 function addSystem(inputJson){
+    let invalidInputs = 0;
     if(arguments.length == 0){
         // get the values from the form
-        var sysSid = document.getElementById("sys-sid").value;
-        var sysDescription = document.getElementById("sys-description").value;
-        var sysRamSize = document.getElementById("sys-ram").value;
+        if(validateInput("sys-sid")){
+            var sysSid = document.getElementById("sys-sid").value;
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("sys-description")){
+            var sysDescription = document.getElementById("sys-description").value;
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("sys-ram")){
+            var sysRamSize = document.getElementById("sys-ram").value;
+        }else{
+            invalidInputs++;
+        }
         var sysEnv = document.getElementById("sys-env").value;
         var sysHA = document.getElementById("sys-ha").value;
         var sysHostCount = document.getElementById("host-count").value;
         var sysPool = document.getElementById("sys-pool").value;
+        if(invalidInputs > 0){
+            return;
+        }
     }else{
         // get the values from the json
         var sysSid = inputJson.inputSid;
@@ -396,15 +498,41 @@ function addSystem(inputJson){
 }
 
 function addVolume(inputJson) {
+    let invalidInputs = 0;
     if(arguments.length == 0){
     // get the values from the form
-        var volSid = document.getElementById("vol-sid").value;
-        var volDescription = document.getElementById("vol-description").value;
-        var volSize = document.getElementById("vol-size").value;
-        var volThroughput = document.getElementById("vol-tPut").value;
+    
+        if(validateInput("vol-sid")){
+            var volSid = document.getElementById("vol-sid").value;
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("vol-description")){
+            var volDescription = document.getElementById("vol-description").value;
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("vol-size")){
+            var volSize = document.getElementById("vol-size").value;
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("vol-tPut")){
+            var volThroughput = document.getElementById("vol-tPut").value;
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("vol-changeRate")){
+            var volDailyChangeRate = Number(document.getElementById("vol-changeRate").value);
+        }else{
+            invalidInputs++;
+        }
         var volType = document.getElementById("vol-type").value;
         var volPool = document.getElementById("vol-pool").value;
-        var volDailyChangeRate = parseFloat(document.getElementById("vol-changeRate").value);
+        
+        if(invalidInputs > 0){
+            return;
+        }
     }else{
         var volSid = inputJson["inputSid"];
         var volDescription = inputJson["inputDescription"];
