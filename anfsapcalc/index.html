@@ -62,204 +62,354 @@
             </div>
             <div class="row bg-light collapse show justify-content-center py-2" id="collapseInput">
                 <div class="col-lg-4 col-5">
-                    <strong>Add SAP HANA Systems</strong>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
-                        <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
-                        <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System Type</span>
-                        <select class="form-select" aria-label="" id="sys-env">
-                            <option value="PROD" selected>PROD</option>
-                            <option value="PRE-PROD">PRE-PROD</option>
-                            <option value="QAS">QAS</option>
-                            <option value="DEV">DEV</option>
-                            <option value="TST">TST</option>
-                            <option value="SBX">SBX</option>
-                            <option value="DR">DR</option>
-                            <option value="OTHER">OTHER</option>
-                        </select>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM Size</span>
-                        <input oninput="validateInput('sys-ram')" type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
-                        <span class="input-group-text" id="sys-ram-unit">GiB</span>
-                    </div>
-                    
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)</span>
-                        <select class="form-select" aria-label="" id="sys-ha">
-                            <option value="2">Yes</option>
-                            <option value="1" selected>No</option>
-                        </select>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host Count</span>
-                        <select class="form-select" aria-label="" id="host-count">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                        </select>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
-                        <select class="form-select" aria-label="" id="sys-pool">
-                            <option value="P1" selected>P1</option>
-                            <option value="P2">P2</option>
-                            <option value="P3">P3</option>
-                            <option value="P4">P4</option>
-                            <option value="P5">P5</option>
-                            <option value="P6">P6</option>
-                            <option value="P7">P7</option>
-                            <option value="P8">P8</option>
-                            <option value="P9">P9</option>
-                        </select>
-                    </div>
-                    <div class="float-end">
-                        <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
-                    </div>
+                    <div class="accordion accordion-flush" id="accordianFlushInput">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushSystem" aria-expanded="false" aria-controls="accordianFlushSystem">
+                                <strong>Add SAP HANA System</strong>
+                            </button>
+                          </h2>
+                          <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
+                            <div class="accordion-body pb-5">
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
+                                    <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
+                                    <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System Type</span>
+                                    <select class="form-select" aria-label="" id="sys-env">
+                                        <option value="PROD" selected>PROD</option>
+                                        <option value="PRE-PROD">PRE-PROD</option>
+                                        <option value="QAS">QAS</option>
+                                        <option value="DEV">DEV</option>
+                                        <option value="TST">TST</option>
+                                        <option value="SBX">SBX</option>
+                                        <option value="DR">DR</option>
+                                        <option value="OTHER">OTHER</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM Size</span>
+                                    <input oninput="validateInput('sys-ram')" type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
+                                    <span class="input-group-text" id="sys-ram-unit">GiB</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)</span>
+                                    <select class="form-select" aria-label="" id="sys-ha">
+                                        <option value="2">Yes</option>
+                                        <option value="1" selected>No</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host Count</span>
+                                    <select class="form-select" aria-label="" id="host-count">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
+                                    <select class="form-select" aria-label="" id="sys-pool">
+                                        <option value="P1" selected>P1</option>
+                                        <option value="P2">P2</option>
+                                        <option value="P3">P3</option>
+                                        <option value="P4">P4</option>
+                                        <option value="P5">P5</option>
+                                        <option value="P6">P6</option>
+                                        <option value="P7">P7</option>
+                                        <option value="P8">P8</option>
+                                        <option value="P9">P9</option>
+                                    </select>
+                                </div>
+                                <div class="float-end">
+                                    <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushVolume" aria-expanded="false" aria-controls="accordianFlushVolume">
+                                <strong>Add Single Volume</strong>
+                            </button>
+                          </h2>
+                          <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
+                            <div class="accordion-body pb-5">
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
+                                    <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
+                                    <input oninput="validateInput('vol-description')" type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
+                                    <select class="form-select" aria-label="" id="vol-type">
+                                        <option value="PROD" selected>PROD</option>
+                                        <option value="PRE-PROD">PRE-PROD</option>
+                                        <option value="QAS">QAS</option>
+                                        <option value="DEV">DEV</option>
+                                        <option value="TST">TST</option>
+                                        <option value="SBX">SBX</option>
+                                        <option value="DR">DR</option>
+                                        <option value="OTHER">OTHER</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
+                                    <input oninput="validateInput('vol-size')" type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
+                                    <span class="input-group-text" id="vol-size-unit">GiB</span>
+                                </div>
+                                
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
+                                    <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
+                                    <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
+                                </div>
+                                
+                                
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily Change</span>
+                                    <input oninput="validateInput('vol-changeRate')" type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
+                                    <span class="input-group-text" id="vol-changerate-unit">%</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
+                                    <select class="form-select" aria-label="" id="vol-pool">
+                                        <option value="P1" selected>P1</option>
+                                        <option value="P2">P2</option>
+                                        <option value="P3">P3</option>
+                                        <option value="P4">P4</option>
+                                        <option value="P5">P5</option>
+                                        <option value="P6">P6</option>
+                                        <option value="P7">P7</option>
+                                        <option value="P8">P8</option>
+                                        <option value="P9">P9</option>
+                                    </select>
+                                </div>
+                                <div class="float-end">
+                                    <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
                 </div>
                 <div class="col-lg-4 col-5">
-                    <strong>Add Single Volumes</strong>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
-                        <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
-                        <input oninput="validateInput('vol-description')" type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
-                        <select class="form-select" aria-label="" id="vol-type">
-                            <option value="PROD" selected>PROD</option>
-                            <option value="PRE-PROD">PRE-PROD</option>
-                            <option value="QAS">QAS</option>
-                            <option value="DEV">DEV</option>
-                            <option value="TST">TST</option>
-                            <option value="SBX">SBX</option>
-                            <option value="DR">DR</option>
-                            <option value="OTHER">OTHER</option>
-                        </select>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
-                        <input oninput="validateInput('vol-size')" type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
-                        <span class="input-group-text" id="vol-size-unit">GiB</span>
-                    </div>
-                    
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
-                        <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
-                        <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
-                    </div>
-                    
-                    
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily Change</span>
-                        <input oninput="validateInput('vol-changeRate')" type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
-                        <span class="input-group-text" id="vol-changerate-unit">%</span>
-                    </div>
-                    <div class="input-group input-group-sm mb-1">
-                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
-                        <select class="form-select" aria-label="" id="vol-pool">
-                            <option value="P1" selected>P1</option>
-                            <option value="P2">P2</option>
-                            <option value="P3">P3</option>
-                            <option value="P4">P4</option>
-                            <option value="P5">P5</option>
-                            <option value="P6">P6</option>
-                            <option value="P7">P7</option>
-                            <option value="P8">P8</option>
-                            <option value="P9">P9</option>
-                        </select>
-                    </div>
-                    <div class="float-end">
-                        <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
-                    </div>
+                    <div class="accordion accordion-flush" id="accordianFlushSettings">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPerformance" aria-expanded="false" aria-controls="accordianFlushSystem">
+                              <strong>Performance Modifiers</strong>
+                            </button>
+                          </h2>
+                          <div id="accordianFlushPerformance" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushSettings">
+                            <div class="accordion-body pb-5">
+                              <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">data</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="dataBaseline" aria-describedby="dataBaseline" value="400" id="dataBaseline">
+                                <span class="input-group-text">MiB/s</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">log</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="logBaseline" aria-describedby="logBaseline" value="250" id="logBaseline">
+                                <span class="input-group-text">MiB/s</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">shared</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="sharedBaseline" aria-describedby="sharedBaseline" value="50" id="sharedBaseline">
+                                <span class="input-group-text">MiB/s</span>
+                            </div>
+                            <span>Performance Factor</span>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PROD</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">QAS</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DEV</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">TST</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SBX</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DR</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="input-group input-group-sm mb-1">
+                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">OTHER</span>
+                                <input type="number" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <div class="float-end">
+                                <button onclick="updateKpiMultipliers()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushBackup" aria-expanded="false" aria-controls="accordianFlushVolume">
+                              <strong>Snapshots and Backup</strong>
+                            </button>
+                          </h2>
+                          <div id="accordianFlushBackup" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushSettings">
+                            <div class="accordion-body pb-5">
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm" style="color: white; background-color: #6c757d;">Type</span>
+                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="data" disabled>
+                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
+                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="shared" disabled>
+                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
+                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="snapshot" disabled>
+                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">days</span>
+                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="backup" disabled>
+                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">days</span>
+                                </div>
+                                <hr>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">PROD</span>
+                                    <input type="number" class="form-control" value="50" id="prodDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="prodSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="prodSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="prodBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
+                                    <input type="number" class="form-control" value="30" id="preProdDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="preProdSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="preProdSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="preProdBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">QAS</span>
+                                    <input type="number" class="form-control" value="30" id="qasDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="qasSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="qasSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="qasBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DEV</span>
+                                    <input type="number" class="form-control" value="30" id="devDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="devSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="devSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="devBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">TST</span>
+                                    <input type="number" class="form-control" value="30" id="tstDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="tstSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="tstSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="tstBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">SBX</span>
+                                    <input type="number" class="form-control" value="30" id="sbxDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="sbxSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="sbxSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="sbxBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DR</span>
+                                    <input type="number" class="form-control" value="30" id="drDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="drSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="drSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="drBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">OTHER</span>
+                                    <input type="number" class="form-control" value="30" id="otherDataChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="2" id="otherSharedChange">
+                                    <span class="input-group-text">%</span>
+                                    <input type="number" class="form-control" value="5" id="otherSnapRet">
+                                    <span class="input-group-text">days</span>
+                                    <input type="number" class="form-control" value="30" id="otherBackupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="float-end">
+                                    <button onclick="updateSnapshotBackup()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
-                <div class="col-lg-2 col-sm-2">
-                    <strong>Performance Modifiers</strong><br>
-                    <span>Baseline Performance</span>
-                    <div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">data</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="dataBaseline" aria-describedby="dataBaseline" value="400" id="dataBaseline">
-                            <span class="input-group-text">MiB/s</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">log</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="logBaseline" aria-describedby="logBaseline" value="250" id="logBaseline">
-                            <span class="input-group-text">MiB/s</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">shared</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="sharedBaseline" aria-describedby="sharedBaseline" value="50" id="sharedBaseline">
-                            <span class="input-group-text">MiB/s</span>
-                        </div>
-                        <span>Performance Factor</span>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PROD</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">QAS</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DEV</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">TST</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SBX</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DR</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="input-group input-group-sm mb-1">
-                            <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">OTHER</span>
-                            <input type="number" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <div class="float-end">
-                            <button onclick="updateKpiMultipliers()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
-                        </div>
-                    </div>
-                </div>
+                
+                
+                
+                
+                
+                
+               
             </div>
             <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutput" aria-expanded="true" aria-controls="collapseOutput">
                 <div class="col">
@@ -337,5 +487,11 @@
                 </div>
             </div>
         </div>
+
+     
+
+
+
+
     </body>
 </html>
