@@ -17,13 +17,13 @@ let kpiMultipliers = {
 
 let dataProtectionSettings = {
     "PROD": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "PREPROD": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "QAS": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "DEV": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "TST": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "SBX": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "DR": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "OTHER": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30}
+    "PREPROD": {"dataDailyChange": 30, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
+    "QAS": {"dataDailyChange": 20, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
+    "DEV": {"dataDailyChange": 10, "sharedDailyChange": 1, "snapRetention": 5, "backupRetention": 0},
+    "TST": {"dataDailyChange": 10, "sharedDailyChange": 1, "snapRetention": 5, "backupRetention": 0},
+    "SBX": {"dataDailyChange": 10, "sharedDailyChange": 1, "snapRetention": 0, "backupRetention": 0},
+    "DR": {"dataDailyChange": 30, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 0},
+    "OTHER": {"dataDailyChange": 10, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 0}
 }
 
 let runningLogicalTotal = {
@@ -98,11 +98,60 @@ let runningAnfCosts = {
     "P9": 0.0
 }
 
+let runningAnfBackupBaselineCapacity = {
+    "P1": 0.0,
+    "P2": 0.0,
+    "P3": 0.0,
+    "P4": 0.0,
+    "P5": 0.0,
+    "P6": 0.0,
+    "P7": 0.0,
+    "P8": 0.0,
+    "P9": 0.0
+}
+
+let runningAnfBackupDeltaCapacity = {
+    "P1": 0.0,
+    "P2": 0.0,
+    "P3": 0.0,
+    "P4": 0.0,
+    "P5": 0.0,
+    "P6": 0.0,
+    "P7": 0.0,
+    "P8": 0.0,
+    "P9": 0.0
+}
+
+let runningAnfBackupTotalCapacity = {
+    "P1": 0.0,
+    "P2": 0.0,
+    "P3": 0.0,
+    "P4": 0.0,
+    "P5": 0.0,
+    "P6": 0.0,
+    "P7": 0.0,
+    "P8": 0.0,
+    "P9": 0.0
+}
+
+let runningAnfBackupCosts = {
+    "P1": 0.0,
+    "P2": 0.0,
+    "P3": 0.0,
+    "P4": 0.0,
+    "P5": 0.0,
+    "P6": 0.0,
+    "P7": 0.0,
+    "P8": 0.0,
+    "P9": 0.0
+}
+
 let masterInput = [];
 let inputId = 0;
 let standardGiBPrice = 0.14746;
 let premiumGiBPrice = 0.29419;
 let ultraGiBPrice = 0.39274;
+let anfBackupGiBPrice = .04;
 
 function resetTables() {
     let tbodyRef = document.getElementById('anfVolumeTCO').getElementsByTagName('tbody')[0];
@@ -110,6 +159,8 @@ function resetTables() {
     tbodyRef = document.getElementById('poolGroup-requirements').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = "";
     tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = "";
+    tbodyRef = document.getElementById('anfBackupTable').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = "";
     runningLogicalTotal = {
         "P1": 0.0,
@@ -172,6 +223,54 @@ function resetTables() {
     }
     
     runningAnfCosts = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+
+    runningAnfBackupCosts = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+
+    runningAnfBackupBaselineCapacity = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+
+    runningAnfBackupDeltaCapacity = {
+        "P1": 0.0,
+        "P2": 0.0,
+        "P3": 0.0,
+        "P4": 0.0,
+        "P5": 0.0,
+        "P6": 0.0,
+        "P7": 0.0,
+        "P8": 0.0,
+        "P9": 0.0
+    }
+
+    runningAnfBackupTotalCapacity = {
         "P1": 0.0,
         "P2": 0.0,
         "P3": 0.0,
@@ -267,6 +366,26 @@ function validateInput(element) {
                 return false;
             }
             break;
+        case "vol-snapshotRet":
+            var volSnapshotRet = document.getElementById("vol-snapshotRet").value;
+            if(Number.isInteger(Number(volSnapshotRet)) && Number(volSnapshotRet) > -1){
+                document.getElementById("vol-snapshotRet").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-snapshotRet").style.borderColor = "red";
+                return false;
+            }
+            break;
+        case "vol-backupRet":
+            var volSnapshotRet = document.getElementById("vol-backupRet").value;
+            if(Number.isInteger(Number(volSnapshotRet)) && Number(volSnapshotRet) > -1){
+                document.getElementById("vol-backupRet").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("vol-backupRet").style.borderColor = "red";
+                return false;
+            }
+            break;
     }
 }
 
@@ -341,9 +460,16 @@ function addSystem(inputJson){
             let dataFreeSpace = dataGiB / 2;
             let dataDailyChangeRate = Number(eval('dataProtectionSettings.' + sysEnv + '.dataDailyChange'));
             let dataSnapshotRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.snapRetention'));
+            let dataBackupRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.backupRetention'));
             let dataSnapshotSize = (dataGiB / 2) * (dataDailyChangeRate / 100) * dataSnapshotRetentionDays;
             let dataAddSnapshotSpace = Math.max(dataSnapshotSize - dataFreeSpace, 0);
             let dataTotalSpace = dataGiB + dataAddSnapshotSpace;
+            let dataBackupBaselineCapacity = 0;
+            if(dataBackupRetentionDays > 0){
+                dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
+            }
+            let dataBackupDeltaCapacity = parseFloat(dataGiB) * parseFloat(dataDailyChangeRate / 100) * dataBackupRetentionDays;
+            let dataBackupTotalCapacity = dataBackupBaselineCapacity + dataBackupDeltaCapacity;
 
             // add to running totals
             runningLogicalTotal[sysPool] += dataGiB;
@@ -351,6 +477,9 @@ function addSystem(inputJson){
             runningTotalCapacity[sysPool] += dataTotalSpace;
             runningPerformance[sysPool] += dataPerf;
             runningSnapshotSpace[sysPool] += dataSnapshotSize;
+            runningAnfBackupBaselineCapacity[sysPool] += dataBackupBaselineCapacity;
+            runningAnfBackupDeltaCapacity[sysPool] += dataBackupDeltaCapacity;
+            runningAnfBackupTotalCapacity[sysPool] += dataBackupTotalCapacity;
 
             // create new row in the volume table, data
             var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
@@ -369,9 +498,10 @@ function addSystem(inputJson){
             var dataRowRequiredPerformance = dataRow.insertCell(9);
             var dataRowDailyChangeRate = dataRow.insertCell(10);
             var dataRowSnapshotRetentionDays = dataRow.insertCell(11);
-            var dataRowSnapshotSize = dataRow.insertCell(12);
-            var dataRowFreeSpace = dataRow.insertCell(13);
-            var dataRowDelete = dataRow.insertCell(14);
+            var dataRowBackupRetentionDays = dataRow.insertCell(12);
+            var dataRowSnapshotSize = dataRow.insertCell(13);
+            var dataRowFreeSpace = dataRow.insertCell(14);
+            var dataRowDelete = dataRow.insertCell(15);
 
             dataRowDescription.innerHTML = sysDescription;
             dataRowSID.innerHTML = sidDisplayed;
@@ -385,6 +515,7 @@ function addSystem(inputJson){
             dataRowRequiredPerformance.innerHTML = dataPerf;
             dataRowDailyChangeRate.innerHTML = dataDailyChangeRate;
             dataRowSnapshotRetentionDays.innerHTML = dataSnapshotRetentionDays;
+            dataRowBackupRetentionDays.innerHTML = dataBackupRetentionDays;
             dataRowSnapshotSize.innerHTML = dataSnapshotSize;
             dataRowFreeSpace.innerHTML = dataFreeSpace;
             dataRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
@@ -427,9 +558,10 @@ function addSystem(inputJson){
         var logRowRequiredPerformance = logRow.insertCell(9);
         var logRowDailyChangeRate = logRow.insertCell(10);
         var logRowSnapshotRetentionDays = logRow.insertCell(11);
-        var logRowSnapshotSize = logRow.insertCell(12);
-        var logRowFreeSpace = logRow.insertCell(13);
-        var logRowDelete = logRow.insertCell(14);
+        var logRowBackupRetentionDays = logRow.insertCell(12);
+        var logRowSnapshotSize = logRow.insertCell(13);
+        var logRowFreeSpace = logRow.insertCell(14);
+        var logRowDelete = logRow.insertCell(15);
 
         logRowDescription.innerHTML = sysDescription;
         logRowSID.innerHTML = sidDisplayed;
@@ -443,6 +575,7 @@ function addSystem(inputJson){
         logRowRequiredPerformance.innerHTML = logPerf;
         logRowDailyChangeRate.innerHTML = logDailyChangeRate;
         logRowSnapshotRetentionDays.innerHTML = logSnapshotRetentionDays;
+        logRowBackupRetentionDays.innerHTML = "n/a"
         logRowSnapshotSize.innerHTML = logSnapshotSize;
         logRowFreeSpace.innerHTML = logFreeSpace;
         logRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
@@ -454,9 +587,16 @@ function addSystem(inputJson){
         let sharedFreeSpace = 0;
         let sharedDailyChangeRate = Number(eval('dataProtectionSettings.' + sysEnv + '.sharedDailyChange'));
         let sharedSnapshotRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.snapRetention'));
+        let sharedBackupRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.backupRetention'));
         let sharedSnapshotSize = (sharedGiB) * (sharedDailyChangeRate / 100) * sharedSnapshotRetentionDays;
         let sharedAddSnapshotSpace = Math.max(sharedSnapshotSize - sharedFreeSpace, 0);
         let sharedTotalSpace = sharedGiB + sharedAddSnapshotSpace;
+        let sharedBackupBaselineCapacity = 0;
+            if(sharedBackupRetentionDays > 0){
+                sharedBackupBaselineCapacity = parseFloat(sharedGiB);
+            }
+        let sharedBackupDeltaCapacity = parseFloat(sharedGiB) * parseFloat(sharedDailyChangeRate / 100) * sharedBackupRetentionDays;
+        let sharedBackupTotalCapacity = sharedBackupBaselineCapacity + sharedBackupDeltaCapacity;
 
         // add to running totals
         runningLogicalTotal[sysPool] += sharedGiB;
@@ -464,6 +604,9 @@ function addSystem(inputJson){
         runningTotalCapacity[sysPool] += sharedTotalSpace;
         runningPerformance[sysPool] += sharedPerf;
         runningSnapshotSpace[sysPool] += sharedSnapshotSize;
+        runningAnfBackupBaselineCapacity[sysPool] += sharedBackupBaselineCapacity;
+        runningAnfBackupDeltaCapacity[sysPool] += sharedBackupDeltaCapacity;
+        runningAnfBackupTotalCapacity[sysPool] += sharedBackupTotalCapacity;
 
         // create new row in the volume table, data
         var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
@@ -482,9 +625,10 @@ function addSystem(inputJson){
         var sharedRowRequiredPerformance = sharedRow.insertCell(9);
         var sharedRowDailyChangeRate = sharedRow.insertCell(10);
         var sharedRowSnapshotRetentionDays = sharedRow.insertCell(11);
-        var sharedRowSnapshotSize = sharedRow.insertCell(12);
-        var sharedRowFreeSpace = sharedRow.insertCell(13);
-        var sharedRowDelete = sharedRow.insertCell(14);
+        var sharedRowBackupRetentionDays = sharedRow.insertCell(12);
+        var sharedRowSnapshotSize = sharedRow.insertCell(13);
+        var sharedRowFreeSpace = sharedRow.insertCell(14);
+        var sharedRowDelete = sharedRow.insertCell(15);
 
         sharedRowDescription.innerHTML = sysDescription;
         sharedRowSID.innerHTML = sidDisplayed;
@@ -498,6 +642,7 @@ function addSystem(inputJson){
         sharedRowRequiredPerformance.innerHTML = sharedPerf;
         sharedRowDailyChangeRate.innerHTML = sharedDailyChangeRate;
         sharedRowSnapshotRetentionDays.innerHTML = sharedSnapshotRetentionDays;
+        sharedRowBackupRetentionDays.innerHTML = sharedBackupRetentionDays;
         sharedRowSnapshotSize.innerHTML = sharedSnapshotSize;
         sharedRowFreeSpace.innerHTML = sharedFreeSpace;
         sharedRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
@@ -538,6 +683,17 @@ function addVolume(inputJson) {
         }else{
             invalidInputs++;
         }
+        if(validateInput("vol-snapshotRet")){
+            var volSnapshotRetention = Number(document.getElementById("vol-snapshotRet").value);
+        }else{
+            invalidInputs++;
+        }
+        if(validateInput("vol-backupRet")){
+            var volBackupRetention = Number(document.getElementById("vol-backupRet").value);
+        }else{
+            invalidInputs++;
+        }
+
         var volType = document.getElementById("vol-type").value;
         var volPool = document.getElementById("vol-pool").value;
         
@@ -552,6 +708,8 @@ function addVolume(inputJson) {
         var volType = inputJson["inputVolType"];
         var volPool = inputJson["inputPool"];
         var volDailyChangeRate = inputJson["inputDailyChangeRate"];
+        var volSnapshotRetention = inputJson["inputSnapshotRetention"];
+        var volBackupRetention = inputJson["inputBackupRetention"];
     }
     // add to input json for export
     inputObject = {
@@ -563,20 +721,26 @@ function addVolume(inputJson) {
         "inputThroughput": volThroughput,
         "inputVolType": volType,
         "inputPool": volPool,
-        "inputDailyChangeRate": volDailyChangeRate
+        "inputDailyChangeRate": volDailyChangeRate,
+        "inputSnapshotRetention": volSnapshotRetention,
+        "inputBackupRetention": volBackupRetention
     };
 
     masterInput.push(inputObject);
-    console.log(masterInput);
-
-
+    
     // calculate
     let volGiB = parseFloat(volSize);
     let volPerf = parseFloat(volThroughput);
-    let volSnapshotRetentionDays = 3;
+    let volSnapshotRetentionDays = parseFloat(volSnapshotRetention);
     let volSnapshotSize = (volGiB) * (volDailyChangeRate / 100) * volSnapshotRetentionDays;
     let volAddSnapshotSpace = Math.max(volSnapshotSize, 0);
     let volTotalSpace = parseFloat(volGiB) + parseFloat(volAddSnapshotSpace);
+    let volBackupBaselineCapacity = 0;
+            if(volBackupRetention > 0){
+                volBackupBaselineCapacity = parseFloat(volGiB);
+            }
+    let volBackupDeltaCapacity = parseFloat(volGiB) * parseFloat(volDailyChangeRate / 100) * volBackupRetention;
+    let volBackupTotalCapacity = volBackupBaselineCapacity + volBackupDeltaCapacity;
 
     // add to running totals
     runningLogicalTotal[volPool] += volGiB;
@@ -584,6 +748,11 @@ function addVolume(inputJson) {
     runningTotalCapacity[volPool] += volTotalSpace;
     runningPerformance[volPool] += volPerf;
     runningSnapshotSpace[volPool] += volSnapshotSize;
+    runningAnfBackupBaselineCapacity[volPool] += volBackupBaselineCapacity;
+    runningAnfBackupDeltaCapacity[volPool] += volBackupDeltaCapacity;
+    runningAnfBackupTotalCapacity[volPool] += volBackupTotalCapacity;
+
+    console.log(volBackupDeltaCapacity);
 
     // create new row in the volume table, data
     var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
@@ -602,9 +771,10 @@ function addVolume(inputJson) {
     var volRowRequiredPerformance = volRow.insertCell(9);
     var volRowDailyChangeRate = volRow.insertCell(10);
     var volRowSnapshotRetentionDays = volRow.insertCell(11);
-    var volRowSnapshotSize = volRow.insertCell(12);
-    var volRowFreeSpace = volRow.insertCell(13);
-    var volRowDelete = volRow.insertCell(14);
+    var volRowBackupRetentionDays = volRow.insertCell(12);
+    var volRowSnapshotSize = volRow.insertCell(13);
+    var volRowFreeSpace = volRow.insertCell(14);
+    var volRowDelete = volRow.insertCell(15);
 
     volRowDescription.innerHTML = volDescription;
     volRowSID.innerHTML = volSid;
@@ -618,6 +788,7 @@ function addVolume(inputJson) {
     volRowRequiredPerformance.innerHTML = volPerf;
     volRowDailyChangeRate.innerHTML = volDailyChangeRate;
     volRowSnapshotRetentionDays.innerHTML = volSnapshotRetentionDays;
+    volRowBackupRetentionDays.innerHTML = volBackupRetention;
     volRowSnapshotSize.innerHTML = volSnapshotSize;
     volRowFreeSpace.innerHTML = "0";
     volRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete single volume?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
@@ -648,6 +819,7 @@ function updatePoolRequirementsTable() {
         }
     }
     updatePoolAnfTcoTable();
+    updatePoolAnfBackupTable();
 }
 
 function updatePoolAnfTcoTable() {
@@ -747,6 +919,43 @@ function updatePoolAnfTcoTable() {
     anfTcoRowCapacity.innerHTML = totalAnfCapacity;
     anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
 
+}
+
+function updatePoolAnfBackupTable() {
+    let totalAnfBackupCost = 0;
+    let totalAnfBackupCapacity = 0;
+    var tbodyRef = document.getElementById('anfBackupTable').getElementsByTagName('tbody')[0];
+    tbodyRef.innerHTML = '';
+    for (const [key, value] of Object.entries(runningAnfBackupTotalCapacity)) {
+        if (runningAnfBackupTotalCapacity[key] > 0) {
+            let anfBackupCost = runningAnfBackupTotalCapacity[key] * anfBackupGiBPrice;
+            runningAnfBackupCosts[key] = anfBackupCost;
+            var anfBackupTcoRow = tbodyRef.insertRow();
+            var anfBackupTcoRowPool = anfBackupTcoRow.insertCell(0);
+            var anfBackupTcoRowBaselineCapacity = anfBackupTcoRow.insertCell(1);
+            var anfBackupTcoRowDeltaCapacity = anfBackupTcoRow.insertCell(2);
+            var anfBackupTcoRowTotalCapacity = anfBackupTcoRow.insertCell(3);
+            var anfBackupTcoRowCost = anfBackupTcoRow.insertCell(4);
+            anfBackupTcoRowPool.innerHTML = key;
+            anfBackupTcoRowBaselineCapacity.innerHTML = (runningAnfBackupBaselineCapacity[key] / 1024).toFixed(2);
+            anfBackupTcoRowDeltaCapacity.innerHTML = (runningAnfBackupDeltaCapacity[key] /1024).toFixed(2);
+            anfBackupTcoRowTotalCapacity.innerHTML = (runningAnfBackupTotalCapacity[key] / 1024).toFixed(2);
+            totalAnfBackupCapacity += runningAnfBackupTotalCapacity[key];
+            anfBackupTcoRowCost.innerHTML = anfBackupCost.toFixed(2);
+            totalAnfBackupCost += anfBackupCost;
+        }
+    }
+    var anfBackupTcoRow = tbodyRef.insertRow();
+    var anfBackupTcoRowPool = anfBackupTcoRow.insertCell(0);
+    var anfBackupTcoRowBaselineCapacity = anfBackupTcoRow.insertCell(1);
+    var anfBackupTcoRowDeltaCapacity = anfBackupTcoRow.insertCell(2);
+    var anfBackupTcoRowTotalCapacity = anfBackupTcoRow.insertCell(3);
+    var anfBackupTcoRowCost = anfBackupTcoRow.insertCell(4);
+    anfBackupTcoRowPool.innerHTML = "Total";
+    anfBackupTcoRowBaselineCapacity.innerHTML = "";
+    anfBackupTcoRowDeltaCapacity.innerHTML = "";
+    anfBackupTcoRowTotalCapacity.innerHTML = (totalAnfBackupCapacity / 1024).toFixed(2);
+    anfBackupTcoRowCost.innerHTML = totalAnfBackupCost.toFixed(2);
 }
 
 function saveToBlob(){

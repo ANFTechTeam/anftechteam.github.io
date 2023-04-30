@@ -80,7 +80,7 @@
                                     <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System Type</span>
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System type</span>
                                     <select class="form-select" aria-label="" id="sys-env">
                                         <option value="PROD" selected>PROD</option>
                                         <option value="PRE-PROD">PRE-PROD</option>
@@ -93,8 +93,8 @@
                                     </select>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM Size</span>
-                                    <input oninput="validateInput('sys-ram')" type="text" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM size</span>
+                                    <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
                                     <span class="input-group-text" id="sys-ram-unit">GiB</span>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
@@ -105,7 +105,7 @@
                                     </select>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host Count</span>
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host count</span>
                                     <select class="form-select" aria-label="" id="host-count">
                                         <option value="1" selected>1</option>
                                         <option value="2">2</option>
@@ -126,7 +126,7 @@
                                     </select>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
                                     <select class="form-select" aria-label="" id="sys-pool">
                                         <option value="P1" selected>P1</option>
                                         <option value="P2">P2</option>
@@ -185,15 +185,23 @@
                                     <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
                                     <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
                                 </div>
-                                
-                                
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily Change</span>
-                                    <input oninput="validateInput('vol-changeRate')" type="text" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily change</span>
+                                    <input oninput="validateInput('vol-changeRate')" type="number" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
                                     <span class="input-group-text" id="vol-changerate-unit">%</span>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool Group</span>
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Snapshot Retention change</span>
+                                    <input oninput="validateInput('vol-snapshotRet')" type="number" class="form-control" placeholder="" aria-label="vol-snapshotRet" aria-describedby="vol-snapshotRet" id="vol-snapshotRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Backup retention</span>
+                                    <input oninput="validateInput('vol-backupRet')" type="number" class="form-control" placeholder="" aria-label="vol-backupRet" aria-describedby="vol-backupRet" id="vol-backupRet">
+                                    <span class="input-group-text">days</span>
+                                </div>
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
                                     <select class="form-select" aria-label="" id="vol-pool">
                                         <option value="P1" selected>P1</option>
                                         <option value="P2">P2</option>
@@ -331,7 +339,7 @@
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
                                     <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">QAS</span>
-                                    <input type="number" class="form-control" value="30" id="qasDataChange">
+                                    <input type="number" class="form-control" value="20" id="qasDataChange">
                                     <span class="input-group-text">%</span>
                                     <input type="number" class="form-control" value="2" id="qasSharedChange">
                                     <span class="input-group-text">%</span>
@@ -342,35 +350,35 @@
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
                                     <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DEV</span>
-                                    <input type="number" class="form-control" value="30" id="devDataChange">
+                                    <input type="number" class="form-control" value="10" id="devDataChange">
                                     <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="devSharedChange">
+                                    <input type="number" class="form-control" value="1" id="devSharedChange">
                                     <span class="input-group-text">%</span>
                                     <input type="number" class="form-control" value="5" id="devSnapRet">
                                     <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="devBackupRet">
+                                    <input type="number" class="form-control" value="0" id="devBackupRet">
                                     <span class="input-group-text">days</span>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
                                     <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">TST</span>
-                                    <input type="number" class="form-control" value="30" id="tstDataChange">
+                                    <input type="number" class="form-control" value="10" id="tstDataChange">
                                     <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="tstSharedChange">
+                                    <input type="number" class="form-control" value="1" id="tstSharedChange">
                                     <span class="input-group-text">%</span>
                                     <input type="number" class="form-control" value="5" id="tstSnapRet">
                                     <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="tstBackupRet">
+                                    <input type="number" class="form-control" value="0" id="tstBackupRet">
                                     <span class="input-group-text">days</span>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
                                     <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">SBX</span>
-                                    <input type="number" class="form-control" value="30" id="sbxDataChange">
+                                    <input type="number" class="form-control" value="10" id="sbxDataChange">
                                     <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="sbxSharedChange">
+                                    <input type="number" class="form-control" value="1" id="sbxSharedChange">
                                     <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="sbxSnapRet">
+                                    <input type="number" class="form-control" value="0" id="sbxSnapRet">
                                     <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="sbxBackupRet">
+                                    <input type="number" class="form-control" value="0" id="sbxBackupRet">
                                     <span class="input-group-text">days</span>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
@@ -381,18 +389,18 @@
                                     <span class="input-group-text">%</span>
                                     <input type="number" class="form-control" value="5" id="drSnapRet">
                                     <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="drBackupRet">
+                                    <input type="number" class="form-control" value="0" id="drBackupRet">
                                     <span class="input-group-text">days</span>
                                 </div>
                                 <div class="input-group input-group-sm mb-1">
                                     <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">OTHER</span>
-                                    <input type="number" class="form-control" value="30" id="otherDataChange">
+                                    <input type="number" class="form-control" value="10" id="otherDataChange">
                                     <span class="input-group-text">%</span>
                                     <input type="number" class="form-control" value="2" id="otherSharedChange">
                                     <span class="input-group-text">%</span>
                                     <input type="number" class="form-control" value="5" id="otherSnapRet">
                                     <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="otherBackupRet">
+                                    <input type="number" class="form-control" value="0" id="otherBackupRet">
                                     <span class="input-group-text">days</span>
                                 </div>
                                 <div class="float-end">
@@ -413,7 +421,7 @@
             </div>
             <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutput" aria-expanded="true" aria-controls="collapseOutput">
                 <div class="col">
-                    <span><i class="bi bi-caret-right"></i>Estimated Costs</span>
+                    <span><i class="bi bi-caret-right"></i>Estimated Volume Costs</span>
                 </div>
             </div>
             <div class="row bg-secondary collapse show" id="collapseOutput">
@@ -427,6 +435,26 @@
                             <th class="text-dark align-middle" scope="col">Sizing</th>
                             <th class="text-dark align-middle" scope="col">Excess Capacity (TiB)</th>
                             <th class="text-dark align-middle" scope="col">Excess Performance (MiB/s)</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackup" aria-expanded="true" aria-controls="collapseBackup">
+                <div class="col">
+                    <span><i class="bi bi-caret-right"></i>Estimated Backup Costs</span>
+                </div>
+            </div>
+            <div class="row bg-secondary collapse show" id="collapseBackup">
+                <div class="col">
+                    <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfBackupTable">
+                        <thead class="thead-light">
+                            <th class="text-dark align-middle" scope="col">Pool group</th>
+                            <th class="text-dark align-middle" scope="col">Baseline capacity (TiB)</th>
+                            <th class="text-dark align-middle" scope="col">Delta capacity (TiB)</th>
+                            <th class="text-dark align-middle" scope="col">Total capacity (TiB)</th>
+                            <th class="text-dark align-middle" scope="col">Total cost (USD/month)</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -476,6 +504,7 @@
                                 <th class="text-dark align-middle" scope="col">Required performance (MiB/s)</th>
                                 <th class="text-dark align-middle" scope="col">Daily change Rate (%)</th>
                                 <th class="text-dark align-middle" scope="col">Snapshot retention (days)</th>
+                                <th class="text-dark align-middle" scope="col">Backup retention (days)</th>
                                 <th class="text-dark align-middle" scope="col">Total snapshot Size (GiB)</th>
                                 <th class="text-dark align-middle" scope="col">Assumed free space (GiB)</th>
                                 <th class="text-dark align-middle" scope="col"><i class="bi bi-trash"></i></th>
