@@ -37,8 +37,11 @@
                             <img src="./anficon.png" alt="Azure NetApp Files" height="75">
                             <img src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg" alt="SAP Logo" height="75">
                         </div>
+                        
+                        
                         <div class="col pt-2">
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div class="d-grid gap-2 d-flex justify-content-md-end">
+                                
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Help / Info&nbsp<i class="bi bi-info-circle"></i>
                                   </button>
@@ -73,7 +76,7 @@
                                                 <br><i class="bi bi-youtube"></i>&nbsp;<a href="https://youtube.com/@azurenetappfiles" target="_blank">Azure NetApp Files on YouTube</a>
                                                 <p><i class="bi bi-bug"></i> Find a bug? Feature request? Suggestion? Please submit an issue on <a href="https://github.com/ANFTechTeam/anftechteam.github.io/issues" target="_blank">GitHub</a>.</p>
                                                 <div class="footer pb-1 text-end">
-                                                    <small>Created by Sean Luce, NetApp <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
+                                                    <small>Created by Sean Luce, Azure NetApp Files TME <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,11 +114,13 @@
                                             <button onclick="saveToBlob()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Export Config&nbsp<i class="bi bi-filetype-json"></i></button>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
-                            
+                           
                         </div>
+                        
                     </div>
+                    
                 </div>
                 <div class="card-body p-0">
                     <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -209,6 +214,7 @@
                                                             <option value="P9">P9</option>
                                                         </select>
                                                     </div>
+                                                    
                                                     <div class="float-end">
                                                         <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
                                                     </div>
@@ -284,6 +290,7 @@
                                                             <option value="P9">P9</option>
                                                         </select>
                                                     </div>
+                                                    
                                                     <div class="float-end">
                                                         <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
                                                     </div>
@@ -295,6 +302,570 @@
                                     </div>
                                     <div class="col pe-4">
                                         <div class="accordion accordion-flush" id="accordianFlushSettings">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="flush-headingPoolRegion">
+                                                    <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPoolRegion" aria-expanded="false" aria-controls="accordianFlushPoolRegion">
+                                                    <strong>Pool Group Region</strong>
+                                                    </button>
+                                                </h2>
+                                                <div id="accordianFlushPoolRegion" class="accordion-collapse collapse" aria-labelledby="flush-headingRegion" data-bs-parent="#accordianFlushSettings">
+                                                    <div class="accordion-body pb-5">
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P1 region</span>
+                                                            <select class="form-select" aria-label="" id="P1region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P2 region</span>
+                                                            <select class="form-select" aria-label="" id="P2region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P3 region</span>
+                                                            <select class="form-select" aria-label="" id="P3region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P4 region</span>
+                                                            <select class="form-select" aria-label="" id="P4region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P5 region</span>
+                                                            <select class="form-select" aria-label="" id="P5region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P6 region</span>
+                                                            <select class="form-select" aria-label="" id="P6region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P7 region</span>
+                                                            <select class="form-select" aria-label="" id="P7region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P8 region</span>
+                                                            <select class="form-select" aria-label="" id="P8region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group input-group-sm mb-1">
+                                                            <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P9 region</span>
+                                                            <select class="form-select" aria-label="" id="P9region">
+                                                                <option value="centralus">Central US</option>
+                                                                <option value="eastus" selected>East US</option>
+                                                                <option value="eastus2">East US 2</option>
+                                                                <option value="northcentralus">North Central US</option>
+                                                                <option value="southcentralus">South Central US</option>
+                                                                <option value="westus">West US</option>
+                                                                <option value="westus2">West US 2</option>
+                                                                <option value="westus3">West US 3</option>
+                                                                <option value="US Gov Arizona">US Gov Arizona</option>
+                                                                <option value="US Gov Virginia">US Gov Virginia</option>
+                                                                <option value="US Gov Texas">US Gov Texas</option>
+                                                                <option value="uksouth">UK South</option>
+                                                                <option value="ukwest">UK West</option>
+    
+                                                                <option value="uaecentral">UAE Central</option>
+                                                                <option value="uaenorth">UAE North</option>
+    
+                                                                <option value="switzerlandnorth">Switzerland North</option>
+                                                                <option value="switzerlandwest">Switzerland West</option>
+    
+                                                                <option value="swedencentral">Sweden Central</option>
+    
+                                                                <option value="qatarcentral">Qatar Central</option>
+    
+                                                                <option value="norwayeast">Norway East</option>
+                                                                <option value="norwaywest">Norway West</option>
+    
+                                                                <option value="koreacentral">Korea Central</option>
+    
+                                                                <option value="japaneast">Japan East</option>
+                                                                <option value="japanwest">Japan West</option>
+    
+                                                                <option value="centralindia">Central India</option>
+                                                                <option value="southindia">South India</option>
+    
+                                                                <option value="germanynorth">Germany North</option>
+                                                                <option value="germanywestcentral">Germany West Central</option>
+    
+                                                                <option value="francecentral">France Central</option>
+    
+                                                                <option value="northeurope">North Europe</option>
+                                                                <option value="westeurope">West Europe</option>
+    
+                                                                <option value="canadacentral">Canada Central</option>
+                                                                <option value="canadaeast">Canada East</option>
+    
+                                                                <option value="brazilsouth">Brazil South</option>
+    
+                                                                <option value="australiacentral">Australia Central</option>
+                                                                <option value="australiacentral2">Australia Central 2</option>
+                                                                <option value="australiaeast">Australia East</option>
+                                                                <option value="australiasoutheast">Australia Southeast</option>
+                            
+                                                                <option value="eastasia">East Asia</option>
+                                                                <option value="southeastasia">Southeast Asia</option>
+                                                                <option value="southafricanorth">South Africa North</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="float-end">
+                                                            <button onclick="updatePoolGroupRegions()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                </div>
                                             <div class="accordion-item">
                                             <h2 class="accordion-header" id="flush-headingPerf">
                                                 <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPerformance" aria-expanded="false" aria-controls="accordianFlushPerformance">
@@ -498,6 +1069,7 @@
                                     <thead class="thead-light">
                                         <th class="text-dark align-middle" scope="col">Pool group</th>
                                         <th class="text-dark align-middle" scope="col">Service Level</th>
+                                        <th class="text-dark align-middle" scope="col">Region</th>
                                         <th class="text-dark align-middle" scope="col">Capacity (TiB)</th>
                                         <th class="text-dark align-middle" scope="col">Cost (USD/month)</th>
                                         <th class="text-dark align-middle" scope="col">Sizing</th>
@@ -594,7 +1166,7 @@
                 </div>
                 <div class="card-footer text-body-secondary">
                     <div class="container-fluid d-grid gap-2 d-md-flex justify-content-md-end">
-                        <small>Created by Sean Luce, NetApp <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
+                        <small>Created by Sean Luce, Azure NetApp Files TME <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
                     </div>
                 </div>
             </div>

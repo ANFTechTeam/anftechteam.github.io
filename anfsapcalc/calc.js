@@ -1,3 +1,141 @@
+let standard_region_rates = {
+    "centralus": 0.14746,
+    "eastus": 0.14746,
+    "eastus2": 0.14746,
+    "northcentralus": 0.17666,
+    "southcentralus": 0.14746,
+    "westus": 0.14746,
+    "westus2": 0.14746,
+    "westus3": 0.14746,
+    "usgovarizona": 0.17739,
+    "usgovvirginia": 0.18396,
+    "usgovtexas": 0.18396,
+    "uksouth": 0.16206,
+    "ukwest": 0.16206,
+    "uaecentral": 0.23068,
+    "uaenorth": 0.21024,
+    "switzerlandnorth": 0.16206,
+    "switzerlandwest": 0.21097,
+    "swedencentral": 0.14746,
+    "swedensouth": 0.19199,
+    "qatarcentral": 0.21097,
+    "norwayeast": 0.16206,
+    "norwaywest": 0.16206,
+    "koreacentral": 0.19856,
+    "koreasouth": 0.18396,
+    "japaneast": 0.17666,
+    "japanwest": 0.22922,
+    "centralindia": 0.16279,
+    "southindia": 0.20805,
+    "germanynorth": 0.23652,
+    "germanywestcentral": 0.17739,
+    "francecentral": 0.18396,
+    "northeurope": 0.14746,
+    "westeurope": 0.14746,
+    "canadacentral": 0.16279,
+    "canadaeast": 0.17739,
+    "brazilsouth": 0.29419, 
+    "australiacentral": 0.21316,
+    "australiacentral2": 0.17666,
+    "australiaeast": 0.16279,
+    "australiasoutheast": 0.19199,
+    "eastasia": 0.22776,
+    "southeastasia": 0.14746,
+    "southafricanorth": 0.21535
+};
+
+let premium_region_rates = {
+    "centralus": 0.29419,
+    "eastus": 0.29419,
+    "eastus2": 0.29419,
+    "northcentralus": 0.35332,
+    "southcentralus": 0.29419,
+    "westus": 0.29419,
+    "westus2": 0.29419,
+    "westus3": 0.29419,
+    "usgovarizona": 0.35332,
+    "usgovvirginia": 0.36792,
+    "usgovtexas": 0.36792,
+    "uksouth": 0.32339,
+    "ukwest": 0.32339,
+    "uaecentral": 0.45917,
+    "uaenorth": 0.42121,
+    "switzerlandnorth": 0.32339,
+    "switzerlandwest": 0.42048,
+    "swedencentral": 0.29419,
+    "swedensouth": 0.38252,
+    "qatarcentral": 0.42048,
+    "norwayeast": 0.32339,
+    "norwaywest": 0.32339,
+    "koreacentral": 0.39712,
+    "koreasouth": 0.36792,
+    "japaneast": 0.35259,
+    "japanwest": 0.45625,
+    "centralindia": 0.32412,
+    "southindia": 0.41537,
+    "germanynorth": 0.47085,
+    "germanywestcentral": 0.35332,
+    "francecentral": 0.36792,
+    "northeurope": 0.29419,
+    "westeurope": 0.29419,
+    "canadacentral": 0.32412,
+    "canadaeast": 0.35332,
+    "brazilsouth": 0.58838,
+    "australiacentral": 0.42705,
+    "australiacentral2": 0.35332,
+    "australiaeast": 0.32412,
+    "australiasoutheast": 0.38252,
+    "eastasia": 0.45625,
+    "southeastasia": 0.29419,
+    "southafricanorth": 0.42924
+};
+
+let ultra_region_rates = {
+    "centralus": 0.39274,
+    "eastus": 0.39274,
+    "eastus2": 0.39274,
+    "northcentralus": 0.47158,
+    "southcentralus": 0.39274,
+    "westus": 0.39274,
+    "westus2": 0.39274,
+    "westus3": 0.39274,
+    "usgovarizona": 0.47158,
+    "usgovvirginia": 0.49056,
+    "usgovtexas": 0.49129,
+    "uksouth": 0.43143,
+    "ukwest": 0.43143,
+    "uaecentral": 0.6132,
+    "uaenorth": 0.56137,
+    "switzerlandnorth": 0.43216,
+    "switzerlandwest": 0.5621,
+    "swedencentral": 0.39274,
+    "swedensouth": 0.51027,
+    "qatarcentral": 0.56137,
+    "norwayeast": 0.43216,
+    "norwaywest": 0.43216,
+    "koreacentral": 0.52998,
+    "koreasouth": 0.49129,
+    "japaneast": 0.47085,
+    "japanwest": 0.60882,
+    "centralindia": 0.43216,
+    "southindia": 0.55407,
+    "germanynorth": 0.62853,
+    "germanywestcentral": 0.47158,
+    "francecentral": 0.49129,
+    "northeurope": 0.39274,
+    "westeurope": 0.39274,
+    "canadacentral": 0.43216,
+    "canadaeast": 0.47158,
+    "brazilsouth": 0.7884,
+    "australiacentral": 0.5694,
+    "australiacentral2": 0.47158,
+    "australiaeast": 0.43143,
+    "australiasoutheast": 0.511,
+    "eastasia": 0.60882,
+    "southeastasia": 0.39274,
+    "southafricanorth": 0.57305
+};
+
 let kpiTargets = {
     "data": 400,
     "log": 250,
@@ -146,11 +284,20 @@ let runningAnfBackupCosts = {
     "P9": 0.0
 }
 
+let poolGroupRegions = {
+    "P1": "eastus",
+    "P2": "eastus",
+    "P3": "eastus",
+    "P4": "eastus",
+    "P5": "eastus",
+    "P6": "eastus",
+    "P7": "eastus",
+    "P8": "eastus",
+    "P9": "eastus"
+}
+
 let masterInput = [];
 let inputId = 0;
-let standardGiBPrice = 0.14746;
-let premiumGiBPrice = 0.29419;
-let ultraGiBPrice = 0.39274;
 let anfBackupGiBPrice = .04;
 
 function resetTables() {
@@ -436,7 +583,7 @@ function addSystem(inputJson){
         "inputEnv": sysEnv,
         "inputHA": sysHA,
         "inputHostCount": sysHostCount,
-        "inputPool": sysPool
+        "inputPool": sysPool,
     };
 
     
@@ -834,29 +981,29 @@ function updatePoolAnfTcoTable() {
             premiumTiBNeededForPerformance = Math.ceil(runningPerformance[key] / 64);
             ultraTiBNeededForPerformance = Math.ceil(runningPerformance[key] / 128);
             if(standardTiBNeededForPerformance > ceilTiBCapacity){
-                standardCost = standardTiBNeededForPerformance * 1024 * standardGiBPrice;
+                standardCost = standardTiBNeededForPerformance * 1024 * standard_region_rates[poolGroupRegions[key]];
                 standardSizedForPerformance = true;
                 standardDisplayedCapacity = standardTiBNeededForPerformance;
             }else{
-                standardCost = ceilTiBCapacity * 1024 * standardGiBPrice;
+                standardCost = ceilTiBCapacity * 1024 * standard_region_rates[poolGroupRegions[key]];
                 standardSizedForPerformance = false;
                 standardDisplayedCapacity = ceilTiBCapacity;
             }
             if(premiumTiBNeededForPerformance > ceilTiBCapacity){
-                premiumCost = premiumTiBNeededForPerformance * 1024 * premiumGiBPrice;
+                premiumCost = premiumTiBNeededForPerformance * 1024 * premium_region_rates[poolGroupRegions[key]];
                 premiumSizedForPerformance = true;
                 premiumDisplayedCapacity = premiumTiBNeededForPerformance;
             }else{
-                premiumCost = ceilTiBCapacity * 1024 * premiumGiBPrice;
+                premiumCost = ceilTiBCapacity * 1024 * premium_region_rates[poolGroupRegions[key]];
                 premiumSizedForPerformance = false;
                 premiumDisplayedCapacity = ceilTiBCapacity;
             }
             if(ultraTiBNeededForPerformance > ceilTiBCapacity){
-                ultraCost = ultraTiBNeededForPerformance * 1024 * ultraGiBPrice;
+                ultraCost = ultraTiBNeededForPerformance * 1024 * ultra_region_rates[poolGroupRegions[key]];
                 ultraSizedForPerformance = true;
                 ultraDisplayedCapacity = ultraTiBNeededForPerformance;
             }else{
-                ultraCost = ceilTiBCapacity * 1024 * ultraGiBPrice;
+                ultraCost = ceilTiBCapacity * 1024 * ultra_region_rates[poolGroupRegions[key]];
                 ultraSizedForPerformance = false;
                 ultraDisplayedCapacity = ceilTiBCapacity;
             }
@@ -887,13 +1034,15 @@ function updatePoolAnfTcoTable() {
             var anfTcoRow = tbodyRef.insertRow();
             var anfTcoRowPool = anfTcoRow.insertCell(0);
             var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
-            var anfTcoRowCapacity = anfTcoRow.insertCell(2);
-            var anfTcoRowCost = anfTcoRow.insertCell(3);
-            var anfTcoRowSizing = anfTcoRow.insertCell(4);
-            var anfTcoRowExcessCapacity = anfTcoRow.insertCell(5);
-            var anfTcoRowExcessPerformance = anfTcoRow.insertCell(6);
+            var anfTcoRowRegion = anfTcoRow.insertCell(2);
+            var anfTcoRowCapacity = anfTcoRow.insertCell(3);
+            var anfTcoRowCost = anfTcoRow.insertCell(4);
+            var anfTcoRowSizing = anfTcoRow.insertCell(5);
+            var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
+            var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
             anfTcoRowPool.innerHTML = key;
             anfTcoRowServiceLevel.innerHTML = displayedServiceLevel;
+            anfTcoRowRegion.innerHTML = poolGroupRegions[key];
             anfTcoRowCapacity.innerHTML = displayedSize;
             anfTcoRowCost.innerHTML = displayedCost.toFixed(2);
             totalAnfCost += displayedCost;
@@ -910,11 +1059,12 @@ function updatePoolAnfTcoTable() {
     var anfTcoRow = tbodyRef.insertRow();
     var anfTcoRowPool = anfTcoRow.insertCell(0);
     var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
-    var anfTcoRowCapacity = anfTcoRow.insertCell(2);
-    var anfTcoRowCost = anfTcoRow.insertCell(3);
-    var anfTcoRowSizing = anfTcoRow.insertCell(4);
-    var anfTcoRowExcessCapacity = anfTcoRow.insertCell(5);
-    var anfTcoRowExcessPerformance = anfTcoRow.insertCell(6);
+    var anfTcoRowRegion = anfTcoRow.insertCell(2);
+    var anfTcoRowCapacity = anfTcoRow.insertCell(3);
+    var anfTcoRowCost = anfTcoRow.insertCell(4);
+    var anfTcoRowSizing = anfTcoRow.insertCell(5);
+    var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
+    var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
     anfTcoRowPool.innerHTML = "Total";
     anfTcoRowCapacity.innerHTML = totalAnfCapacity;
     anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
@@ -977,6 +1127,7 @@ let exportJson = {
             "otherPerf": kpiMultipliers.OTHER
         },
         dataProtectionSettings,
+        poolGroupRegions
     },
     "input": masterInput
 }
@@ -991,6 +1142,43 @@ downloadAnchorNode.click();
 downloadAnchorNode.remove();
 }
 
+function updatePoolGroupRegions(settings){
+    inputId = 0;
+    resetTables();
+    if(arguments.length == 0){
+        poolGroupRegions.P1 = document.getElementById("P1region").value;
+        poolGroupRegions.P2 = document.getElementById("P2region").value;
+        poolGroupRegions.P3 = document.getElementById("P3region").value;
+        poolGroupRegions.P4 = document.getElementById("P4region").value;
+        poolGroupRegions.P5 = document.getElementById("P5region").value;
+        poolGroupRegions.P6 = document.getElementById("P6region").value;
+        poolGroupRegions.P7 = document.getElementById("P7region").value;
+        poolGroupRegions.P8 = document.getElementById("P8region").value;
+        poolGroupRegions.P9 = document.getElementById("P9region").value;
+        updateTables(masterInput);
+    }else{
+        poolGroupRegions.P1 = settings.poolGroupRegions.P1;
+        poolGroupRegions.P2 = settings.poolGroupRegions.P2;
+        poolGroupRegions.P3 = settings.poolGroupRegions.P3;
+        poolGroupRegions.P4 = settings.poolGroupRegions.P4;
+        poolGroupRegions.P5 = settings.poolGroupRegions.P5;
+        poolGroupRegions.P6 = settings.poolGroupRegions.P6;
+        poolGroupRegions.P7 = settings.poolGroupRegions.P7;
+        poolGroupRegions.P8 = settings.poolGroupRegions.P8;
+        poolGroupRegions.P9 = settings.poolGroupRegions.P9;
+
+        document.getElementById("P1region").value = poolGroupRegions.P1;
+        document.getElementById("P2region").value = poolGroupRegions.P2;
+        document.getElementById("P3region").value = poolGroupRegions.P3;
+        document.getElementById("P4region").value = poolGroupRegions.P4;
+        document.getElementById("P5region").value = poolGroupRegions.P5;
+        document.getElementById("P6region").value = poolGroupRegions.P6;
+        document.getElementById("P7region").value = poolGroupRegions.P7;
+        document.getElementById("P8region").value = poolGroupRegions.P8;
+        document.getElementById("P9region").value = poolGroupRegions.P9;
+    }
+}
+
 function updateKpiMultipliers(settings){
     inputId = 0;
     resetTables();
@@ -998,7 +1186,6 @@ function updateKpiMultipliers(settings){
         newDataBaseline = document.getElementById("dataBaseline").value;
         newLogBaseline = document.getElementById("logBaseline").value;
         newSharedBaseline = document.getElementById("sharedBaseline").value;
-
         newProdPerfMultiplier = document.getElementById("prodPerf").value/100;
         newPreProdPerfMultiplier = document.getElementById("preProdPerf").value/100;
         newQasPerfMultiplier = document.getElementById("qasPerf").value/100;
@@ -1168,7 +1355,8 @@ function importConfig(){
     let result = JSON.parse(document.getElementById('result').value);
     console.log(result);
     updateKpiMultipliers(result.settings);
-    updateSnapshotBackup(result.settings)
+    updateSnapshotBackup(result.settings);
+    updatePoolGroupRegions(result.settings);
     updateTables(result.input);
 }
 
