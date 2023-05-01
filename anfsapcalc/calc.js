@@ -136,6 +136,52 @@ let ultra_region_rates = {
     "southafricanorth": 0.57305
 };
 
+let backup_region_rates = {
+    "centralus": 0.062,
+    "eastus": 0.05,
+    "eastus2": 0.05,
+    "northcentralus": 0.06,
+    "southcentralus": 0.06,
+    "westus": 0.065,
+    "westus2": 0.05,
+    "westus3": 0.05,
+    "usgovarizona": 0.063,
+    "usgovvirginia": 0.063,
+    "usgovtexas": 0.063,
+    "uksouth": 0.063,
+    "ukwest": 0.066,
+    "uaecentral": 0.086,
+    "uaenorth": 0.066,
+    "switzerlandnorth": 0.075,
+    "switzerlandwest": 0.083,
+    "swedencentral": 0.05,
+    "swedensouth": 0.05,
+    "qatarcentral": 0.072,
+    "norwayeast": 0.072,
+    "norwaywest": 0.078,
+    "koreacentral": 0.068,
+    "koreasouth": 0.063,
+    "japaneast": 0.073,
+    "japanwest": 0.078,
+    "centralindia": 0.07,
+    "southindia": 0.076,
+    "germanynorth": 0.07,
+    "germanywestcentral": 0.065,
+    "francecentral": 0.063,
+    "northeurope": 0.06,
+    "westeurope": 0.065,
+    "canadacentral": 0.06,
+    "canadaeast": 0.06,
+    "brazilsouth": 0.1,
+    "australiacentral": 0.073,
+    "australiacentral2": 0.06,
+    "australiaeast": 0.073,
+    "australiasoutheast": 0.07,
+    "eastasia": 0.05,
+    "southeastasia": 0.065,
+    "southafricanorth": 0.05
+};
+
 let kpiTargets = {
     "data": 400,
     "log": 250,
@@ -298,7 +344,6 @@ let poolGroupRegions = {
 
 let masterInput = [];
 let inputId = 0;
-let anfBackupGiBPrice = .04;
 
 function resetTables() {
     let tbodyRef = document.getElementById('anfVolumeTCO').getElementsByTagName('tbody')[0];
@@ -1078,7 +1123,7 @@ function updatePoolAnfBackupTable() {
     tbodyRef.innerHTML = '';
     for (const [key, value] of Object.entries(runningAnfBackupTotalCapacity)) {
         if (runningAnfBackupTotalCapacity[key] > 0) {
-            let anfBackupCost = runningAnfBackupTotalCapacity[key] * anfBackupGiBPrice;
+            let anfBackupCost = runningAnfBackupTotalCapacity[key] * backup_region_rates[poolGroupRegions[key]];
             runningAnfBackupCosts[key] = anfBackupCost;
             var anfBackupTcoRow = tbodyRef.insertRow();
             var anfBackupTcoRowPool = anfBackupTcoRow.insertCell(0);
