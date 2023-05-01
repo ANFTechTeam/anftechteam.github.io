@@ -60,6 +60,7 @@
                                                 <hr>
                                                 <h6>Help</h6>
                                                 <p><span class="text-primary" onmouseover="highlightText(addSystemsAndVolumes)" onmouseout="resetTextColor(addSystemsAndVolumes)">Add SAP HANA Systems and Volumes</span> to compute the TCO for Azure NetApp Files capacity pools and Azure NetApp Files backup. Multiple systems and volumes can be entered. The <span class="text-primary" onmouseover="highlightText(poolGroupSummary)" onmouseout="resetTextColor(poolGroupSummary)">Pool Group Summary</span> and<span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> sections can be expanded to view the details of the data entered.</p>
+                                                <p>Use the <span class="text-primary">Pool Group Region</span> section to select a region for each pool group to estimate costs based on the desired region.</p>
                                                 <p>This TCO calculator provides estimated costs for Azure NetApp Files capacity pools as shown in the <span class="text-primary" onmouseover="highlightText(volumeCosts)" onmouseout="resetTextColor(volumeCosts)">Estimated Volume Costs</span> section as well as Azure NetApp Files backup costs as shown in the <span class="text-primary" onmouseover="highlightText(backupCosts)" onmouseout="resetTextColor(backupCosts)">Estimated Backup Costs</span> section.</p>
                                                 <p>You can modify the settings/parameters to adjust the requirements to fit your particular use case or workload using the <span class="text-primary">Performance Modifiers</span> and <span class="text-primary">Snapshot and Backup</span> sections.</p>
                                                 <p>If you make a mistake, systems or volumes can be removed using the <i class=" button bi bi-x"></i> icon in the <span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> section.</p>
@@ -308,7 +309,7 @@
                                                     <strong>Pool Group Region</strong>
                                                     </button>
                                                 </h2>
-                                                <div id="accordianFlushPoolRegion" class="accordion-collapse collapse" aria-labelledby="flush-headingRegion" data-bs-parent="#accordianFlushSettings">
+                                                <div id="accordianFlushPoolRegion" class="accordion-collapse collapse show" aria-labelledby="flush-headingRegion" data-bs-parent="#accordianFlushSettings">
                                                     <div class="accordion-body pb-5">
                                                         <div class="input-group input-group-sm mb-1">
                                                             <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P1 region</span>
