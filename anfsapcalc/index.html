@@ -24,11 +24,10 @@
             }
             </script>
             <script type="text/javascript">
-    $(window).on('load', function() {
-        $('#staticBackdrop').modal('show');
-    });
-</script>
-         
+                $(window).on('load', function() {
+                    $('#staticBackdrop').modal('show');
+                });
+            </script>
         <div class="container-fluid mt-3 pb-5">
             <div class="card">
                 <div class="card-header pb-3">
@@ -112,11 +111,7 @@
                                             <button onclick="saveToBlob()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Export Config&nbsp<i class="bi bi-filetype-json"></i></button>
                                         </div>
                                     </div>
-                                </div>
-                             
-                                   
-                               
-                                
+                                </div> 
                             </div>
                             
                         </div>
@@ -140,19 +135,22 @@
                                                 <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushSystem" aria-expanded="false" aria-controls="accordianFlushSystem">
                                                     <strong>Add SAP HANA System</strong>
                                                 </button>
+
                                             </h2>
                                             <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
+                                                        
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
+                                                        </span>
                                                         <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The description of the system being entered. e.g. S/4 Retail" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System type</span>
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System type&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The system type will determine which parameters are used to calculate the capacity, performance, and data protection requirements." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-env">
                                                             <option value="PROD" selected>PROD</option>
                                                             <option value="PRE-PROD">PRE-PROD</option>
@@ -165,19 +163,19 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM size</span>
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM size&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The amount of memory (RAM) the SAP HANA database server has been allocated." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
                                                         <span class="input-group-text" id="sys-ram-unit">GiB</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)</span>
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="If this system will be configured as HA using HANA system replication." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-ha">
                                                             <option value="2">Yes</option>
                                                             <option value="1" selected>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host count</span>
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host count&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The number of SAP database hosts." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="host-count">
                                                             <option value="1" selected>1</option>
                                                             <option value="2">2</option>
@@ -198,7 +196,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The pool group is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-pool">
                                                             <option value="P1" selected>P1</option>
                                                             <option value="P2">P2</option>
@@ -226,15 +224,15 @@
                                             <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Description&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The description of the system being entered. e.g. S/4 Retail" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-description')" type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Type&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The system type will determine which parameters are used to calculate the capacity, performance, and data protection requirements." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="vol-type">
                                                             <option value="PROD" selected>PROD</option>
                                                             <option value="PRE-PROD">PRE-PROD</option>
@@ -247,33 +245,33 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Size&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The size in GiB of the volume." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-size')" type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
                                                         <span class="input-group-text" id="vol-size-unit">GiB</span>
                                                     </div>
                                                     
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Throughput&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The required throughput in MiB/s of the volume." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
                                                         <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily change</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Daily change&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The daily change rate of the volume. This determines the snapshot capacity and backup costs." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-changeRate')" type="number" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
                                                         <span class="input-group-text" id="vol-changerate-unit">%</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Snapshot Retention change</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Snapshot retention&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The snapshot retention in days. This determines the volume capacity required for snapshots." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-snapshotRet')" type="number" class="form-control" placeholder="" aria-label="vol-snapshotRet" aria-describedby="vol-snapshotRet" id="vol-snapshotRet">
                                                         <span class="input-group-text">days</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Backup retention</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Backup retention&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The backup retention in days. This determines the backup capacity and costs." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-backupRet')" type="number" class="form-control" placeholder="" aria-label="vol-backupRet" aria-describedby="vol-backupRet" id="vol-backupRet">
                                                         <span class="input-group-text">days</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Pool group&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The pool group is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="vol-pool">
                                                             <option value="P1" selected>P1</option>
                                                             <option value="P2">P2</option>
@@ -601,5 +599,9 @@
                 </div>
             </div>
         </div>
+        <script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        </script>
     </body>
 </html>
