@@ -3,524 +3,577 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SAP ANF TCO</title>
+        <title>SAP on ANF TCO Calculator</title>
+        <link rel="icon" href="./favicon.ico">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <style>
             th {font-weight: normal;}
-            
+            a {text-decoration: none;}
+            a:hover {text-decoration: underline;}
         </style>
     </head>
-    <body onload="resetTables()">
+    <body class="" onload="resetTables()">
         <script src="./calc.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <div class="container-fluid">
-            <div class="row bg-light p-3">
-                <div class="col">
-                    <h2>Azure NetApp Files for SAP TCO Estimator</h2>
-                    <img src="./anficon.png" alt="Azure NetApp Files" height="75">
-                    <img src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg" alt="SAP Logo" height="75">
-                </div> 
-                    <div class="col">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Import Config&nbsp<i class="bi bi-filetype-json"></i>
-                                </button>
-                                <div class="bg-light dropdown-menu">
-                                    <div class="container" style="width: 500px">
-                                        <h5>Import JSON file or paste in to the text field below</h5>
-                                        <input oninput="loadConfig()" class="pb-2" type="file" id="selectFiles" value="Import"></input>
-                                        <textarea style="width: 100%; height: 300px" id="result"></textarea>
-                                        <button onclick="importConfig()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Import Config&nbsp<i class="bi bi-filetype-json"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Export Config&nbsp<i class="bi bi-filetype-json"></i>
-                                </button>
-                                <div class="bg-light dropdown-menu">
-                                    <div class="container" style="width: 500px">
-                                        <h5>Export config as .json file</h5>
-                                        <div class="input-group input-group-sm mb-1 pb-1">
-                                            <span class="input-group-text col-form-label col-form-label-sm">filename</span>
-                                            <input style="width: 200px" type="text" class="form-control" placeholder="" aria-label="fileName" aria-describedby="fileName" id="fileName">
-                                            <span class="input-group-text">.json</span>
+        <script>
+            function highlightText(elementId) {
+                document.getElementById(elementId.id).style.color = "#ff0000";
+            }
+            function resetTextColor(elementId) {
+                document.getElementById(elementId.id).style.color = "";
+            }
+         </script>
+        <div class="container-fluid mt-3 pb-5">
+            <div class="card">
+                <div class="card-header pb-3">
+                    <div class="row p-0">
+                        <div class="col">
+                            <h4>Azure NetApp Files for SAP TCO Estimator</h4>
+                            <img src="./anficon.png" alt="Azure NetApp Files" height="75">
+                            <img src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg" alt="SAP Logo" height="75">
+                        </div>
+                        <div class="col pt-2">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div class="dropdown">
+                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Help / Info&nbsp<i class="bi bi-info-circle"></i>
+                                    </button>
+                                    <div class="dropdown-menu bg-light pb-0">
+                                        <div class="container" style="width: 650px">
+                                            <p><strong>IMPORTANT: </strong>This tool is designed to help estimate the TCO of SAP HANA on Azure NetApp Files. It is not intended to be a comprehensive TCO calculator, but rather a tool to help estimate the TCO of SAP HANA on Azure NetApp Files.</p>
+                                            <hr>
+                                            <h6>Help</h6>
+                                            <p><span class="text-primary" onmouseover="highlightText(addSystemsAndVolumes)" onmouseout="resetTextColor(addSystemsAndVolumes)">Add SAP HANA Systems and Volumes</span> to compute the TCO for Azure NetApp Files capacity pools and Azure NetApp Files backup. Multiple systems and volumes can be entered. The <span class="text-primary" onmouseover="highlightText(poolGroupSummary)" onmouseout="resetTextColor(poolGroupSummary)">Pool Group Summary</span> and<span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> sections can be expanded to view the details of the data entered.</p>
+                                            <p>You can modify the settings/parameters to adjust the requirements to fit your particular use case or workload using the <span class="text-primary">Performance Modifiers</span> and <span class="text-primary">Snapshot and Backup</span> sections.</p>
+                                            <p>If you make a mistake, systems or volumes can be removed using the <i class=" button bi bi-x"></i> icon in the <span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> section.</p>
+                                            <hr>
+                                            <h6>Info / Links</h6>
+                                            
+                                            <a href="https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-solution-architectures#sap-on-azure-solutions" target="_blank">SAP solution architectures using Azure NetApp Files</a>
+                                            <br><a href="https://learn.microsoft.com/en-us/azure/azure-netapp-files/" target="_blank">Azure NetApp Files documentation</a>
+                                            <br><i class="bi bi-youtube"></i>&nbsp;<a href="https://youtube.com/@azurenetappfiles" target="_blank">Azure NetApp Files on YouTube</a>
+                                            <p><i class="bi bi-bug"></i> Find a bug? Feature request? Suggestion? Please submit an issue on <a href="https://github.com/ANFTechTeam/anftechteam.github.io/issues" target="_blank">GitHub</a>.</p>
+
+                                        <div class="footer pb-1 text-end">
+                                            <small>Created by Sean Luce, NetApp <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
+
                                         </div>
-                                        <button onclick="saveToBlob()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Export Config&nbsp<i class="bi bi-filetype-json"></i></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Import Config&nbsp<i class="bi bi-filetype-json"></i>
+                                    </button>
+                                    <div class="bg-light dropdown-menu">
+                                        <div class="container" style="width: 500px">
+                                            <h5>Import JSON file or paste in to the text field below</h5>
+                                            <input oninput="loadConfig()" class="pb-2" type="file" id="selectFiles" value="Import"></input>
+                                            <textarea style="width: 100%; height: 300px" id="result"></textarea>
+                                            <button onclick="importConfig()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Import Config&nbsp<i class="bi bi-filetype-json"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Export Config&nbsp<i class="bi bi-filetype-json"></i>
+                                    </button>
+                                    <div class="bg-light dropdown-menu">
+                                        <div class="container" style="width: 500px">
+                                            <h5>Export config as .json file</h5>
+                                            <div class="input-group input-group-sm mb-1 pb-1">
+                                                <span class="input-group-text col-form-label col-form-label-sm">filename</span>
+                                                <input style="width: 200px" type="text" class="form-control" placeholder="" aria-label="fileName" aria-describedby="fileName" id="fileName">
+                                                <span class="input-group-text">.json</span>
+                                            </div>
+                                            <button onclick="saveToBlob()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Export Config&nbsp<i class="bi bi-filetype-json"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <h5 id="addSystemsAndVolumes">Add Systems and Volumes<h5>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse">
+                            <div class="accordion-body p-2">
+                                <div class="row">
+                                    <div class="col ps-4">
+                                        <div class="accordion accordion-flush" id="accordianFlushInput">
+                                            <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne">
+                                                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushSystem" aria-expanded="false" aria-controls="accordianFlushSystem">
+                                                    <strong>Add SAP HANA System</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
+                                                <div class="accordion-body pb-5">
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
+                                                        <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
+                                                        <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System type</span>
+                                                        <select class="form-select" aria-label="" id="sys-env">
+                                                            <option value="PROD" selected>PROD</option>
+                                                            <option value="PRE-PROD">PRE-PROD</option>
+                                                            <option value="QAS">QAS</option>
+                                                            <option value="DEV">DEV</option>
+                                                            <option value="TST">TST</option>
+                                                            <option value="SBX">SBX</option>
+                                                            <option value="DR">DR</option>
+                                                            <option value="OTHER">OTHER</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM size</span>
+                                                        <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
+                                                        <span class="input-group-text" id="sys-ram-unit">GiB</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)</span>
+                                                        <select class="form-select" aria-label="" id="sys-ha">
+                                                            <option value="2">Yes</option>
+                                                            <option value="1" selected>No</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host count</span>
+                                                        <select class="form-select" aria-label="" id="host-count">
+                                                            <option value="1" selected>1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+                                                            <option value="13">13</option>
+                                                            <option value="14">14</option>
+                                                            <option value="15">15</option>
+                                                            <option value="16">16</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
+                                                        <select class="form-select" aria-label="" id="sys-pool">
+                                                            <option value="P1" selected>P1</option>
+                                                            <option value="P2">P2</option>
+                                                            <option value="P3">P3</option>
+                                                            <option value="P4">P4</option>
+                                                            <option value="P5">P5</option>
+                                                            <option value="P6">P6</option>
+                                                            <option value="P7">P7</option>
+                                                            <option value="P8">P8</option>
+                                                            <option value="P9">P9</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="float-end">
+                                                        <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo">
+                                                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushVolume" aria-expanded="false" aria-controls="accordianFlushVolume">
+                                                    <strong>Add Single Volume</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
+                                                <div class="accordion-body pb-5">
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
+                                                        <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
+                                                        <input oninput="validateInput('vol-description')" type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
+                                                        <select class="form-select" aria-label="" id="vol-type">
+                                                            <option value="PROD" selected>PROD</option>
+                                                            <option value="PRE-PROD">PRE-PROD</option>
+                                                            <option value="QAS">QAS</option>
+                                                            <option value="DEV">DEV</option>
+                                                            <option value="TST">TST</option>
+                                                            <option value="SBX">SBX</option>
+                                                            <option value="DR">DR</option>
+                                                            <option value="OTHER">OTHER</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
+                                                        <input oninput="validateInput('vol-size')" type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
+                                                        <span class="input-group-text" id="vol-size-unit">GiB</span>
+                                                    </div>
+                                                    
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
+                                                        <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
+                                                        <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily change</span>
+                                                        <input oninput="validateInput('vol-changeRate')" type="number" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
+                                                        <span class="input-group-text" id="vol-changerate-unit">%</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Snapshot Retention change</span>
+                                                        <input oninput="validateInput('vol-snapshotRet')" type="number" class="form-control" placeholder="" aria-label="vol-snapshotRet" aria-describedby="vol-snapshotRet" id="vol-snapshotRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Backup retention</span>
+                                                        <input oninput="validateInput('vol-backupRet')" type="number" class="form-control" placeholder="" aria-label="vol-backupRet" aria-describedby="vol-backupRet" id="vol-backupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
+                                                        <select class="form-select" aria-label="" id="vol-pool">
+                                                            <option value="P1" selected>P1</option>
+                                                            <option value="P2">P2</option>
+                                                            <option value="P3">P3</option>
+                                                            <option value="P4">P4</option>
+                                                            <option value="P5">P5</option>
+                                                            <option value="P6">P6</option>
+                                                            <option value="P7">P7</option>
+                                                            <option value="P8">P8</option>
+                                                            <option value="P9">P9</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="float-end">
+                                                        <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col pe-4">
+                                        <div class="accordion accordion-flush" id="accordianFlushSettings">
+                                            <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne">
+                                                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPerformance" aria-expanded="false" aria-controls="accordianFlushSystem">
+                                                <strong>Performance Modifiers</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="accordianFlushPerformance" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushSettings">
+                                                <div class="accordion-body pb-5">
+                                                    <span>Performance Baseline</span>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">data</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="dataBaseline" aria-describedby="dataBaseline" value="400" id="dataBaseline">
+                                                    <span class="input-group-text">MiB/s</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">log</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="logBaseline" aria-describedby="logBaseline" value="250" id="logBaseline">
+                                                    <span class="input-group-text">MiB/s</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">shared</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="sharedBaseline" aria-describedby="sharedBaseline" value="50" id="sharedBaseline">
+                                                    <span class="input-group-text">MiB/s</span>
+                                                </div>
+                                                <span>Performance Factor</span>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PROD</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">QAS</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DEV</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">TST</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SBX</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DR</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-1">
+                                                    <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">OTHER</span>
+                                                    <input type="number" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <div class="float-end">
+                                                    <button onclick="updateKpiMultipliers()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo">
+                                                <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushBackup" aria-expanded="false" aria-controls="accordianFlushVolume">
+                                                <strong>Snapshots and Backup</strong>
+                                                </button>
+                                            </h2>
+                                            <div id="accordianFlushBackup" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushSettings">
+                                                <div class="accordion-body pb-5">
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm" style="color: white; background-color: #6c757d;">Type</span>
+                                                        <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="data" disabled>
+                                                        <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
+                                                        <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="shared" disabled>
+                                                        <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
+                                                        <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="snapshot" disabled>
+                                                        <span class="input-group-text" style="color: white; background-color: #6c757d;">days</span>
+                                                        <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="backup" disabled>
+                                                        <span class="input-group-text" style="color: white; background-color: #6c757d;">days</span>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">PROD</span>
+                                                        <input type="number" class="form-control" value="50" id="prodDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="2" id="prodSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="prodSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="30" id="prodBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
+                                                        <input type="number" class="form-control" value="30" id="preProdDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="2" id="preProdSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="preProdSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="30" id="preProdBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">QAS</span>
+                                                        <input type="number" class="form-control" value="20" id="qasDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="2" id="qasSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="qasSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="30" id="qasBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DEV</span>
+                                                        <input type="number" class="form-control" value="10" id="devDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="1" id="devSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="devSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="0" id="devBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">TST</span>
+                                                        <input type="number" class="form-control" value="10" id="tstDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="1" id="tstSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="tstSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="0" id="tstBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">SBX</span>
+                                                        <input type="number" class="form-control" value="10" id="sbxDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="1" id="sbxSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="0" id="sbxSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="0" id="sbxBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DR</span>
+                                                        <input type="number" class="form-control" value="30" id="drDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="2" id="drSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="drSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="0" id="drBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">OTHER</span>
+                                                        <input type="number" class="form-control" value="10" id="otherDataChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="2" id="otherSharedChange">
+                                                        <span class="input-group-text">%</span>
+                                                        <input type="number" class="form-control" value="5" id="otherSnapRet">
+                                                        <span class="input-group-text">days</span>
+                                                        <input type="number" class="form-control" value="0" id="otherBackupRet">
+                                                        <span class="input-group-text">days</span>
+                                                    </div>
+                                                    <div class="float-end">
+                                                        <button onclick="updateSnapshotBackup()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <h5>Estimated Volume Costs</h5>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfVolumeTCO">
+                                    <thead class="thead-light">
+                                        <th class="text-dark align-middle" scope="col">Pool group</th>
+                                        <th class="text-dark align-middle" scope="col">Service Level</th>
+                                        <th class="text-dark align-middle" scope="col">Capacity (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Cost (USD/month)</th>
+                                        <th class="text-dark align-middle" scope="col">Sizing</th>
+                                        <th class="text-dark align-middle" scope="col">Excess Capacity (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Excess Performance (MiB/s)</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <h5>Estimated Backup Costs</h5>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfBackupTable">
+                                    <thead class="thead-light">
+                                        <th class="text-dark align-middle" scope="col">Pool group</th>
+                                        <th class="text-dark align-middle" scope="col">Baseline capacity (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Delta capacity (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Total capacity (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Total cost (USD/month)</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                <h5 id="poolGroupSummary">Pool Group Summary</h5>
+                            </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <table class="table table-hover table-light table-striped table-bordered table-sm" id="poolGroup-requirements">
+                                    <thead class="thead-light">
+                                        <th class="text-dark align-middle" scope="col">Pool group</th>
+                                        <th class="text-dark align-middle" scope="col">Logical data (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Additional snapshot space (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Volume capacity (TiB)</th>
+                                        <th class="text-dark align-middle" scope="col">Volume performance (MiB/s)</th>
+                                        <th class="text-dark align-middle" scope="col">Total snapshot space (TiB)</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                <h5 id="volumeSummary">Volume Summary</h5>
+                            </button>
+                            </h2>
+                            <div id="flush-collapseFive" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <table class="table table-hover table-light table-striped table-bordered table-sm" id="volume-list">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="text-dark align-middle" scope="col">Description</th>
+                                            <th class="text-dark align-middle" scope="col">SID</th>
+                                            <th class="text-dark align-middle" scope="col">Environment</th>
+                                            <th class="text-dark align-middle" scope="col">Pool group</th>
+                                            <th class="text-dark align-middle" scope="col">Type</th>
+                                            <th class="text-dark align-middle" scope="col">Host</th>
+                                            <th class="text-dark align-middle" scope="col">Logical space (GiB)</th>
+                                            <th class="text-dark align-middle" scope="col">Additional snapshot space (GiB)</th>
+                                            <th class="text-dark align-middle" scope="col">Required capacity (GiB)</th>
+                                            <th class="text-dark align-middle" scope="col">Required performance (MiB/s)</th>
+                                            <th class="text-dark align-middle" scope="col">Daily change Rate (%)</th>
+                                            <th class="text-dark align-middle" scope="col">Snapshot retention (days)</th>
+                                            <th class="text-dark align-middle" scope="col">Backup retention (days)</th>
+                                            <th class="text-dark align-middle" scope="col">Total snapshot Size (GiB)</th>
+                                            <th class="text-dark align-middle" scope="col">Assumed free space (GiB)</th>
+                                            <th class="text-dark align-middle" scope="col"><i class="bi bi-trash"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <div class="container-fluid d-grid gap-2 d-md-flex justify-content-md-end">
+                        <small>Created by Sean Luce, NetApp <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
                     </div>
                 </div>
             </div>
-            <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInput" aria-expanded="true" aria-controls="collapseInput">
-                <div class="col">
-                    <span ><i class="bi bi-caret-right"></i>Add Volumes</span>
-                </div>
-            </div>
-            <div class="row bg-light collapse show justify-content-center py-2" id="collapseInput">
-                <div class="col-lg-4 col-5">
-                    <div class="accordion accordion-flush" id="accordianFlushInput">
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushSystem" aria-expanded="false" aria-controls="accordianFlushSystem">
-                                <strong>Add SAP HANA System</strong>
-                            </button>
-                          </h2>
-                          <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
-                            <div class="accordion-body pb-5">
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
-                                    <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
-                                    <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System type</span>
-                                    <select class="form-select" aria-label="" id="sys-env">
-                                        <option value="PROD" selected>PROD</option>
-                                        <option value="PRE-PROD">PRE-PROD</option>
-                                        <option value="QAS">QAS</option>
-                                        <option value="DEV">DEV</option>
-                                        <option value="TST">TST</option>
-                                        <option value="SBX">SBX</option>
-                                        <option value="DR">DR</option>
-                                        <option value="OTHER">OTHER</option>
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM size</span>
-                                    <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
-                                    <span class="input-group-text" id="sys-ram-unit">GiB</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)</span>
-                                    <select class="form-select" aria-label="" id="sys-ha">
-                                        <option value="2">Yes</option>
-                                        <option value="1" selected>No</option>
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host count</span>
-                                    <select class="form-select" aria-label="" id="host-count">
-                                        <option value="1" selected>1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
-                                    <select class="form-select" aria-label="" id="sys-pool">
-                                        <option value="P1" selected>P1</option>
-                                        <option value="P2">P2</option>
-                                        <option value="P3">P3</option>
-                                        <option value="P4">P4</option>
-                                        <option value="P5">P5</option>
-                                        <option value="P6">P6</option>
-                                        <option value="P7">P7</option>
-                                        <option value="P8">P8</option>
-                                        <option value="P9">P9</option>
-                                    </select>
-                                </div>
-                                <div class="float-end">
-                                    <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushVolume" aria-expanded="false" aria-controls="accordianFlushVolume">
-                                <strong>Add Single Volume</strong>
-                            </button>
-                          </h2>
-                          <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
-                            <div class="accordion-body pb-5">
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID</span>
-                                    <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description</span>
-                                    <input oninput="validateInput('vol-description')" type="text" class="form-control" placeholder="" aria-label="vol-description" aria-describedby="vol-description" id="vol-description">
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Type</span>
-                                    <select class="form-select" aria-label="" id="vol-type">
-                                        <option value="PROD" selected>PROD</option>
-                                        <option value="PRE-PROD">PRE-PROD</option>
-                                        <option value="QAS">QAS</option>
-                                        <option value="DEV">DEV</option>
-                                        <option value="TST">TST</option>
-                                        <option value="SBX">SBX</option>
-                                        <option value="DR">DR</option>
-                                        <option value="OTHER">OTHER</option>
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Size</span>
-                                    <input oninput="validateInput('vol-size')" type="text" class="form-control" placeholder="" aria-label="vol-size" aria-describedby="vol-size" id="vol-size">
-                                    <span class="input-group-text" id="vol-size-unit">GiB</span>
-                                </div>
-                                
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Throughput</span>
-                                    <input oninput="validateInput('vol-tPut')" type="text" class="form-control" placeholder="" aria-label="vol-tPut" aria-describedby="vol-tPut" id="vol-tPut">
-                                    <span class="input-group-text" id="vol-tPut-unit">MiB/s</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Daily change</span>
-                                    <input oninput="validateInput('vol-changeRate')" type="number" class="form-control" placeholder="" aria-label="vol-changeRate" aria-describedby="vol-changeRate" id="vol-changeRate">
-                                    <span class="input-group-text" id="vol-changerate-unit">%</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Snapshot Retention change</span>
-                                    <input oninput="validateInput('vol-snapshotRet')" type="number" class="form-control" placeholder="" aria-label="vol-snapshotRet" aria-describedby="vol-snapshotRet" id="vol-snapshotRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Backup retention</span>
-                                    <input oninput="validateInput('vol-backupRet')" type="number" class="form-control" placeholder="" aria-label="vol-backupRet" aria-describedby="vol-backupRet" id="vol-backupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group</span>
-                                    <select class="form-select" aria-label="" id="vol-pool">
-                                        <option value="P1" selected>P1</option>
-                                        <option value="P2">P2</option>
-                                        <option value="P3">P3</option>
-                                        <option value="P4">P4</option>
-                                        <option value="P5">P5</option>
-                                        <option value="P6">P6</option>
-                                        <option value="P7">P7</option>
-                                        <option value="P8">P8</option>
-                                        <option value="P9">P9</option>
-                                    </select>
-                                </div>
-                                <div class="float-end">
-                                    <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-                </div>
-                <div class="col-lg-4 col-5">
-                    <div class="accordion accordion-flush" id="accordianFlushSettings">
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPerformance" aria-expanded="false" aria-controls="accordianFlushSystem">
-                              <strong>Performance Modifiers</strong>
-                            </button>
-                          </h2>
-                          <div id="accordianFlushPerformance" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushSettings">
-                            <div class="accordion-body pb-5">
-                              <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">data</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="dataBaseline" aria-describedby="dataBaseline" value="400" id="dataBaseline">
-                                <span class="input-group-text">MiB/s</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">log</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="logBaseline" aria-describedby="logBaseline" value="250" id="logBaseline">
-                                <span class="input-group-text">MiB/s</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">shared</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="sharedBaseline" aria-describedby="sharedBaseline" value="50" id="sharedBaseline">
-                                <span class="input-group-text">MiB/s</span>
-                            </div>
-                            <span>Performance Factor</span>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PROD</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="prodPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="preProdPerf" aria-describedby="preProdPerf" value="80" id="preProdPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">QAS</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="qasPerf" aria-describedby="qasPerf" value="50" id="qasPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DEV</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="devPerf" aria-describedby="devPerf" value="25" id="devPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">TST</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="tstPerf" aria-describedby="tstPerf" value="25" id="tstPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SBX</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="sbxPerf" aria-describedby="sbxPerf" value="10" id="sbxPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">DR</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="drPerf" aria-describedby="drPerf" value="1" id="drPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="input-group input-group-sm mb-1">
-                                <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">OTHER</span>
-                                <input type="number" class="form-control" placeholder="" aria-label="otherPerf" aria-describedby="otherPerf" value="2" id="otherPerf">
-                                <span class="input-group-text">%</span>
-                            </div>
-                            <div class="float-end">
-                                <button onclick="updateKpiMultipliers()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushBackup" aria-expanded="false" aria-controls="accordianFlushVolume">
-                              <strong>Snapshots and Backup</strong>
-                            </button>
-                          </h2>
-                          <div id="accordianFlushBackup" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushSettings">
-                            <div class="accordion-body pb-5">
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm" style="color: white; background-color: #6c757d;">Type</span>
-                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="data" disabled>
-                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
-                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="shared" disabled>
-                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
-                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="snapshot" disabled>
-                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">days</span>
-                                    <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="backup" disabled>
-                                    <span class="input-group-text" style="color: white; background-color: #6c757d;">days</span>
-                                </div>
-                                <hr>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">PROD</span>
-                                    <input type="number" class="form-control" value="50" id="prodDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="prodSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="prodSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="prodBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">PRE-PROD</span>
-                                    <input type="number" class="form-control" value="30" id="preProdDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="preProdSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="preProdSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="preProdBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">QAS</span>
-                                    <input type="number" class="form-control" value="20" id="qasDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="qasSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="qasSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="30" id="qasBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DEV</span>
-                                    <input type="number" class="form-control" value="10" id="devDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="1" id="devSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="devSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="0" id="devBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">TST</span>
-                                    <input type="number" class="form-control" value="10" id="tstDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="1" id="tstSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="tstSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="0" id="tstBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">SBX</span>
-                                    <input type="number" class="form-control" value="10" id="sbxDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="1" id="sbxSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="0" id="sbxSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="0" id="sbxBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">DR</span>
-                                    <input type="number" class="form-control" value="30" id="drDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="drSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="drSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="0" id="drBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm">OTHER</span>
-                                    <input type="number" class="form-control" value="10" id="otherDataChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="2" id="otherSharedChange">
-                                    <span class="input-group-text">%</span>
-                                    <input type="number" class="form-control" value="5" id="otherSnapRet">
-                                    <span class="input-group-text">days</span>
-                                    <input type="number" class="form-control" value="0" id="otherBackupRet">
-                                    <span class="input-group-text">days</span>
-                                </div>
-                                <div class="float-end">
-                                    <button onclick="updateSnapshotBackup()" type="button" class="btn btn-outline-primary btn-sm">Update</button>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                </div>
-                
-                
-                
-                
-                
-                
-               
-            </div>
-            <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutput" aria-expanded="true" aria-controls="collapseOutput">
-                <div class="col">
-                    <span><i class="bi bi-caret-right"></i>Estimated Volume Costs</span>
-                </div>
-            </div>
-            <div class="row bg-secondary collapse show" id="collapseOutput">
-                <div class="col">
-                    <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfVolumeTCO">
-                        <thead class="thead-light">
-                            <th class="text-dark align-middle" scope="col">Pool group</th>
-                            <th class="text-dark align-middle" scope="col">Service Level</th>
-                            <th class="text-dark align-middle" scope="col">Capacity (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Cost (USD/month)</th>
-                            <th class="text-dark align-middle" scope="col">Sizing</th>
-                            <th class="text-dark align-middle" scope="col">Excess Capacity (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Excess Performance (MiB/s)</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBackup" aria-expanded="true" aria-controls="collapseBackup">
-                <div class="col">
-                    <span><i class="bi bi-caret-right"></i>Estimated Backup Costs</span>
-                </div>
-            </div>
-            <div class="row bg-secondary collapse show" id="collapseBackup">
-                <div class="col">
-                    <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfBackupTable">
-                        <thead class="thead-light">
-                            <th class="text-dark align-middle" scope="col">Pool group</th>
-                            <th class="text-dark align-middle" scope="col">Baseline capacity (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Delta capacity (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Total capacity (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Total cost (USD/month)</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoolGroup" aria-expanded="true" aria-controls="collapsePoolGroup">
-                <div class="col">
-                    <span><i class="bi bi-caret-right"></i>Pool Group Requirements</span>
-                </div>
-            </div>
-            <div class="row bg-secondary collapse show" id="collapsePoolGroup">
-                <div class="col">
-                    <table class="table table-hover table-light table-striped table-bordered table-sm" id="poolGroup-requirements">
-                        <thead class="thead-light">
-                            <th class="text-dark align-middle" scope="col">Pool group</th>
-                            <th class="text-dark align-middle" scope="col">Logical data (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Additional snapshot space (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Volume capacity (TiB)</th>
-                            <th class="text-dark align-middle" scope="col">Volume performance (MiB/s)</th>
-                            <th class="text-dark align-middle" scope="col">Total snapshot space (TiB)</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row bg-secondary align-middle text-white" role="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVolumeList" aria-expanded="true" aria-controls="collapseVolumeList">
-                <div class="col">
-                    <span><i class="bi bi-caret-right"></i>Volume List</span>
-                </div>
-            </div>
-            <div class="row bg-secondary collapse show" id="collapseVolumeList">
-                <div class="col">
-                    <table class="table table-hover table-light table-striped table-bordered table-sm" id="volume-list">
-                        <thead class="thead-light">
-                            <tr>
-                                <th class="text-dark align-middle" scope="col">Description</th>
-                                <th class="text-dark align-middle" scope="col">SID</th>
-                                <th class="text-dark align-middle" scope="col">Environment</th>
-                                <th class="text-dark align-middle" scope="col">Pool group</th>
-                                <th class="text-dark align-middle" scope="col">Type</th>
-                                <th class="text-dark align-middle" scope="col">Host</th>
-                                <th class="text-dark align-middle" scope="col">Logical space (GiB)</th>
-                                <th class="text-dark align-middle" scope="col">Additional snapshot space (GiB)</th>
-                                <th class="text-dark align-middle" scope="col">Required capacity (GiB)</th>
-                                <th class="text-dark align-middle" scope="col">Required performance (MiB/s)</th>
-                                <th class="text-dark align-middle" scope="col">Daily change Rate (%)</th>
-                                <th class="text-dark align-middle" scope="col">Snapshot retention (days)</th>
-                                <th class="text-dark align-middle" scope="col">Backup retention (days)</th>
-                                <th class="text-dark align-middle" scope="col">Total snapshot Size (GiB)</th>
-                                <th class="text-dark align-middle" scope="col">Assumed free space (GiB)</th>
-                                <th class="text-dark align-middle" scope="col"><i class="bi bi-trash"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
-
-     
-
-
-
-
     </body>
 </html>
