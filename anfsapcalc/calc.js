@@ -752,7 +752,11 @@ function addSystem(inputJson){
         for (let host = 1; host <= sysHostCount; host++) {
 
         // calculate
-        let logGiB = Math.min(sysRamSize * 1.0, 512);
+        if(sysRamSize <= 1024){
+            var logGiB = sysRamSize / 2;
+        }else{
+            var logGiB = Math.min(sysRamSize * 1.0, 512);
+        }
         
         let logFreeSpace = 0;
         let logDailyChangeRate = 0;
