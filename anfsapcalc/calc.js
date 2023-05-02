@@ -617,7 +617,7 @@ function addSystem(inputJson){
             invalidInputs++;
         }
         if(validateInput("sys-secondary-perf")){
-            var sysDescription = document.getElementById("sys-secondary-perf").value;
+            var sysSecondaryPerf = document.getElementById("sys-secondary-perf").value;
         }else{
             invalidInputs++;
         }
@@ -730,6 +730,7 @@ function addSystem(inputJson){
             var dataRowDelete = dataRow.insertCell(15);
 
             dataRowDescription.innerHTML = sysDescription;
+            console.log(sysDescription)
             dataRowSID.innerHTML = sidDisplayed;
             dataRowEnv.innerHTML = sysEnv;
             dataRowPool.innerHTML = sysPool;
