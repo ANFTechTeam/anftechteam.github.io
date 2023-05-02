@@ -59,9 +59,9 @@
                                                 <p><strong>IMPORTANT: </strong>This tool is designed to estimate the TCO of SAP HANA on Azure NetApp Files. However, it is not meant to be a comprehensive tool and may not account for all possible factors that may impact the total cost. Therefore, it should only be used as a guide for estimating costs.</p>
                                                 <hr>
                                                 <h6>Help</h6>
-                                                <p><span class="text-primary" onmouseover="highlightText(addSystemsAndVolumes)" onmouseout="resetTextColor(addSystemsAndVolumes)">Add SAP HANA Systems and Volumes</span> to compute the TCO for Azure NetApp Files capacity pools and Azure NetApp Files backup. Multiple systems and volumes can be entered. The <span class="text-primary" onmouseover="highlightText(poolGroupSummary)" onmouseout="resetTextColor(poolGroupSummary)">Pool Group Summary</span> and<span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> sections can be expanded to view the details of the data entered.</p>
-                                                <p>Use the <span class="text-primary">Pool Group Region</span> section to select a region for each pool group to estimate costs based on the desired region.</p>
-                                                <p>This TCO calculator provides estimated costs for Azure NetApp Files capacity pools as shown in the <span class="text-primary" onmouseover="highlightText(volumeCosts)" onmouseout="resetTextColor(volumeCosts)">Estimated Volume Costs</span> section as well as Azure NetApp Files backup costs as shown in the <span class="text-primary" onmouseover="highlightText(backupCosts)" onmouseout="resetTextColor(backupCosts)">Estimated Backup Costs</span> section.</p>
+                                                <p><span class="text-primary" onmouseover="highlightText(addSystemsAndVolumes)" onmouseout="resetTextColor(addSystemsAndVolumes)">Add SAP HANA Systems and Volumes</span> to compute the TCO for Azure NetApp Files capacity pools and Azure NetApp Files backup. Multiple systems and volumes can be entered. The <span class="text-primary" onmouseover="highlightText(poolGroupSummary)" onmouseout="resetTextColor(poolGroupSummary)">Capacity Pool Summary</span> and<span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> sections can be expanded to view the details of the data entered.</p>
+                                                <p>Use the <span class="text-primary">Capacity Pool Region</span> section to select a region for each capacity pool to estimate costs based on the desired region.</p>
+                                                <p>This TCO calculator provides estimated costs for Azure NetApp Files capacity pools as shown in the <span class="text-primary" onmouseover="highlightText(volumeCosts)" onmouseout="resetTextColor(volumeCosts)">Estimated ANF Storage Costs</span> section as well as Azure NetApp Files backup costs as shown in the <span class="text-primary" onmouseover="highlightText(backupCosts)" onmouseout="resetTextColor(backupCosts)">Estimated ANF Backup Costs</span> section.</p>
                                                 <p>You can modify the settings/parameters to adjust the requirements to fit your particular use case or workload using the <span class="text-primary">Performance Modifiers</span> and <span class="text-primary">Snapshot and Backup</span> sections.</p>
                                                 <p>If you make a mistake, systems or volumes can be removed using the <i class=" button bi bi-x"></i> icon in the <span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> section.</p>
                                                 <p>Configurations can be exported and imported using the <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -147,19 +147,19 @@
                                                 <div class="accordion-body pb-5">
                                                     <div class="input-group input-group-sm mb-1">
                                                         
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
                                                         </span>
                                                         <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Description&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The description of the system being entered. e.g. S/4 Retail" class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Description&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The description of the system being entered. e.g. S/4 Retail" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">System type&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The system type will determine which parameters are used to calculate the capacity, performance, and data protection requirements." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">System type&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The system type will determine which parameters are used to calculate the capacity, performance, and data protection requirements." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-env">
                                                             <option value="PROD" selected>PROD</option>
-                                                            <option value="PREPROD">PRE-PROD</option>
+                                                            <option value="PRE-PROD">PRE-PROD</option>
                                                             <option value="QAS">QAS</option>
                                                             <option value="DEV">DEV</option>
                                                             <option value="TST">TST</option>
@@ -169,19 +169,24 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">RAM size&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The amount of memory (RAM) the SAP HANA database server has been allocated." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">RAM size&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The amount of memory (RAM) the SAP HANA database server has been allocated." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
                                                         <span class="input-group-text" id="sys-ram-unit">GiB</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">HA (HSR)&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="If this system will be configured as HA using HANA system replication." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">HA (HSR)&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="If this system will be configured as HA using HANA system replication." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-ha">
                                                             <option value="2">Yes</option>
                                                             <option value="1" selected>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Host count&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The number of SAP database hosts." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">HA secondary performance&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The performance factor of the HA (HSR) secondary system(s) relative to the primary." class="bi bi-info-circle"></i></span>
+                                                        <input oninput="validateInput('sys-secondary-perf')" type="number" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="sys-secondary-perf">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                    <div class="input-group input-group-sm mb-1">
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Host count&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The number of SAP database hosts." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="host-count">
                                                             <option value="1" selected>1</option>
                                                             <option value="2">2</option>
@@ -202,7 +207,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-3 col-form-label col-form-label-sm">Pool group&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The pool group is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Capacity pool&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The capacity pool is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-pool">
                                                             <option value="P1" selected>P1</option>
                                                             <option value="P2">P2</option>
@@ -278,7 +283,7 @@
                                                         <span class="input-group-text">days</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Pool group&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The pool group is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">capacity pool&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The capacity pool is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="vol-pool">
                                                             <option value="P1" selected>P1</option>
                                                             <option value="P2">P2</option>
@@ -306,7 +311,7 @@
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="flush-headingPoolRegion">
                                                     <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPoolRegion" aria-expanded="false" aria-controls="accordianFlushPoolRegion">
-                                                    <strong>Pool Group Region</strong>
+                                                    <strong>Capacity Pool Region</strong>
                                                     </button>
                                                 </h2>
                                                 <div id="accordianFlushPoolRegion" class="accordion-collapse collapse show" aria-labelledby="flush-headingRegion" data-bs-parent="#accordianFlushSettings">
@@ -1061,14 +1066,14 @@
                         <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            <h5 id="volumeCosts">Estimated Volume Costs</h5>
+                            <h5 id="volumeCosts">Estimated ANF Storage Costs</h5>
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse show">
                             <div class="accordion-body">
                                 <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfVolumeTCO">
                                     <thead class="thead-light">
-                                        <th class="text-dark align-middle" scope="col">Pool group</th>
+                                        <th class="text-dark align-middle" scope="col">Capacity pool</th>
                                         <th class="text-dark align-middle" scope="col">Service Level</th>
                                         <th class="text-dark align-middle" scope="col">Region</th>
                                         <th class="text-dark align-middle" scope="col">Capacity (TiB)</th>
@@ -1086,14 +1091,14 @@
                         <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                            <h5 id="backupCosts">Estimated Backup Costs</h5>
+                            <h5 id="backupCosts">Estimated ANF Backup Costs</h5>
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse show">
                             <div class="accordion-body">
                                 <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfBackupTable">
                                     <thead class="thead-light">
-                                        <th class="text-dark align-middle" scope="col">Pool group</th>
+                                        <th class="text-dark align-middle" scope="col">Capacity pool</th>
                                         <th class="text-dark align-middle" scope="col">Baseline capacity (TiB)</th>
                                         <th class="text-dark align-middle" scope="col">Delta capacity (TiB)</th>
                                         <th class="text-dark align-middle" scope="col">Total capacity (TiB)</th>
@@ -1108,14 +1113,14 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                             <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                <h5 id="poolGroupSummary">Pool Group Summary</h5>
+                                <h5 id="poolGroupSummary">Capacity Pool Summary</h5>
                             </button>
                             </h2>
                             <div id="flush-collapseFour" class="accordion-collapse collapse">
                             <div class="accordion-body">
                                 <table class="table table-hover table-light table-striped table-bordered table-sm" id="poolGroup-requirements">
                                     <thead class="thead-light">
-                                        <th class="text-dark align-middle" scope="col">Pool group</th>
+                                        <th class="text-dark align-middle" scope="col">Capacity pool</th>
                                         <th class="text-dark align-middle" scope="col">Logical data (TiB)</th>
                                         <th class="text-dark align-middle" scope="col">Additional snapshot space (TiB)</th>
                                         <th class="text-dark align-middle" scope="col">Volume capacity (TiB)</th>
@@ -1142,7 +1147,7 @@
                                             <th class="text-dark align-middle" scope="col">Description</th>
                                             <th class="text-dark align-middle" scope="col">SID</th>
                                             <th class="text-dark align-middle" scope="col">Environment</th>
-                                            <th class="text-dark align-middle" scope="col">Pool group</th>
+                                            <th class="text-dark align-middle" scope="col">Capacity pool</th>
                                             <th class="text-dark align-middle" scope="col">Type</th>
                                             <th class="text-dark align-middle" scope="col">Host</th>
                                             <th class="text-dark align-middle" scope="col">Logical space (GiB)</th>

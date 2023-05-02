@@ -201,7 +201,7 @@ let kpiTargets = {
 
 let kpiMultipliers = {
     "PROD": 1,
-    "PREPROD": 0.8,
+    "PRE-PROD": 0.8,
     "QAS": 0.5,
     "DEV": 0.25,
     "TST": 0.25,
@@ -212,7 +212,7 @@ let kpiMultipliers = {
 
 let dataProtectionSettings = {
     "PROD": {"dataDailyChange": 50, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
-    "PREPROD": {"dataDailyChange": 30, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
+    "PRE-PROD": {"dataDailyChange": 30, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
     "QAS": {"dataDailyChange": 20, "sharedDailyChange": 2, "snapRetention": 5, "backupRetention": 30},
     "DEV": {"dataDailyChange": 10, "sharedDailyChange": 1, "snapRetention": 5, "backupRetention": 0},
     "TST": {"dataDailyChange": 10, "sharedDailyChange": 1, "snapRetention": 5, "backupRetention": 0},
@@ -519,6 +519,16 @@ function validateInput(element) {
                 return false;
             }
             break;
+            case "sys-secondary-perf":
+            var sysSecondaryPerf = document.getElementById("sys-secondary-perf").value;
+            if(Number.isInteger(Number(sysSecondaryPerf)) && Number(sysSecondaryPerf) > -1 && Number(sysSecondaryPerf) <= 100){
+                document.getElementById("sys-secondary-perf").style.borderColor = "";
+                return true;
+            }else{
+                document.getElementById("sys-secondary-perf").style.borderColor = "red";
+                return false;
+            }
+            break;
         case "vol-sid":
             var volSid = document.getElementById("vol-sid").value;
             if(volSid.length === 3){
@@ -561,7 +571,7 @@ function validateInput(element) {
             break;
         case "vol-changeRate":
             var volChangeRate = document.getElementById("vol-changeRate").value;
-            if(Number.isInteger(Number(volChangeRate)) && Number(volChangeRate) > 0.01 && Number(volChangeRate) <= 100){
+            if(Number.isInteger(Number(volChangeRate)) && Number(volChangeRate) > -1 && Number(volChangeRate) <= 100){
                 document.getElementById("vol-changeRate").style.borderColor = "";
                 return true;
             }else{
@@ -606,6 +616,11 @@ function addSystem(inputJson){
         }else{
             invalidInputs++;
         }
+        if(validateInput("sys-secondary-perf")){
+            var sysDescription = document.getElementById("sys-secondary-perf").value;
+        }else{
+            invalidInputs++;
+        }
         if(validateInput("sys-ram")){
             var sysRamSize = document.getElementById("sys-ram").value;
         }else{
@@ -613,6 +628,7 @@ function addSystem(inputJson){
         }
         var sysEnv = document.getElementById("sys-env").value;
         var sysHA = document.getElementById("sys-ha").value;
+        var sysSecondaryPerf = document.getElementById("sys-secondary-perf").value;
         var sysHostCount = document.getElementById("host-count").value;
         var sysPool = document.getElementById("sys-pool").value;
         if(invalidInputs > 0){
@@ -625,6 +641,7 @@ function addSystem(inputJson){
         var sysRamSize = inputJson.inputRamSize;
         var sysEnv = inputJson.inputEnv;
         var sysHA = inputJson.inputHA;
+        var sysSecondaryPerf = inputJson.inputSecondaryPerf;
         var sysHostCount = inputJson.inputHostCount;
         var sysPool = inputJson.inputPool;
     };
@@ -638,6 +655,7 @@ function addSystem(inputJson){
         "inputRamSize": sysRamSize,
         "inputEnv": sysEnv,
         "inputHA": sysHA,
+        "inputSecondaryPerf": sysSecondaryPerf,
         "inputHostCount": sysHostCount,
         "inputPool": sysPool,
     };
@@ -651,27 +669,32 @@ function addSystem(inputJson){
 
         if(ha == 2) {
             sidDisplayed = sysSid + "-HA";
+            var dataPerf = kpiTargets["data"] * kpiMultipliers[sysEnv] * (sysSecondaryPerf/100);
+            var logPerf = kpiTargets["log"] * kpiMultipliers[sysEnv] * (sysSecondaryPerf/100);
+            var sharedPerf = kpiTargets["shared"] * kpiMultipliers[sysEnv] * (sysSecondaryPerf/100);
         }else{
             sidDisplayed = sysSid;
+            var dataPerf = kpiTargets["data"] * kpiMultipliers[sysEnv];
+            var logPerf = kpiTargets["log"] * kpiMultipliers[sysEnv];
+            var sharedPerf = kpiTargets["shared"] * kpiMultipliers[sysEnv];
         }
 
         for (let host = 1; host <= sysHostCount; host++) {
         
             // calculate
             let dataGiB = sysRamSize * 1.0;
-            let dataPerf = kpiTargets["data"] * kpiMultipliers[sysEnv];
             let dataFreeSpace = dataGiB / 2;
-            let dataDailyChangeRate = Number(eval('dataProtectionSettings.' + sysEnv + '.dataDailyChange'));
-            let dataSnapshotRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.snapRetention'));
-            let dataBackupRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.backupRetention'));
+            let dataDailyChangeRate = Number(eval('dataProtectionSettings["' + sysEnv + '"].dataDailyChange'));
+            let dataSnapshotRetentionDays = Number(eval('dataProtectionSettings["' + sysEnv + '"].snapRetention'));
+            let dataBackupRetentionDays = Number(eval('dataProtectionSettings["' + sysEnv + '"].backupRetention'));
             let dataSnapshotSize = (dataGiB / 2) * (dataDailyChangeRate / 100) * dataSnapshotRetentionDays;
             let dataAddSnapshotSpace = Math.max(dataSnapshotSize - dataFreeSpace, 0);
             let dataTotalSpace = dataGiB + dataAddSnapshotSpace;
-            let dataBackupBaselineCapacity = 0;
-            if(dataBackupRetentionDays > 0){
-                dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
-            }
-            let dataBackupDeltaCapacity = parseFloat(dataGiB) * parseFloat(dataDailyChangeRate / 100) * dataBackupRetentionDays;
+            let dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
+            //if(dataBackupRetentionDays > 0){
+            //    dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
+            //}
+            let dataBackupDeltaCapacity = dataBackupBaselineCapacity * parseFloat(dataDailyChangeRate / 100) * dataBackupRetentionDays;
             let dataBackupTotalCapacity = dataBackupBaselineCapacity + dataBackupDeltaCapacity;
 
             // add to running totals
@@ -729,7 +752,7 @@ function addSystem(inputJson){
 
         // calculate
         let logGiB = Math.min(sysRamSize * 1.0, 512);
-        let logPerf = kpiTargets["log"] * kpiMultipliers[sysEnv];
+        
         let logFreeSpace = 0;
         let logDailyChangeRate = 0;
         let logSnapshotRetentionDays = 0;
@@ -786,11 +809,11 @@ function addSystem(inputJson){
 
         // calculate
         let sharedGiB = Math.min(sysRamSize * 1.0, 1024);
-        let sharedPerf = kpiTargets["shared"] * kpiMultipliers[sysEnv];
+        
         let sharedFreeSpace = 0;
-        let sharedDailyChangeRate = Number(eval('dataProtectionSettings.' + sysEnv + '.sharedDailyChange'));
-        let sharedSnapshotRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.snapRetention'));
-        let sharedBackupRetentionDays = Number(eval('dataProtectionSettings.' + sysEnv + '.backupRetention'));
+        let sharedDailyChangeRate = Number(eval('dataProtectionSettings["' + sysEnv + '"].sharedDailyChange'));
+        let sharedSnapshotRetentionDays = Number(eval('dataProtectionSettings["' + sysEnv + '"].snapRetention'));
+        let sharedBackupRetentionDays = Number(eval('dataProtectionSettings["' + sysEnv + '"].backupRetention'));
         let sharedSnapshotSize = (sharedGiB) * (sharedDailyChangeRate / 100) * sharedSnapshotRetentionDays;
         let sharedAddSnapshotSpace = Math.max(sharedSnapshotSize - sharedFreeSpace, 0);
         let sharedTotalSpace = sharedGiB + sharedAddSnapshotSpace;
@@ -1268,7 +1291,7 @@ let exportJson = {
         },
         "kpiMultipliers": {
             "prodPerf": kpiMultipliers.PROD,
-            "preProdPerf": kpiMultipliers.PREPROD,
+            "preProdPerf": kpiMultipliers["PRE-PROD"],
             "qasPerf": kpiMultipliers.QAS,
             "devPerf": kpiMultipliers.DEV,
             "tstPerf": kpiMultipliers.TST,
@@ -1353,7 +1376,7 @@ function updateKpiMultipliers(settings){
 
         kpiMultipliers = {
             "PROD": newProdPerfMultiplier,
-            "PREPROD": newPreProdPerfMultiplier,
+            "PRE-PROD": newPreProdPerfMultiplier,
             "QAS": newQasPerfMultiplier,
             "DEV": newDevPerfMultiplier,
             "TST": newTstPerfMultiplier,
@@ -1384,7 +1407,7 @@ function updateKpiMultipliers(settings){
 
         kpiMultipliers = {
             "PROD": newProdPerfMultiplier,
-            "PREPROD": newPreProdPerfMultiplier,
+            "PRE-PROD": newPreProdPerfMultiplier,
             "QAS": newQasPerfMultiplier,
             "DEV": newDevPerfMultiplier,
             "TST": newTstPerfMultiplier,
@@ -1415,7 +1438,7 @@ function updateSnapshotBackup(settings) {
     if(arguments.length == 0){
         dataProtectionSettings = {
             "PROD": {"dataDailyChange": document.getElementById("prodDataChange").value, "sharedDailyChange": document.getElementById("prodSharedChange").value, "snapRetention": document.getElementById("prodSnapRet").value, "backupRetention": document.getElementById("prodBackupRet").value},
-            "PREPROD": {"dataDailyChange": document.getElementById("preProdDataChange").value, "sharedDailyChange": document.getElementById("preProdSharedChange").value, "snapRetention": document.getElementById("preProdSnapRet").value, "backupRetention": document.getElementById("preProdBackupRet").value},
+            "PRE-PROD": {"dataDailyChange": document.getElementById("preProdDataChange").value, "sharedDailyChange": document.getElementById("preProdSharedChange").value, "snapRetention": document.getElementById("preProdSnapRet").value, "backupRetention": document.getElementById("preProdBackupRet").value},
             "QAS": {"dataDailyChange": document.getElementById("qasDataChange").value, "sharedDailyChange": document.getElementById("qasSharedChange").value, "snapRetention": document.getElementById("qasSnapRet").value, "backupRetention": document.getElementById("qasBackupRet").value},
             "DEV": {"dataDailyChange": document.getElementById("devDataChange").value, "sharedDailyChange": document.getElementById("devSharedChange").value, "snapRetention": document.getElementById("devSnapRet").value, "backupRetention": document.getElementById("devBackupRet").value},
             "TST": {"dataDailyChange": document.getElementById("tstDataChange").value, "sharedDailyChange": document.getElementById("tstSharedChange").value, "snapRetention": document.getElementById("tstSnapRet").value, "backupRetention": document.getElementById("tstBackupRet").value},
@@ -1427,7 +1450,7 @@ function updateSnapshotBackup(settings) {
     }else{
         dataProtectionSettings = {
             "PROD": {"dataDailyChange": settings.dataProtectionSettings.PROD.dataDailyChange, "sharedDailyChange": settings.dataProtectionSettings.PROD.sharedDailyChange, "snapRetention": settings.dataProtectionSettings.PROD.snapRetention, "backupRetention": settings.dataProtectionSettings.PROD.backupRetention},
-            "PREPROD": {"dataDailyChange": settings.dataProtectionSettings.PREPROD.dataDailyChange, "sharedDailyChange": settings.dataProtectionSettings.PREPROD.sharedDailyChange, "snapRetention": settings.dataProtectionSettings.PREPROD.snapRetention, "backupRetention": settings.dataProtectionSettings.PREPROD.backupRetention},
+            "PRE-PROD": {"dataDailyChange": settings.dataProtectionSettings["PRE-PROD"].dataDailyChange, "sharedDailyChange": settings.dataProtectionSettings["PRE-PROD"].sharedDailyChange, "snapRetention": settings.dataProtectionSettings["PRE-PROD"].snapRetention, "backupRetention": settings.dataProtectionSettings["PRE-PROD"].backupRetention},
             "QAS": {"dataDailyChange": settings.dataProtectionSettings.QAS.dataDailyChange, "sharedDailyChange": settings.dataProtectionSettings.QAS.sharedDailyChange, "snapRetention": settings.dataProtectionSettings.QAS.snapRetention, "backupRetention": settings.dataProtectionSettings.QAS.backupRetention},
             "DEV": {"dataDailyChange": settings.dataProtectionSettings.DEV.dataDailyChange, "sharedDailyChange": settings.dataProtectionSettings.DEV.sharedDailyChange, "snapRetention": settings.dataProtectionSettings.DEV.snapRetention, "backupRetention": settings.dataProtectionSettings.DEV.backupRetention},
             "TST": {"dataDailyChange": settings.dataProtectionSettings.TST.dataDailyChange, "sharedDailyChange": settings.dataProtectionSettings.TST.sharedDailyChange, "snapRetention": settings.dataProtectionSettings.TST.snapRetention, "backupRetention": settings.dataProtectionSettings.TST.backupRetention},
@@ -1439,10 +1462,10 @@ function updateSnapshotBackup(settings) {
         document.getElementById("prodSharedChange").value = dataProtectionSettings.PROD.sharedDailyChange;
         document.getElementById("prodSnapRet").value = dataProtectionSettings.PROD.snapRetention;
         document.getElementById("prodBackupRet").value = dataProtectionSettings.PROD.backupRetention;
-        document.getElementById("preProdDataChange").value = dataProtectionSettings.PREPROD.dataDailyChange;
-        document.getElementById("preProdSharedChange").value = dataProtectionSettings.PREPROD.sharedDailyChange;
-        document.getElementById("preProdSnapRet").value = dataProtectionSettings.PREPROD.snapRetention;
-        document.getElementById("preProdBackupRet").value = dataProtectionSettings.PREPROD.backupRetention;
+        document.getElementById("preProdDataChange").value = dataProtectionSettings["PRE-PROD"].dataDailyChange;
+        document.getElementById("preProdSharedChange").value = dataProtectionSettings["PRE-PROD"].sharedDailyChange;
+        document.getElementById("preProdSnapRet").value = dataProtectionSettings["PRE-PROD"].snapRetention;
+        document.getElementById("preProdBackupRet").value = dataProtectionSettings["PRE-PROD"].backupRetention;
         document.getElementById("qasDataChange").value = dataProtectionSettings.QAS.dataDailyChange;
         document.getElementById("qasSharedChange").value = dataProtectionSettings.QAS.sharedDailyChange;
         document.getElementById("qasSnapRet").value = dataProtectionSettings.QAS.snapRetention;
