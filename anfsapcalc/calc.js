@@ -742,7 +742,7 @@ function addSystem(inputJson){
             dataRowDailyChangeRate.innerHTML = dataDailyChangeRate;
             dataRowSnapshotRetentionDays.innerHTML = dataSnapshotRetentionDays;
             dataRowBackupRetentionDays.innerHTML = dataBackupRetentionDays;
-            dataRowSnapshotSize.innerHTML = dataSnapshotSize;
+            dataRowSnapshotSize.innerHTML = dataSnapshotSize.toFixed(2);
             dataRowFreeSpace.innerHTML = dataFreeSpace;
             dataRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
             
@@ -1015,7 +1015,7 @@ function addVolume(inputJson) {
     volRowDailyChangeRate.innerHTML = volDailyChangeRate;
     volRowSnapshotRetentionDays.innerHTML = volSnapshotRetentionDays;
     volRowBackupRetentionDays.innerHTML = volBackupRetention;
-    volRowSnapshotSize.innerHTML = volSnapshotSize;
+    volRowSnapshotSize.innerHTML = volSnapshotSize.toFixed(2);
     volRowFreeSpace.innerHTML = "0";
     volRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete single volume?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
     
