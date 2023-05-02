@@ -1052,30 +1052,8 @@ function updatePoolAnfTcoTable() {
                 ultraSizedForPerformance = false;
                 ultraDisplayedCapacity = ceilTiBCapacity;
             }
-    
-            if(Math.min(standardCost, premiumCost, ultraCost) == standardCost){
-                displayedCost = standardCost;
-                sizedForPerformance = standardSizedForPerformance;
-                displayedSize = standardDisplayedCapacity;
-                displayedServiceLevel = "Standard";
-                excessCapacity = standardDisplayedCapacity - (runningTotalCapacity[key] / 1024);
-                excessPerformance = (standardDisplayedCapacity * 16) - runningPerformance[key];
-            }else if(Math.min(standardCost, premiumCost, ultraCost) == premiumCost){
-                displayedCost = premiumCost;
-                sizedForPerformance = premiumSizedForPerformance;
-                displayedSize = premiumDisplayedCapacity;
-                displayedServiceLevel = "Premium";
-                excessCapacity = premiumDisplayedCapacity - (runningTotalCapacity[key] / 1024);
-                excessPerformance = (premiumDisplayedCapacity * 64) - runningPerformance[key];
-            }else if(Math.min(standardCost, premiumCost, ultraCost) == ultraCost){
-                displayedCost = ultraCost;
-                sizedForPerformance = ultraSizedForPerformance;
-                displayedSize = ultraDisplayedCapacity;
-                displayedServiceLevel = "Ultra";
-                excessCapacity = ultraDisplayedCapacity - (runningTotalCapacity[key] / 1024);
-                excessPerformance = (ultraDisplayedCapacity * 128) - runningPerformance[key];
-            }
 
+            //build Standard row
             var anfTcoRow = tbodyRef.insertRow();
             var anfTcoRowPool = anfTcoRow.insertCell(0);
             var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
@@ -1085,35 +1063,147 @@ function updatePoolAnfTcoTable() {
             var anfTcoRowSizing = anfTcoRow.insertCell(5);
             var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
             var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
+            anfTcoRow.id = key + "-standard";
             anfTcoRowPool.innerHTML = key;
-            anfTcoRowServiceLevel.innerHTML = displayedServiceLevel;
+            anfTcoRowServiceLevel.innerHTML = "Standard";
             anfTcoRowRegion.innerHTML = poolGroupRegions[key];
-            anfTcoRowCapacity.innerHTML = displayedSize;
-            anfTcoRowCost.innerHTML = displayedCost.toFixed(2);
-            totalAnfCost += displayedCost;
-            totalAnfCapacity += displayedSize;
-            if(sizedForPerformance == true){
+            anfTcoRowCapacity.innerHTML = standardDisplayedCapacity;
+            anfTcoRowCost.innerHTML = standardCost.toFixed(2);
+            if(standardSizedForPerformance == true){
                 anfTcoRowSizing.innerHTML = "Performance";
             }else{
                 anfTcoRowSizing.innerHTML = "Capacity";
             }
-            anfTcoRowExcessCapacity.innerHTML = excessCapacity.toFixed(2); // will be calculated later
-            anfTcoRowExcessPerformance.innerHTML = excessPerformance; // will be calculated later 
+            anfTcoRowExcessCapacity.innerHTML = (standardDisplayedCapacity - (runningTotalCapacity[key] / 1024)).toFixed(2);
+            anfTcoRowExcessPerformance.innerHTML = (standardDisplayedCapacity * 16) - runningPerformance[key];
+            //build Premium row
+            var anfTcoRow = tbodyRef.insertRow();
+            var anfTcoRowPool = anfTcoRow.insertCell(0);
+            var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
+            var anfTcoRowRegion = anfTcoRow.insertCell(2);
+            var anfTcoRowCapacity = anfTcoRow.insertCell(3);
+            var anfTcoRowCost = anfTcoRow.insertCell(4);
+            var anfTcoRowSizing = anfTcoRow.insertCell(5);
+            var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
+            var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
+            anfTcoRow.id = key + "-premium";
+            anfTcoRowPool.innerHTML = key;
+            anfTcoRowServiceLevel.innerHTML = "Premium";
+            anfTcoRowRegion.innerHTML = poolGroupRegions[key];
+            anfTcoRowCapacity.innerHTML = premiumDisplayedCapacity;
+            anfTcoRowCost.innerHTML = premiumCost.toFixed(2);
+            if(premiumSizedForPerformance == true){
+                anfTcoRowSizing.innerHTML = "Performance";
+            }else{
+                anfTcoRowSizing.innerHTML = "Capacity";
+            }
+            anfTcoRowExcessCapacity.innerHTML = (premiumDisplayedCapacity - (runningTotalCapacity[key] / 1024)).toFixed(2);
+            anfTcoRowExcessPerformance.innerHTML = (premiumDisplayedCapacity * 64) - runningPerformance[key];
+            //build Ultra row
+            var anfTcoRow = tbodyRef.insertRow();
+            var anfTcoRowPool = anfTcoRow.insertCell(0);
+            var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
+            var anfTcoRowRegion = anfTcoRow.insertCell(2);
+            var anfTcoRowCapacity = anfTcoRow.insertCell(3);
+            var anfTcoRowCost = anfTcoRow.insertCell(4);
+            var anfTcoRowSizing = anfTcoRow.insertCell(5);
+            var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
+            var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
+            anfTcoRow.id = key + "-ultra";
+            anfTcoRowPool.innerHTML = key;
+            anfTcoRowServiceLevel.innerHTML = "Ultra";
+            anfTcoRowRegion.innerHTML = poolGroupRegions[key];
+            anfTcoRowCapacity.innerHTML = ultraDisplayedCapacity;
+            anfTcoRowCost.innerHTML = ultraCost.toFixed(2);
+            if(ultraSizedForPerformance == true){
+                anfTcoRowSizing.innerHTML = "Performance";
+            }else{
+                anfTcoRowSizing.innerHTML = "Capacity";
+            }
+            anfTcoRowExcessCapacity.innerHTML = (ultraDisplayedCapacity - (runningTotalCapacity[key] / 1024)).toFixed(2);
+            anfTcoRowExcessPerformance.innerHTML = (ultraDisplayedCapacity * 128) - runningPerformance[key];
+
+            if(Math.min(standardCost, premiumCost, ultraCost) == standardCost){
+                totalAnfCost += standardCost;
+                totalAnfCapacity += standardDisplayedCapacity;
+                var anfTcoRowHightlight = document.getElementById(key + "-standard");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-primary");
+                    tds[i].classList.add("fw-semibold");
+                }
+                var anfTcoRowHightlight = document.getElementById(key + "-premium");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-secondary");
+                    tds[i].classList.add("fw-light");
+                }
+                var anfTcoRowHightlight = document.getElementById(key + "-ultra");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-secondary");
+                    tds[i].classList.add("fw-light");
+                }
+            }else if(Math.min(standardCost, premiumCost, ultraCost) == premiumCost){
+                totalAnfCost += premiumCost;
+                totalAnfCapacity += premiumDisplayedCapacity;
+                var anfTcoRowHightlight = document.getElementById(key + "-premium");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-primary");
+                    tds[i].classList.add("fw-semibold");
+                }
+                var anfTcoRowHightlight = document.getElementById(key + "-standard");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-secondary");
+                    tds[i].classList.add("fw-light");
+                }
+                var anfTcoRowHightlight = document.getElementById(key + "-ultra");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-secondary");
+                    tds[i].classList.add("fw-light");
+                }
+            }else if(Math.min(standardCost, premiumCost, ultraCost) == ultraCost){
+                totalAnfCost += ultraCost;
+                totalAnfCapacity += ultraDisplayedCapacity;
+                var anfTcoRowHightlight = document.getElementById(key + "-ultra");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-primary");
+                    tds[i].classList.add("fw-semibold");
+                }
+                var anfTcoRowHightlight = document.getElementById(key + "-standard");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-secondary");
+                    tds[i].classList.add("fw-light");
+                }
+                var anfTcoRowHightlight = document.getElementById(key + "-premium");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                for(var i = 0, j = tds.length; i < j; ++i) { 
+                    tds[i].classList.add("text-secondary");
+                    tds[i].classList.add("fw-light");
+                } 
+            }
         }
     }
     var anfTcoRow = tbodyRef.insertRow();
-    var anfTcoRowPool = anfTcoRow.insertCell(0);
-    var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
-    var anfTcoRowRegion = anfTcoRow.insertCell(2);
-    var anfTcoRowCapacity = anfTcoRow.insertCell(3);
-    var anfTcoRowCost = anfTcoRow.insertCell(4);
-    var anfTcoRowSizing = anfTcoRow.insertCell(5);
-    var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
-    var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
-    anfTcoRowPool.innerHTML = "Total";
-    anfTcoRowCapacity.innerHTML = totalAnfCapacity;
-    anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
-
+                var anfTcoRowPool = anfTcoRow.insertCell(0);
+                anfTcoRowPool.classList.add("fw-bold");
+                var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
+                var anfTcoRowRegion = anfTcoRow.insertCell(2);
+                var anfTcoRowCapacity = anfTcoRow.insertCell(3);
+                anfTcoRowCapacity.classList.add("fw-bold");
+                var anfTcoRowCost = anfTcoRow.insertCell(4);
+                anfTcoRowCost.classList.add("fw-bold");
+                var anfTcoRowSizing = anfTcoRow.insertCell(5);
+                var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
+                var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
+                anfTcoRowPool.innerHTML = "Total";
+                anfTcoRowCapacity.innerHTML = totalAnfCapacity;
+                anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
 }
 
 function updatePoolAnfBackupTable() {
@@ -1147,10 +1237,14 @@ function updatePoolAnfBackupTable() {
     var anfBackupTcoRowTotalCapacity = anfBackupTcoRow.insertCell(3);
     var anfBackupTcoRowCost = anfBackupTcoRow.insertCell(4);
     anfBackupTcoRowPool.innerHTML = "Total";
+    anfBackupTcoRowPool.classList.add("fw-bold");
+    
     anfBackupTcoRowBaselineCapacity.innerHTML = "";
     anfBackupTcoRowDeltaCapacity.innerHTML = "";
     anfBackupTcoRowTotalCapacity.innerHTML = (totalAnfBackupCapacity / 1024).toFixed(2);
+    anfBackupTcoRowTotalCapacity.classList.add("fw-bold");
     anfBackupTcoRowCost.innerHTML = totalAnfBackupCost.toFixed(2);
+    anfBackupTcoRowCost.classList.add("fw-bold");
 }
 
 function saveToBlob(){
