@@ -690,10 +690,10 @@ function addSystem(inputJson){
             let dataSnapshotSize = (dataGiB / 2) * (dataDailyChangeRate / 100) * dataSnapshotRetentionDays;
             let dataAddSnapshotSpace = Math.max(dataSnapshotSize - dataFreeSpace, 0);
             let dataTotalSpace = dataGiB + dataAddSnapshotSpace;
-            let dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
-            //if(dataBackupRetentionDays > 0){
-            //    dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
-            //}
+            let dataBackupBaselineCapacity = 0;
+            if(dataBackupRetentionDays > 0){
+                dataBackupBaselineCapacity = parseFloat(dataGiB)/2;
+            }
             let dataBackupDeltaCapacity = dataBackupBaselineCapacity * parseFloat(dataDailyChangeRate / 100) * dataBackupRetentionDays;
             let dataBackupTotalCapacity = dataBackupBaselineCapacity + dataBackupDeltaCapacity;
 
