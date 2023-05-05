@@ -1286,7 +1286,7 @@ function updatePoolAnfBackupTable() {
     anfBackupTcoRowCost.classList.add("fw-bold");
 }
 
-function saveToBlob(){
+function saveToLocal(){
 let exportJson = {
     "settings": {
         "kpiBaseline": {
@@ -1318,6 +1318,45 @@ downloadAnchorNode.setAttribute("download", exportName + ".json");
 document.body.appendChild(downloadAnchorNode); // required for firefox
 downloadAnchorNode.click();
 downloadAnchorNode.remove();
+}
+
+function saveToBlob(){
+    let exportJson = {
+        "settings": {
+            "kpiBaseline": {
+                "data": kpiTargets.data,
+                "log": kpiTargets.log,
+                "shared": kpiTargets.shared
+            },
+            "kpiMultipliers": {
+                "prodPerf": kpiMultipliers.PROD,
+                "preProdPerf": kpiMultipliers["PRE-PROD"],
+                "qasPerf": kpiMultipliers.QAS,
+                "devPerf": kpiMultipliers.DEV,
+                "tstPerf": kpiMultipliers.TST,
+                "sbxPerf": kpiMultipliers.SBX,
+                "drPerf": kpiMultipliers.DR,
+                "otherPerf": kpiMultipliers.OTHER
+            },
+            dataProtectionSettings,
+            poolGroupRegions
+        },
+        "input": masterInput
+    }
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        //console.log(req.responseText);
+        blobRecordId = req.responseText;
+        document.getElementById("savedUrl").innerHTML = '<a href="https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '" target="_blank">https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '</a>';
+    }
+    };
+    
+    req.open("POST", "https://prod-51.eastus.logic.azure.com:443/workflows/0a5b80778f324e46bc02d3d83c8d6c29/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nmdrNsLWZWuW6RWypZk_sKqbgTw_U91_NohfWYJfKkY", true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.send(JSON.stringify(exportJson));
 }
 
 function updatePoolGroupRegions(settings){
@@ -1361,9 +1400,9 @@ function updateKpiMultipliers(settings){
     inputId = 0;
     resetTables();
     if(arguments.length == 0){
-        newDataBaseline = document.getElementById("dataBaseline").value;
-        newLogBaseline = document.getElementById("logBaseline").value;
-        newSharedBaseline = document.getElementById("sharedBaseline").value;
+        newDataBaseline = Number(document.getElementById("dataBaseline").value);
+        newLogBaseline = Number(document.getElementById("logBaseline").value);
+        newSharedBaseline = Number(document.getElementById("sharedBaseline").value);
         newProdPerfMultiplier = document.getElementById("prodPerf").value/100;
         newPreProdPerfMultiplier = document.getElementById("preProdPerf").value/100;
         newQasPerfMultiplier = document.getElementById("qasPerf").value/100;
@@ -1389,7 +1428,7 @@ function updateKpiMultipliers(settings){
             "DR": newDrPerfMultiplier,
             "OTHER": newOtherPerfMultiplier
         }
-        updateTables(masterInput);
+        //updateTables(masterInput); causing loop
     }else{
         newDataBaseline = settings.kpiBaseline.data;
         newLogBaseline = settings.kpiBaseline.log;
@@ -1529,13 +1568,51 @@ function loadConfig() {
     fr.readAsText(files.item(0));
 };
 
-function importConfig(){
-    let result = JSON.parse(document.getElementById('result').value);
-    console.log(result);
-    updateKpiMultipliers(result.settings);
-    updateSnapshotBackup(result.settings);
-    updatePoolGroupRegions(result.settings);
-    updateTables(result.input);
+function getConfigId(){
+    let params = new URLSearchParams(location.search);
+    let configId = params.get('configid');
+    console.log(configId);
+    if(configId != null){
+        importConfig(configId);
+    }else{
+        console.log("No config ID");
+    }
+}
+
+function importConfig(configId){
+    var result = '';
+    if(arguments.length == 0){
+        result = JSON.parse(document.getElementById('result').value);
+        console.log(result);
+        console.log(result);
+        updateKpiMultipliers(result.settings);
+        updateSnapshotBackup(result.settings);
+        updatePoolGroupRegions(result.settings);
+        updateTables(result.input);
+    }else{
+        let reqJson = new XMLHttpRequest();
+
+        reqJson.onreadystatechange = () => {
+        if (reqJson.readyState == XMLHttpRequest.DONE) {
+            //console.log(req.responseText);
+            resultJson = JSON.parse(reqJson.responseText);
+            result = resultJson.record;
+            console.log(result);
+            updateKpiMultipliers(result.settings);
+            updateSnapshotBackup(result.settings);
+            updatePoolGroupRegions(result.settings);
+            updateTables(result.input);
+        }
+        };
+        
+        sendData = { "configId": configId };
+        reqJson.open("POST", "https://prod-15.eastus.logic.azure.com:443/workflows/47938b68af764a79b8f61ee9c65e5fea/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6rNA2OpXTFgPfsrjlEeG3Q8SXfxadGHoTPiWc2ZUVGo", true);
+        reqJson.setRequestHeader("Content-Type", "application/json");
+        reqJson.send(JSON.stringify(sendData));
+  
+    }
+    
+    
 }
 
 function deleteRecord(recordId){

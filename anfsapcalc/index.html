@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body class="" onload="resetTables()">
+    <body class="" onload="getConfigId()">
         <script src="./calc.js"></script>
         <script src="./bootstrap/js/bootstrap.js"></script>
         <script>
@@ -112,7 +112,22 @@
                                                 <input style="width: 200px" type="text" class="form-control" placeholder="" aria-label="fileName" aria-describedby="fileName" id="fileName">
                                                 <span class="input-group-text">.json</span>
                                             </div>
-                                            <button onclick="saveToBlob()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Export Config&nbsp<i class="bi bi-filetype-json"></i></button>
+                                            <button onclick="saveToLocal()" type="button" id="downloadAnchorElem" class="btn btn-outline-primary btn-sm">Export Config&nbsp<i class="bi bi-filetype-json"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+                                        Save Config&nbsp<i class="bi bi-filetype-json"></i>
+                                    </button>
+                                    <div class="bg-light dropdown-menu">
+                                        <div class="container" style="width: 700px">
+                                            <h5>Save config as URL</h5>
+                                            
+                                            <p><span><i class="bi bi-clipboard"></i></span>&nbsp;<span id="savedUrl"></span></p>
+                                                
+                                            
+                                            <button onclick="saveToBlob()" type="button" id="" class="btn btn-outline-primary btn-sm">Confirm&nbsp<i class="bi bi-clipboard"></i></button>
                                         </div>
                                     </div>
                                 </div>
