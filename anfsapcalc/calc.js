@@ -1389,11 +1389,14 @@ function saveToBlob(){
     let req = new XMLHttpRequest();
 
     req.onreadystatechange = () => {
-    if (req.readyState == XMLHttpRequest.DONE) {
-        //console.log(req.responseText);
-        blobRecordId = req.responseText;
-        document.getElementById("savedUrl").innerHTML = '<i type="button" onclick="copyToClipboard(\'https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '\')" class="bi bi-clipboard-check"></i>&nbsp;<a href="https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '" target="_blank">https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '</a>';
+        if (req.readyState == XMLHttpRequest.DONE) {
+            //console.log(req.responseText);
+            blobRecordId = req.responseText;
+            document.getElementById("savedUrl").innerHTML = '<i type="button" onclick="copyToClipboard(\'https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '\')" class="bi bi-clipboard-check"></i>&nbsp;<a href="https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '" target="_blank">https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '</a>';
+        }else{
+            document.getElementById("savedUrl").innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
         }
+   
     };
     
     req.open("POST", "https://prod-51.eastus.logic.azure.com:443/workflows/0a5b80778f324e46bc02d3d83c8d6c29/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nmdrNsLWZWuW6RWypZk_sKqbgTw_U91_NohfWYJfKkY", true);
