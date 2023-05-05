@@ -259,6 +259,9 @@
                                             <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
                                                 <form id="addVolumeForm">
+                                                    <div class="justify-content-end input-group input-group-sm mb-1">
+                                                        <span class="invisible" id="warningMessageVolume">.</span>
+                                                       </div>
                                                     <div class="input-group input-group-sm mb-1">
                                                         <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">

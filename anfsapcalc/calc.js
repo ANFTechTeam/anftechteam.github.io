@@ -515,7 +515,7 @@ function validateInput(element) {
                 if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 102400){
                     obj = document.getElementById("warningMessage");
                     obj.classList.remove("invisible");
-                    document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;RAM size exceeds maximum size of 100 TiB (102,400 GiB).</small>';
+                    document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-danger bi-info-circle-fill"></i>&nbsp;RAM size exceeds maximum size of 100 TiB (102,400 GiB)</small>';
                     document.getElementById("sys-ram").style.borderColor = "red";
                     return false;
                 }else if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 12288){
@@ -524,6 +524,7 @@ function validateInput(element) {
                     document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Consider using <a href="https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/using-azure-netapp-files-avg-for-sap-hana-to-deploy-hana-with/ba-p/3742747" target="_blank">SAP HANA multiple partitions / multiple volumes</a> for very large systems.</small>';
                     obj = document.getElementById("sys-ram");
                     obj.classList.add("bg-warning");
+                    document.getElementById("sys-ram").style.borderColor = "";
                     return true;
                 }else{
                     obj = document.getElementById("warningMessage");
@@ -573,8 +574,19 @@ function validateInput(element) {
         case "vol-size":
             var volSize = document.getElementById("vol-size").value;
             if(Number.isInteger(Number(volSize)) && Number(volSize) > 0){
-                document.getElementById("vol-size").style.borderColor = "";
+                if(Number.isInteger(Number(volSize)) && Number(volSize) > 102400){
+                    obj = document.getElementById("warningMessageVolume");
+                    obj.classList.remove("invisible");
+                    document.getElementById("warningMessageVolume").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-danger bi-info-circle-fill"></i>&nbsp;Volume size exceeds maximum size of 100 TiB (102,400 GiB)</small>';
+                    document.getElementById("vol-size").style.borderColor = "red";
+                    return false;
+                }else{
+                    obj = document.getElementById("warningMessageVolume");
+                    obj.classList = ["invisible"];
+                    document.getElementById("warningMessage").innerHTML = '.';
+                    document.getElementById("vol-size").style.borderColor = "";
                 return true;
+                }
             }else{
                 document.getElementById("vol-size").style.borderColor = "red";
                 return false;
