@@ -515,8 +515,7 @@ function validateInput(element) {
                 if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 102400){
                     document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-danger bi-info-circle-fill"></i>&nbsp;Consider using <a href="https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/using-azure-netapp-files-avg-for-sap-hana-to-deploy-hana-with/ba-p/3742747" target="_blank">SAP HANA multiple partitions / multiple volumes</a> for very large systems.</small>';
                     document.getElementById("sys-ram").style.borderColor = "red";
-                    loadTooltips();
-                    return false;
+                    return true;
                 }else{
                     document.getElementById("warningMessage").innerHTML = '';
                     document.getElementById("sys-ram").style.borderColor = "";
