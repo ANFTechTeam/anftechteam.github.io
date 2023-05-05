@@ -531,6 +531,7 @@ function validateInput(element) {
                     document.getElementById("warningMessage").innerHTML = '.';
                     obj = document.getElementById("sys-ram");
                     obj.classList.remove("bg-warning");
+                    document.getElementById("sys-ram").style.borderColor = "";
                     return true;
                 }
 
