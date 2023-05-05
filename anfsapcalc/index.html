@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SAP on ANF TCO Calculator</title>
+        <title>ANF for SAP Cost Estimator</title>
         <link rel="icon" href="./favicon.ico">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -33,7 +33,7 @@
                 <div class="card-header pb-3">
                     <div class="row p-0">
                         <div class="col">
-                            <h4>Azure NetApp Files for SAP TCO Estimator</h4>
+                            <h4>Azure NetApp Files for SAP Cost Estimator</h4>
                             <img src="./anficon.png" alt="Azure NetApp Files" height="75">
                             <img src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg" alt="SAP Logo" height="75">
                         </div>
@@ -56,12 +56,12 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="container" >
-                                                <p><strong>IMPORTANT: </strong>This tool is designed to estimate the TCO of SAP HANA on Azure NetApp Files. However, it is not meant to be a comprehensive tool and may not account for all possible factors that may impact the total cost. Therefore, it should only be used as a guide for estimating costs.</p>
+                                                <p><strong>IMPORTANT: </strong>This tool is designed to estimate the infrastructure costs of an SAP HANA on Azure NetApp Files landscape. However, it is not meant to be a comprehensive tool and may not account for all possible factors that may impact the total cost. Especially the backup cost is based on user provided assumed change rates. Therefore, it should only be used as a guide for estimating total costs.</p>
                                                 <hr>
                                                 <h6>Help</h6>
-                                                <p><span class="text-primary" onmouseover="highlightText(addSystemsAndVolumes)" onmouseout="resetTextColor(addSystemsAndVolumes)">Add SAP HANA Systems and Volumes</span> to compute the TCO for Azure NetApp Files capacity pools and Azure NetApp Files backup. Multiple systems and volumes can be entered. The <span class="text-primary" onmouseover="highlightText(poolGroupSummary)" onmouseout="resetTextColor(poolGroupSummary)">Capacity Pool Summary</span> and<span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> sections can be expanded to view the details of the data entered.</p>
+                                                <p><span class="text-primary" onmouseover="highlightText(addSystemsAndVolumes)" onmouseout="resetTextColor(addSystemsAndVolumes)">Add SAP HANA Systems and Volumes</span> to compute the TCO for Azure NetApp Files capacity pools and Azure NetApp Files backup required for the SAP landscape. Multiple systems and volumes can be entered. The <span class="text-primary" onmouseover="highlightText(poolGroupSummary)" onmouseout="resetTextColor(poolGroupSummary)">Capacity Pool Summary</span> and<span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> sections can be expanded to view the details of the data entered.</p>
                                                 <p>Use the <span class="text-primary">Capacity Pool Region</span> section to select a region for each capacity pool to estimate costs based on the desired region.</p>
-                                                <p>This TCO calculator provides estimated costs for Azure NetApp Files capacity pools as shown in the <span class="text-primary" onmouseover="highlightText(volumeCosts)" onmouseout="resetTextColor(volumeCosts)">Estimated ANF Storage Costs</span> section as well as Azure NetApp Files backup costs as shown in the <span class="text-primary" onmouseover="highlightText(backupCosts)" onmouseout="resetTextColor(backupCosts)">Estimated ANF Backup Costs</span> section.</p>
+                                                <p>This calculator provides estimated costs for Azure NetApp Files capacity pools as shown in the <span class="text-primary" onmouseover="highlightText(volumeCosts)" onmouseout="resetTextColor(volumeCosts)">Estimated ANF Storage Costs</span> section as well as Azure NetApp Files backup costs as shown in the <span class="text-primary" onmouseover="highlightText(backupCosts)" onmouseout="resetTextColor(backupCosts)">Estimated ANF Backup Costs</span> section.</p>
                                                 <p>You can modify the settings/parameters to adjust the requirements to fit your particular use case or workload using the <span class="text-primary">Performance Modifiers</span> and <span class="text-primary">Snapshot and Backup</span> sections.</p>
                                                 <p>If you make a mistake, systems or volumes can be removed using the <i class=" button bi bi-x"></i> icon in the <span class="text-primary" onmouseover="highlightText(volumeSummary)" onmouseout="resetTextColor(volumeSummary)"> Volume Summary</span> section.</p>
                                                 <p>Configurations can be exported and imported using the <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
