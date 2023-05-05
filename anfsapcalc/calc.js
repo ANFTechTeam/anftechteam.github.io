@@ -513,12 +513,24 @@ function validateInput(element) {
             var sysRamSize = document.getElementById("sys-ram").value;
             if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 0){
                 if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 102400){
-                    document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-danger bi-info-circle-fill"></i>&nbsp;Consider using <a href="https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/using-azure-netapp-files-avg-for-sap-hana-to-deploy-hana-with/ba-p/3742747" target="_blank">SAP HANA multiple partitions / multiple volumes</a> for very large systems.</small>';
+                    obj = document.getElementById("warningMessage");
+                    obj.classList.remove("invisible");
+                    document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;RAM size exceeds maximum size of 100 TiB (102,400 GiB).</small>';
                     document.getElementById("sys-ram").style.borderColor = "red";
+                    return false;
+                }else if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 12288){
+                    obj = document.getElementById("warningMessage");
+                    obj.classList.remove("invisible");
+                    document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Consider using <a href="https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/using-azure-netapp-files-avg-for-sap-hana-to-deploy-hana-with/ba-p/3742747" target="_blank">SAP HANA multiple partitions / multiple volumes</a> for very large systems.</small>';
+                    obj = document.getElementById("sys-ram");
+                    obj.classList.add("bg-warning");
                     return true;
                 }else{
-                    document.getElementById("warningMessage").innerHTML = '';
-                    document.getElementById("sys-ram").style.borderColor = "";
+                    obj = document.getElementById("warningMessage");
+                    obj.classList = ["invisible"];
+                    document.getElementById("warningMessage").innerHTML = '.';
+                    obj = document.getElementById("sys-ram");
+                    obj.classList.remove("bg-warning");
                     return true;
                 }
 
@@ -631,6 +643,7 @@ function addSystem(inputJson){
         }
         if(validateInput("sys-ram")){
             var sysRamSize = document.getElementById("sys-ram").value;
+
         }else{
             invalidInputs++;
         }
