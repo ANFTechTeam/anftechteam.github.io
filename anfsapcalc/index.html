@@ -144,6 +144,7 @@
                         <h2 class="accordion-header">
                             <button id="mainAccordianButtonOne" class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
                             <h5 id="addSystemsAndVolumes">Add Systems and Volumes<h5>
+                                
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse show">
@@ -161,6 +162,10 @@
                                             <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
                                                     <form id="addSystemForm">
+                                                        <div class="justify-content-end input-group input-group-sm mb-1">
+                                                            <span id="warningMessage"></span>
+                                                           </div>
+                                                       
                                                     <div class="input-group input-group-sm mb-1">
                                                         
                                                         <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
@@ -189,6 +194,7 @@
                                                         <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
                                                         <span class="input-group-text" id="sys-ram-unit">GiB</span>
                                                     </div>
+                                                    
                                                     <div class="input-group input-group-sm mb-1">
                                                         <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">HA (HSR)&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="If this system will be configured as HA using HANA system replication." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-ha">
@@ -1199,8 +1205,8 @@
             </div>
         </div>
         <script>
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+            loadTooltips();
+            
         </script>
     </body>
 </html>

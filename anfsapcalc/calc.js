@@ -512,8 +512,17 @@ function validateInput(element) {
         case "sys-ram":
             var sysRamSize = document.getElementById("sys-ram").value;
             if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 0){
-                document.getElementById("sys-ram").style.borderColor = "";
-                return true;
+                if(Number.isInteger(Number(sysRamSize)) && Number(sysRamSize) > 102400){
+                    document.getElementById("warningMessage").innerHTML = '&nbsp;<small class="fs-small text-secondary"><i class="bi text-danger bi-info-circle-fill"></i>&nbsp;Consider using <a href="https://techcommunity.microsoft.com/t5/running-sap-applications-on-the/using-azure-netapp-files-avg-for-sap-hana-to-deploy-hana-with/ba-p/3742747" target="_blank">SAP HANA multiple partitions / multiple volumes</a> for very large systems.</small>';
+                    document.getElementById("sys-ram").style.borderColor = "red";
+                    loadTooltips();
+                    return false;
+                }else{
+                    document.getElementById("warningMessage").innerHTML = '';
+                    document.getElementById("sys-ram").style.borderColor = "";
+                    return true;
+                }
+
             }else{
                 document.getElementById("sys-ram").style.borderColor = "red";
                 return false;
@@ -686,6 +695,9 @@ function addSystem(inputJson){
         
             // calculate
             let dataGiB = sysRamSize * 1.0;
+            if(dataGiB < 100){
+                dataGiB=100;
+            }
             let dataFreeSpace = dataGiB / 2;
             let dataDailyChangeRate = Number(eval('dataProtectionSettings["' + sysEnv + '"].dataDailyChange'));
             let dataSnapshotRetentionDays = Number(eval('dataProtectionSettings["' + sysEnv + '"].snapRetention'));
@@ -760,6 +772,9 @@ function addSystem(inputJson){
         }else{
             var logGiB = Math.min(sysRamSize * 1.0, 512);
         }
+        if(logGiB < 100){
+            logGiB=100;
+        }
         
         let logFreeSpace = 0;
         let logDailyChangeRate = 0;
@@ -819,7 +834,9 @@ function addSystem(inputJson){
 
         // calculate
         let sharedGiB = Math.min(sysRamSize * 1.0, 1024);
-        
+        if(sharedGiB < 100){
+            sharedGiB=100;
+        }
         let sharedFreeSpace = 0;
         let sharedDailyChangeRate = Number(eval('dataProtectionSettings["' + sysEnv + '"].sharedDailyChange'));
         let sharedSnapshotRetentionDays = Number(eval('dataProtectionSettings["' + sysEnv + '"].snapRetention'));
@@ -971,6 +988,9 @@ function addVolume(inputJson) {
     
     // calculate
     let volGiB = parseFloat(volSize);
+    if(volGiB < 100){
+        volGiB=100;
+    }
     let volPerf = parseFloat(volThroughput);
     let volSnapshotRetentionDays = parseFloat(volSnapshotRetention);
     let volSnapshotSize = (volGiB) * (volDailyChangeRate / 100) * volSnapshotRetentionDays;
@@ -1666,5 +1686,11 @@ function deleteRecord(recordId){
      resetTables();
      updateTables(arr);
 }
+
+function loadTooltips(){
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+}
+
 
 
