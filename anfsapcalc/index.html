@@ -122,12 +122,12 @@
                                     </button>
                                     <div class="bg-light dropdown-menu">
                                         <div class="container" style="width: 700px">
-                                            <h5>Save config as URL</h5>
+                                            <h5>To share this config, click the 'Generate URL' button below.</h5>
                                             
-                                            <p><span><i class="bi bi-clipboard"></i></span>&nbsp;<span id="savedUrl"></span></p>
+                                            <p><span></span>&nbsp;<span id="savedUrl"></span></p>
                                                 
                                             
-                                            <button onclick="saveToBlob()" type="button" id="" class="btn btn-outline-primary btn-sm">Confirm&nbsp<i class="bi bi-clipboard"></i></button>
+                                            <button onclick="saveToBlob()" type="button" id="" class="btn btn-outline-primary btn-sm">Generate URL</button>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                            <button id="mainAccordianButtonOne" class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
                             <h5 id="addSystemsAndVolumes">Add Systems and Volumes<h5>
                             </button>
                         </h2>
@@ -160,6 +160,7 @@
                                             </h2>
                                             <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
+                                                    <form id="addSystemForm">
                                                     <div class="input-group input-group-sm mb-1">
                                                         
                                                         <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
@@ -239,6 +240,7 @@
                                                     <div class="float-end">
                                                         <button onclick="addSystem()" type="button" class="btn btn-outline-primary btn-sm">Add System</button>
                                                     </div>
+                                                </form>
                                                 </div>
                                             </div>
                                             </div>
@@ -250,6 +252,7 @@
                                             </h2>
                                             <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
+                                                <form id="addVolumeForm">
                                                     <div class="input-group input-group-sm mb-1">
                                                         <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('vol-sid')" type="text" class="form-control" placeholder="" aria-label="vol-sid" aria-describedby="vol-sid" id="vol-sid">
@@ -315,6 +318,7 @@
                                                     <div class="float-end">
                                                         <button onclick="addVolume()" type="button" class="btn btn-outline-primary btn-sm">Add Volume</button>
                                                     </div>
+                                                </form>
                                                 </div>
                                             </div>
                                             </div>
@@ -1080,7 +1084,7 @@
                         </div>
                         <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <button id="mainAccordianButtonTwo" class="accordion-button bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                             <h5 id="volumeCosts">Estimated ANF Storage Costs</h5>
                             </button>
                         </h2>
@@ -1105,7 +1109,7 @@
                         </div>
                         <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <button id="mainAccordianButtonThree" class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                             <h5 id="backupCosts">Estimated ANF Backup Costs</h5>
                             </button>
                         </h2>
@@ -1127,7 +1131,7 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                            <button id="mainAccordianButtonFour" class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                                 <h5 id="poolGroupSummary">Capacity Pool Summary</h5>
                             </button>
                             </h2>
@@ -1150,7 +1154,7 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                            <button id="mainAccordianButtonFive" class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                                 <h5 id="volumeSummary">Volume Summary</h5>
                             </button>
                             </h2>

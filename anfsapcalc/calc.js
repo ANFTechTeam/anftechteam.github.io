@@ -633,6 +633,9 @@ function addSystem(inputJson){
         var sysPool = document.getElementById("sys-pool").value;
         if(invalidInputs > 0){
             return;
+        }else{
+            var form = document.getElementById("addSystemForm");
+            form.reset();
         }
     }else{
         // get the values from the json
@@ -934,6 +937,9 @@ function addVolume(inputJson) {
         
         if(invalidInputs > 0){
             return;
+        }else{
+            var form = document.getElementById("addVolumeForm");
+            form.reset();
         }
     }else{
         var volSid = inputJson["inputSid"];
@@ -1354,13 +1360,17 @@ function saveToBlob(){
     if (req.readyState == XMLHttpRequest.DONE) {
         //console.log(req.responseText);
         blobRecordId = req.responseText;
-        document.getElementById("savedUrl").innerHTML = '<a href="https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '" target="_blank">https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '</a>';
-    }
+        document.getElementById("savedUrl").innerHTML = '<i type="button" onclick="copyToClipboard(\'https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '\')" class="bi bi-clipboard-check"></i>&nbsp;<a href="https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '" target="_blank">https://anftechteam.github.io/anfsapcalc?configid=' + blobRecordId + '</a>';
+        }
     };
     
     req.open("POST", "https://prod-51.eastus.logic.azure.com:443/workflows/0a5b80778f324e46bc02d3d83c8d6c29/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nmdrNsLWZWuW6RWypZk_sKqbgTw_U91_NohfWYJfKkY", true);
     req.setRequestHeader("Content-Type", "application/json");
     req.send(JSON.stringify(exportJson));
+}
+
+function copyToClipboard(text){
+    navigator.clipboard.writeText(text);
 }
 
 function updatePoolGroupRegions(settings){
@@ -1577,6 +1587,26 @@ function getConfigId(){
     let configId = params.get('configid');
     console.log(configId);
     if(configId != null){
+        collapse = document.getElementById('flush-collapseOne');
+        collapse.classList.remove('show');
+        collapse = document.getElementById('mainAccordianButtonOne');
+        collapse.classList.add('collapsed');
+        collapse = document.getElementById('flush-collapseTwo');
+        collapse.classList.add('show');
+        collapse = document.getElementById('mainAccordianButtonTwo');
+        collapse.classList.remove('collapsed');
+        collapse = document.getElementById('flush-collapseThree');
+        collapse.classList.add('show');
+        collapse = document.getElementById('mainAccordianButtonThree');
+        collapse.classList.remove('collapsed');
+        collapse = document.getElementById('flush-collapseFour');
+        collapse.classList.add('show');
+        collapse = document.getElementById('mainAccordianButtonFour');
+        collapse.classList.remove('collapsed');
+        collapse = document.getElementById('flush-collapseFive');
+        collapse.classList.remove('show');
+        collapse = document.getElementById('mainAccordianButtonFive');
+        collapse.classList.add('collapsed');
         importConfig(configId);
     }else{
         console.log("No config ID");
