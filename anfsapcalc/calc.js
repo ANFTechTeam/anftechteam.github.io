@@ -712,21 +712,21 @@ function addSystem(inputJson){
             var dataRow = tbodyRef.insertRow();
 
             // create new cells in the new row
-            var dataRowDescription = dataRow.insertCell(0);
-            var dataRowSID = dataRow.insertCell(1);
+            var dataRowSID = dataRow.insertCell(0);
+            var dataRowDescription = dataRow.insertCell(1);
             var dataRowEnv = dataRow.insertCell(2);
             var dataRowPool = dataRow.insertCell(3);
             var dataRowType = dataRow.insertCell(4);
             var dataRowHost = dataRow.insertCell(5);
             var dataRowLogical = dataRow.insertCell(6);
-            var dataRowAddSnapshot = dataRow.insertCell(7);
-            var dataRowRequiredCapacity = dataRow.insertCell(8);
-            var dataRowRequiredPerformance = dataRow.insertCell(9);
-            var dataRowDailyChangeRate = dataRow.insertCell(10);
-            var dataRowSnapshotRetentionDays = dataRow.insertCell(11);
-            var dataRowBackupRetentionDays = dataRow.insertCell(12);
-            var dataRowSnapshotSize = dataRow.insertCell(13);
-            var dataRowFreeSpace = dataRow.insertCell(14);
+            var dataRowSnapshotSize = dataRow.insertCell(7);
+            var dataRowFreeSpace = dataRow.insertCell(8);
+            var dataRowAddSnapshot = dataRow.insertCell(9);
+            var dataRowRequiredCapacity = dataRow.insertCell(10);
+            var dataRowRequiredPerformance = dataRow.insertCell(11);
+            var dataRowDailyChangeRate = dataRow.insertCell(12);
+            var dataRowSnapshotRetentionDays = dataRow.insertCell(13);
+            var dataRowBackupRetentionDays = dataRow.insertCell(14);
             var dataRowDelete = dataRow.insertCell(15);
 
             dataRowDescription.innerHTML = sysDescription;
@@ -736,14 +736,14 @@ function addSystem(inputJson){
             dataRowPool.innerHTML = sysPool;
             dataRowType.innerHTML = "data";
             dataRowHost.innerHTML = host;
-            dataRowLogical.innerHTML = dataGiB;
-            dataRowAddSnapshot.innerHTML = dataAddSnapshotSpace;
-            dataRowRequiredCapacity.innerHTML = dataTotalSpace;
+            dataRowLogical.innerHTML = dataGiB.toFixed(0);
+            dataRowAddSnapshot.innerHTML = dataAddSnapshotSpace.toFixed(0);
+            dataRowRequiredCapacity.innerHTML = dataTotalSpace.toFixed(0);
             dataRowRequiredPerformance.innerHTML = dataPerf;
             dataRowDailyChangeRate.innerHTML = dataDailyChangeRate;
             dataRowSnapshotRetentionDays.innerHTML = dataSnapshotRetentionDays;
             dataRowBackupRetentionDays.innerHTML = dataBackupRetentionDays;
-            dataRowSnapshotSize.innerHTML = dataSnapshotSize.toFixed(2);
+            dataRowSnapshotSize.innerHTML = dataSnapshotSize.toFixed(0);
             dataRowFreeSpace.innerHTML = dataFreeSpace;
             dataRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
             
@@ -777,21 +777,23 @@ function addSystem(inputJson){
         var logRow = tbodyRef.insertRow();
 
         // create new cells in the new row
-        var logRowDescription = logRow.insertCell(0);
-        var logRowSID = logRow.insertCell(1);
+        var logRowSID = logRow.insertCell(0);
+        var logRowDescription = logRow.insertCell(1);
         var logRowEnv = logRow.insertCell(2);
         var logRowPool = logRow.insertCell(3);
         var logRowType = logRow.insertCell(4);
         var logRowHost = logRow.insertCell(5);
         var logRowLogical = logRow.insertCell(6);
-        var logRowAddSnapshot = logRow.insertCell(7);
-        var logRowRequiredCapacity = logRow.insertCell(8);
-        var logRowRequiredPerformance = logRow.insertCell(9);
-        var logRowDailyChangeRate = logRow.insertCell(10);
-        var logRowSnapshotRetentionDays = logRow.insertCell(11);
-        var logRowBackupRetentionDays = logRow.insertCell(12);
-        var logRowSnapshotSize = logRow.insertCell(13);
-        var logRowFreeSpace = logRow.insertCell(14);
+        var logRowSnapshotSize = logRow.insertCell(7);
+        var logRowFreeSpace = logRow.insertCell(8);
+        var logRowAddSnapshot = logRow.insertCell(9);
+        var logRowRequiredCapacity = logRow.insertCell(10);
+        var logRowRequiredPerformance = logRow.insertCell(11);
+        var logRowDailyChangeRate = logRow.insertCell(12);
+        var logRowSnapshotRetentionDays = logRow.insertCell(13);
+        var logRowBackupRetentionDays = logRow.insertCell(14);
+        
+        
         var logRowDelete = logRow.insertCell(15);
 
         logRowDescription.innerHTML = sysDescription;
@@ -800,15 +802,15 @@ function addSystem(inputJson){
         logRowPool.innerHTML = sysPool;
         logRowType.innerHTML = "log";
         logRowHost.innerHTML = host;
-        logRowLogical.innerHTML = logGiB;
-        logRowAddSnapshot.innerHTML = logAddSnapshotSpace;
-        logRowRequiredCapacity.innerHTML = logTotalSpace;
+        logRowLogical.innerHTML = logGiB.toFixed(0);
+        logRowAddSnapshot.innerHTML = logAddSnapshotSpace.toFixed(0);
+        logRowRequiredCapacity.innerHTML = logTotalSpace.toFixed(0);
         logRowRequiredPerformance.innerHTML = logPerf;
         logRowDailyChangeRate.innerHTML = logDailyChangeRate;
         logRowSnapshotRetentionDays.innerHTML = logSnapshotRetentionDays;
         logRowBackupRetentionDays.innerHTML = "n/a"
-        logRowSnapshotSize.innerHTML = logSnapshotSize;
-        logRowFreeSpace.innerHTML = logFreeSpace;
+        logRowSnapshotSize.innerHTML = logSnapshotSize.toFixed(0);
+        logRowFreeSpace.innerHTML = logFreeSpace.toFixed(0);
         logRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
         }
 
@@ -844,21 +846,23 @@ function addSystem(inputJson){
         var sharedRow = tbodyRef.insertRow();
 
         // create new cells in the new row
-        var sharedRowDescription = sharedRow.insertCell(0);
-        var sharedRowSID = sharedRow.insertCell(1);
+        var sharedRowSID = sharedRow.insertCell(0);
+        var sharedRowDescription = sharedRow.insertCell(1);
         var sharedRowEnv = sharedRow.insertCell(2);
         var sharedRowPool = sharedRow.insertCell(3);
         var sharedRowType = sharedRow.insertCell(4);
         var sharedRowHost = sharedRow.insertCell(5);
         var sharedRowLogical = sharedRow.insertCell(6);
-        var sharedRowAddSnapshot = sharedRow.insertCell(7);
-        var sharedRowRequiredCapacity = sharedRow.insertCell(8);
-        var sharedRowRequiredPerformance = sharedRow.insertCell(9);
-        var sharedRowDailyChangeRate = sharedRow.insertCell(10);
-        var sharedRowSnapshotRetentionDays = sharedRow.insertCell(11);
-        var sharedRowBackupRetentionDays = sharedRow.insertCell(12);
-        var sharedRowSnapshotSize = sharedRow.insertCell(13);
-        var sharedRowFreeSpace = sharedRow.insertCell(14);
+        var sharedRowSnapshotSize = sharedRow.insertCell(7);
+        var sharedRowFreeSpace = sharedRow.insertCell(8);
+        var sharedRowAddSnapshot = sharedRow.insertCell(9);
+        var sharedRowRequiredCapacity = sharedRow.insertCell(10);
+        var sharedRowRequiredPerformance = sharedRow.insertCell(11);
+        var sharedRowDailyChangeRate = sharedRow.insertCell(12);
+        var sharedRowSnapshotRetentionDays = sharedRow.insertCell(13);
+        var sharedRowBackupRetentionDays = sharedRow.insertCell(14);
+        
+        
         var sharedRowDelete = sharedRow.insertCell(15);
 
         sharedRowDescription.innerHTML = sysDescription;
@@ -867,15 +871,15 @@ function addSystem(inputJson){
         sharedRowPool.innerHTML = sysPool;
         sharedRowType.innerHTML = "shared";
         sharedRowHost.innerHTML = "n/a";
-        sharedRowLogical.innerHTML = sharedGiB;
-        sharedRowAddSnapshot.innerHTML = sharedAddSnapshotSpace;
-        sharedRowRequiredCapacity.innerHTML = sharedTotalSpace;
+        sharedRowLogical.innerHTML = sharedGiB.toFixed(0);
+        sharedRowAddSnapshot.innerHTML = sharedAddSnapshotSpace.toFixed(0);
+        sharedRowRequiredCapacity.innerHTML = sharedTotalSpace.toFixed(0);
         sharedRowRequiredPerformance.innerHTML = sharedPerf;
         sharedRowDailyChangeRate.innerHTML = sharedDailyChangeRate;
         sharedRowSnapshotRetentionDays.innerHTML = sharedSnapshotRetentionDays;
         sharedRowBackupRetentionDays.innerHTML = sharedBackupRetentionDays;
-        sharedRowSnapshotSize.innerHTML = sharedSnapshotSize;
-        sharedRowFreeSpace.innerHTML = sharedFreeSpace;
+        sharedRowSnapshotSize.innerHTML = sharedSnapshotSize.toFixed(0);
+        sharedRowFreeSpace.innerHTML = sharedFreeSpace.toFixed(0);
         sharedRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete entire system?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
 
     }
@@ -990,21 +994,21 @@ function addVolume(inputJson) {
     var volRow = tbodyRef.insertRow();
 
     // create new cells in the new row
-    var volRowDescription = volRow.insertCell(0);
-    var volRowSID = volRow.insertCell(1);
+    var volRowSID = volRow.insertCell(0);
+    var volRowDescription = volRow.insertCell(1);
     var volRowEnv = volRow.insertCell(2);
     var volRowPool = volRow.insertCell(3);
     var volRowType = volRow.insertCell(4);
     var volRowHost = volRow.insertCell(5);
     var volRowLogical = volRow.insertCell(6);
-    var volRowAddSnapshot = volRow.insertCell(7);
-    var volRowRequiredCapacity = volRow.insertCell(8);
-    var volRowRequiredPerformance = volRow.insertCell(9);
-    var volRowDailyChangeRate = volRow.insertCell(10);
-    var volRowSnapshotRetentionDays = volRow.insertCell(11);
-    var volRowBackupRetentionDays = volRow.insertCell(12);
-    var volRowSnapshotSize = volRow.insertCell(13);
-    var volRowFreeSpace = volRow.insertCell(14);
+    var volRowSnapshotSize = volRow.insertCell(7);
+    var volRowFreeSpace = volRow.insertCell(8);
+    var volRowAddSnapshot = volRow.insertCell(9);
+    var volRowRequiredCapacity = volRow.insertCell(10);
+    var volRowRequiredPerformance = volRow.insertCell(11);
+    var volRowDailyChangeRate = volRow.insertCell(12);
+    var volRowSnapshotRetentionDays = volRow.insertCell(13);
+    var volRowBackupRetentionDays = volRow.insertCell(14);
     var volRowDelete = volRow.insertCell(15);
 
     volRowDescription.innerHTML = volDescription;
@@ -1013,14 +1017,14 @@ function addVolume(inputJson) {
     volRowPool.innerHTML = volPool;
     volRowType.innerHTML = "";
     volRowHost.innerHTML = "";
-    volRowLogical.innerHTML = volGiB;
-    volRowAddSnapshot.innerHTML = volAddSnapshotSpace;
-    volRowRequiredCapacity.innerHTML = volTotalSpace;
+    volRowLogical.innerHTML = volGiB.toFixed(0);
+    volRowAddSnapshot.innerHTML = volAddSnapshotSpace.toFixed(0);
+    volRowRequiredCapacity.innerHTML = volTotalSpace.toFixed(0);
     volRowRequiredPerformance.innerHTML = volPerf;
     volRowDailyChangeRate.innerHTML = volDailyChangeRate;
     volRowSnapshotRetentionDays.innerHTML = volSnapshotRetentionDays;
     volRowBackupRetentionDays.innerHTML = volBackupRetention;
-    volRowSnapshotSize.innerHTML = volSnapshotSize.toFixed(2);
+    volRowSnapshotSize.innerHTML = volSnapshotSize.toFixed(0);
     volRowFreeSpace.innerHTML = "0";
     volRowDelete.innerHTML = '<div class="dropdown"><a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-x"></i></a><div class="bg-danger dropdown-menu"><div class="container" style="width: 100%"><span class="text-nowrap text-white">Delete single volume?&nbsp;&nbsp;<button onclick="deleteRecord(' + inputId + ')" type="button" class="btn btn-light btn-sm">Confirm</button></span></div></div></div>';
     
