@@ -1228,7 +1228,7 @@ function updatePoolAnfTcoTable() {
                 var tds = anfTcoRowHightlight.getElementsByTagName("td");
                 if(standardDisplayedCapacity > 500){
                     tds[3].innerHTML += '&nbsp;<i class="bi text-warning bi-info-circle-fill"></i>'
-                    document.getElementById("warningMessageStorageCosts").innerHTML = '<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Pools larger than 500 TiB will need to be split into multiple Capacity Pools.</small>'
+                    document.getElementById("warningMessageStorageCosts").innerHTML = '<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Pools larger than 500 TiB will need to be split into multiple capacity pools.</small>'
                     document.getElementById("warningMessageStorageCosts").classList = [];
                 }else{
                     document.getElementById("warningMessageStorageCosts").classList = ["d-none"];
