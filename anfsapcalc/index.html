@@ -29,8 +29,8 @@
                 });
             </script>
         <div class="container-fluid mt-3 pb-5">
-            <div class="card">
-                <div class="card-header pb-3">
+            <div class="card border-0">
+                <div class="card-header pb-3 border border-bottom-0">
                     <div class="row p-0">
                         <div class="col">
                             <h4>Azure NetApp Files for SAP Cost Estimator</h4>
@@ -138,20 +138,19 @@
                     </div>
                     
                 </div>
-                <div class="card-body p-0">
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
+                <div class="card-body p-0 border-0">
+                    <div class="accordion" id="accordionFlushExample">
+                        <div class="accordion-item rounded-0">
                         <h2 class="accordion-header">
                             <button id="mainAccordianButtonOne" class="accordion-button bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
                             <h5 id="addSystemsAndVolumes">Add Systems and Volumes<h5>
-                                
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse show">
-                            <div class="accordion-body p-2">
+                            <div class="accordion-body p-2 pt-4 pb-4">
                                 <div class="row">
                                     <div class="col ps-4">
-                                        <div class="accordion accordion-flush" id="accordianFlushInput">
+                                        <div class="accordion" id="accordianFlushInput">
                                             <div class="accordion-item">
                                             <h2 class="accordion-header" id="flush-headingOne">
                                                 <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushSystem" aria-expanded="false" aria-controls="accordianFlushSystem">
@@ -160,7 +159,7 @@
 
                                             </h2>
                                             <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
-                                                <div class="accordion-body pb-5">
+                                                <div class="accordion-body pb-5 mb-3">
                                                     <form id="addSystemForm">
                                                         <div class="input-group input-group-sm mb-1">
                                                             <span class="invisible" id="warningMessage">.</span>
@@ -168,16 +167,16 @@
                                                        
                                                     <div class="input-group input-group-sm mb-1">
                                                         
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">SID&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The SAP system identification must be three characters in length. e.g. P01" class="bi bi-info-circle"></i>
                                                         </span>
                                                         <input oninput="validateInput('sys-sid')" type="text" class="form-control" placeholder="" aria-label="sys-sid" aria-describedby="sys-sid" id="sys-sid">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Description&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The description of the system being entered. e.g. S/4 Retail" class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">Description&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The description of the system being entered. e.g. S/4 Retail" class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-description')" type="text" class="form-control" placeholder="" aria-label="sys-description" aria-describedby="sys-description" id="sys-description">
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">System type&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The system type will determine which parameters are used to calculate the capacity, performance, and data protection requirements." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">System type&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The system type will determine which parameters are used to calculate the capacity, performance, and data protection requirements." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-env">
                                                             <option value="PROD" selected>PROD</option>
                                                             <option value="PRE-PROD">PRE-PROD</option>
@@ -190,25 +189,25 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">RAM size&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The amount of memory (RAM) the SAP HANA database server has been allocated." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">RAM size&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The amount of memory (RAM) the SAP HANA database server has been allocated." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-ram')" type="number" class="form-control" placeholder="" aria-label="sys-ram" aria-describedby="sys-ram" id="sys-ram">
                                                         <span class="input-group-text" id="sys-ram-unit">GiB</span>
                                                     </div>
                                                     
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">HA (HSR)&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="If this system will be configured as HA using HANA system replication." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">HA (HSR)&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="If this system will be configured as HA using HANA system replication." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-ha">
                                                             <option value="2">Yes</option>
                                                             <option value="1" selected>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">HA secondary performance&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The performance factor of the HA (HSR) secondary system(s) relative to the primary." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">HA secondary performance&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The performance factor of the HA (HSR) secondary system(s) relative to the primary." class="bi bi-info-circle"></i></span>
                                                         <input oninput="validateInput('sys-secondary-perf')" type="number" class="form-control" placeholder="" aria-label="prodPerf" aria-describedby="proderf" value="100" id="sys-secondary-perf">
                                                         <span class="input-group-text">%</span>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Host count&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The number of SAP database hosts." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">Host count&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The number of SAP database hosts." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="host-count">
                                                             <option value="1" selected>1</option>
                                                             <option value="2">2</option>
@@ -229,7 +228,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">Capacity pool&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The capacity pool is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
+                                                        <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">Capacity pool&nbsp;<i data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="The capacity pool is used to group systems together for TCO calculations." class="bi bi-info-circle"></i></span>
                                                         <select class="form-select" aria-label="" id="sys-pool">
                                                             <option value="P1" selected>P1</option>
                                                             <option value="P2">P2</option>
@@ -257,7 +256,7 @@
                                                 </button>
                                             </h2>
                                             <div id="accordianFlushVolume" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordianFlushInput">
-                                                <div class="accordion-body pb-5">
+                                                <div class="accordion-body pb-5  mb-3">
                                                 <form id="addVolumeForm">
                                                     <div class="justify-content-end input-group input-group-sm mb-1">
                                                         <span class="invisible" id="warningMessageVolume">.</span>
@@ -335,7 +334,7 @@
                                         </div>
                                     </div>
                                     <div class="col pe-4">
-                                        <div class="accordion accordion-flush" id="accordianFlushSettings">
+                                        <div class="accordion" id="accordianFlushSettings">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="flush-headingPoolRegion">
                                                     <button class="accordion-button collapsed bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#accordianFlushPoolRegion" aria-expanded="false" aria-controls="accordianFlushPoolRegion">
@@ -343,7 +342,7 @@
                                                     </button>
                                                 </h2>
                                                 <div id="accordianFlushPoolRegion" class="accordion-collapse collapse show" aria-labelledby="flush-headingRegion" data-bs-parent="#accordianFlushSettings">
-                                                    <div class="accordion-body pb-5">
+                                                    <div class="accordion-body pb-5  mb-3">
                                                         <div class="input-group input-group-sm mb-1">
                                                             <span class="input-group-text col-sm-4 col-form-label col-form-label-sm">P1 region</span>
                                                             <select class="form-select" aria-label="" id="P1region">
@@ -907,7 +906,7 @@
                                                 </button>
                                             </h2>
                                             <div id="accordianFlushPerformance" class="accordion-collapse collapse" aria-labelledby="flush-headingPerf" data-bs-parent="#accordianFlushSettings">
-                                                <div class="accordion-body pb-5">
+                                                <div class="accordion-body pb-5  mb-3">
                                                     <span>Performance Baseline</span>
                                                 <div class="input-group input-group-sm mb-1">
                                                     <span class="input-group-text col-sm-5 col-form-label col-form-label-sm">data</span>
@@ -978,9 +977,9 @@
                                                 </button>
                                             </h2>
                                             <div id="accordianFlushBackup" class="accordion-collapse collapse" aria-labelledby="flush-headingSnapshots" data-bs-parent="#accordianFlushSettings">
-                                                <div class="accordion-body pb-5">
+                                                <div class="accordion-body pb-5  mb-3">
                                                     <div class="input-group input-group-sm mb-1">
-                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm" style="color: white; background-color: #6c757d;">Type</span>
+                                                        <span class="input-group-text col-lg-2 col-sm-5 col-form-label col-form-label-sm" style="color: white; background-color: #6c757d;">type</span>
                                                         <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="data" disabled>
                                                         <span class="input-group-text" style="color: white; background-color: #6c757d;">%</span>
                                                         <input type="text" class="form-control" style="color: white; background-color: #6c757d;" value="shared" disabled>
@@ -1163,7 +1162,7 @@
                             </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
+                        <div class="accordion-item rounded-0">
                             <h2 class="accordion-header">
                             <button id="mainAccordianButtonFive" class="accordion-button collapsed bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                                 <h5 id="volumeSummary">Volume Summary</h5>
@@ -1202,7 +1201,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-body-secondary">
+                <div class="card-footer text-body-secondary border border-top-0">
                     <div class="container-fluid d-grid gap-2 d-md-flex justify-content-md-end">
                         <small>Created by Sean Luce, Azure NetApp Files TME <a href="https://linkedin.com/in/seanluce" target="_blank"><i class="bi bi-linkedin"></i></a>&nbsp;<a href="https://github.com/seanluce" target="_blank"><i class="bi bi-github"></i></a></small>
                     </div>
