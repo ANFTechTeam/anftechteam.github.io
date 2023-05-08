@@ -303,7 +303,7 @@ var regionlist = [
         "shortname": "qatarcentral",
         "longname": "Qatar Central",
         "location": regionlocation.qatarcentral,
-        "crrregions": [westeurope],
+        "crrregions": ["westeurope"],
         "snf": true,
         "avsdatastore": true,
         "backup": false,
