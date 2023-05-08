@@ -162,7 +162,7 @@
                                             <div id="accordianFlushSystem" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordianFlushInput">
                                                 <div class="accordion-body pb-5">
                                                     <form id="addSystemForm">
-                                                        <div class="justify-content-end input-group input-group-sm mb-1">
+                                                        <div class="input-group input-group-sm mb-1">
                                                             <span class="invisible" id="warningMessage">.</span>
                                                            </div>
                                                        
@@ -1099,7 +1099,8 @@
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse show">
                             <div class="accordion-body">
-                                <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfVolumeTCO">
+                                <span class="d-none" id="warningMessageStorageCosts"></span>
+                                <table class="mt-1 table table-hover table-light table-striped table-bordered table-sm" id="anfVolumeTCO">
                                     <thead class="thead-light">
                                         <th class="text-dark align-middle" scope="col">Capacity pool</th>
                                         <th class="text-dark align-middle" scope="col">Service Level</th>
@@ -1124,7 +1125,8 @@
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse show">
                             <div class="accordion-body">
-                                <table class="table table-hover table-light table-striped table-bordered table-sm" id="anfBackupTable">
+                                <span class="d-none" id="warningMessageBackupCosts"></span>
+                                <table class="mt-1 table table-hover table-light table-striped table-bordered table-sm" id="anfBackupTable">
                                     <thead class="thead-light">
                                         <th class="text-dark align-middle" scope="col">Capacity pool</th>
                                         <th class="text-dark align-middle" scope="col">Baseline capacity (TiB)</th>

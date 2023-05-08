@@ -670,6 +670,12 @@ function addSystem(inputJson){
         }else{
             var form = document.getElementById("addSystemForm");
             form.reset();
+            let obj = document.getElementById("warningMessage");
+            obj.classList = ["invisible"];
+            document.getElementById("warningMessage").innerHTML = '.';
+            obj = document.getElementById("sys-ram");
+            obj.classList.remove("bg-warning");
+            document.getElementById("sys-ram").style.borderColor = "";
         }
     }else{
         // get the values from the json
@@ -1218,10 +1224,17 @@ function updatePoolAnfTcoTable() {
             anfTcoRowExcessPerformance.innerHTML = (ultraDisplayedCapacity * 128) - runningPerformance[key];
 
             if(Math.min(standardCost, premiumCost, ultraCost) == standardCost){
-                totalAnfCost += standardCost;
-                totalAnfCapacity += standardDisplayedCapacity;
                 var anfTcoRowHightlight = document.getElementById(key + "-standard");
                 var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                if(standardDisplayedCapacity > 500){
+                    tds[3].innerHTML += '&nbsp;<i class="bi text-warning bi-info-circle-fill"></i>'
+                    document.getElementById("warningMessageStorageCosts").innerHTML = '<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Pools larger than 500 TiB will need to be split into multiple Capacity Pools.</small>'
+                    document.getElementById("warningMessageStorageCosts").classList = [];
+                }else{
+                    document.getElementById("warningMessageStorageCosts").classList = ["d-none"];
+                }
+                totalAnfCost += standardCost;
+                totalAnfCapacity += standardDisplayedCapacity;
                 for(var i = 0, j = tds.length; i < j; ++i) { 
                     tds[i].classList.add("text-primary");
                     tds[i].classList.add("fw-semibold");
@@ -1239,10 +1252,17 @@ function updatePoolAnfTcoTable() {
                     tds[i].classList.add("fw-light");
                 }
             }else if(Math.min(standardCost, premiumCost, ultraCost) == premiumCost){
-                totalAnfCost += premiumCost;
-                totalAnfCapacity += premiumDisplayedCapacity;
                 var anfTcoRowHightlight = document.getElementById(key + "-premium");
                 var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                if(premiumDisplayedCapacity > 500){
+                    tds[3].innerHTML += '&nbsp;<i class="bi text-warning bi-info-circle-fill"></i>'
+                    document.getElementById("warningMessageStorageCosts").innerHTML = '<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Pools larger than 500 TiB will need to be split into multiple Capacity Pools.</small>'
+                    document.getElementById("warningMessageStorageCosts").classList = [];
+                }else{
+                    document.getElementById("warningMessageStorageCosts").classList = ["d-none"];
+                }
+                totalAnfCost += premiumCost;
+                totalAnfCapacity += premiumDisplayedCapacity;
                 for(var i = 0, j = tds.length; i < j; ++i) { 
                     tds[i].classList.add("text-primary");
                     tds[i].classList.add("fw-semibold");
@@ -1260,6 +1280,15 @@ function updatePoolAnfTcoTable() {
                     tds[i].classList.add("fw-light");
                 }
             }else if(Math.min(standardCost, premiumCost, ultraCost) == ultraCost){
+                var anfTcoRowHightlight = document.getElementById(key + "-ultra");
+                var tds = anfTcoRowHightlight.getElementsByTagName("td");
+                if(ultraDisplayedCapacity > 500){
+                    tds[3].innerHTML += '&nbsp;<i class="bi text-warning bi-info-circle-fill"></i>'
+                    document.getElementById("warningMessageStorageCosts").innerHTML = '<small class="fs-small text-secondary"><i class="bi text-warning bi-info-circle-fill"></i>&nbsp;Pools larger than 500 TiB will need to be split into multiple Capacity Pools.</small>'
+                    document.getElementById("warningMessageStorageCosts").classList = [];
+                }else{
+                    document.getElementById("warningMessageStorageCosts").classList = ["d-none"];
+                }
                 totalAnfCost += ultraCost;
                 totalAnfCapacity += ultraDisplayedCapacity;
                 var anfTcoRowHightlight = document.getElementById(key + "-ultra");
@@ -1284,20 +1313,20 @@ function updatePoolAnfTcoTable() {
         }
     }
     var anfTcoRow = tbodyRef.insertRow();
-                var anfTcoRowPool = anfTcoRow.insertCell(0);
-                anfTcoRowPool.classList.add("fw-bold");
-                var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
-                var anfTcoRowRegion = anfTcoRow.insertCell(2);
-                var anfTcoRowCapacity = anfTcoRow.insertCell(3);
-                anfTcoRowCapacity.classList.add("fw-bold");
-                var anfTcoRowCost = anfTcoRow.insertCell(4);
-                anfTcoRowCost.classList.add("fw-bold");
-                var anfTcoRowSizing = anfTcoRow.insertCell(5);
-                var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
-                var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
-                anfTcoRowPool.innerHTML = "Total";
-                anfTcoRowCapacity.innerHTML = totalAnfCapacity;
-                anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
+    var anfTcoRowPool = anfTcoRow.insertCell(0);
+    anfTcoRowPool.classList.add("fw-bold");
+    var anfTcoRowServiceLevel = anfTcoRow.insertCell(1);
+    var anfTcoRowRegion = anfTcoRow.insertCell(2);
+    var anfTcoRowCapacity = anfTcoRow.insertCell(3);
+    anfTcoRowCapacity.classList.add("fw-bold");
+    var anfTcoRowCost = anfTcoRow.insertCell(4);
+    anfTcoRowCost.classList.add("fw-bold");
+    var anfTcoRowSizing = anfTcoRow.insertCell(5);
+    var anfTcoRowExcessCapacity = anfTcoRow.insertCell(6);
+    var anfTcoRowExcessPerformance = anfTcoRow.insertCell(7);
+    anfTcoRowPool.innerHTML = "Total";
+    anfTcoRowCapacity.innerHTML = totalAnfCapacity;
+    anfTcoRowCost.innerHTML = totalAnfCost.toFixed(2);
 }
 
 function updatePoolAnfBackupTable() {
