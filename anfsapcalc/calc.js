@@ -357,6 +357,7 @@ let masterInput = [];
 let inputId = 0;
 
 function resetTables() {
+    document.getElementById("warningMessageStorageCosts").classList = ["d-none"];
     let tbodyRef = document.getElementById('anfVolumeTCO').getElementsByTagName('tbody')[0];
     tbodyRef.innerHTML = "";
     tbodyRef = document.getElementById('poolGroup-requirements').getElementsByTagName('tbody')[0];
