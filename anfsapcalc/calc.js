@@ -777,7 +777,6 @@ function addSystem(inputJson){
             var dataRowDelete = dataRow.insertCell(15);
 
             dataRowDescription.innerHTML = sysDescription;
-            console.log(sysDescription)
             dataRowSID.innerHTML = sidDisplayed;
             dataRowEnv.innerHTML = sysEnv;
             dataRowPool.innerHTML = sysPool;
@@ -1044,8 +1043,6 @@ function addVolume(inputJson) {
     runningAnfBackupBaselineCapacity[volPool] += volBackupBaselineCapacity;
     runningAnfBackupDeltaCapacity[volPool] += volBackupDeltaCapacity;
     runningAnfBackupTotalCapacity[volPool] += volBackupTotalCapacity;
-
-    console.log(volBackupDeltaCapacity);
 
     // create new row in the volume table, data
     var tbodyRef = document.getElementById('volume-list').getElementsByTagName('tbody')[0];
