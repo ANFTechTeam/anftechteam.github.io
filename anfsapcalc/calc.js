@@ -1520,7 +1520,7 @@ function updateKpiMultipliers(settings){
             "DR": newDrPerfMultiplier,
             "OTHER": newOtherPerfMultiplier
         }
-        //updateTables(masterInput); causing loop
+        updateTables(masterInput);
     }else{
         newDataBaseline = settings.kpiBaseline.data;
         newLogBaseline = settings.kpiBaseline.log;
