@@ -2,8 +2,6 @@
 
 ANFCapacityManager: [ANFCapacityManager](https://github.com/ANFTechTeam/ANFCapacityManager)
 
-Throughput and Cost Calculator: [https://anftechteam.github.io/calc](https://anftechteam.github.io/calc)
+Throughput and Cost Calculator: [https://azure.github.io/azure-netapp-files/calc](https://azure.github.io/azure-netapp-files/calc)
 
-Advanced Calculator: [https://anftechteam.github.io/calc/advanced](https://anftechteam.github.io/calc/advanced)
-
-ANF Region Map: [https://anftechteam.github.io/map](https://anftechteam.github.io/map)
+ANF Region Map: [https://azure.github.io/azure-netapp-files/map](https://azure.github.io/azure-netapp-files/map)
